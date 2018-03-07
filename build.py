@@ -90,3 +90,4 @@ generate_index()
 for item in source_files:
     #print("src/" + item + " -> output/" + item)
     copy("src/" + item, output_dir)
+copy("LICENSE",output_dir + "LICENSE")
