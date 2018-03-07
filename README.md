@@ -1,5 +1,5 @@
-# cvblocks
-Exposing OpenCV to the Blockly environment for learning and rapid prototyping.
+# CVBlocks
+Using OpenCV with the Blockly environment for learning and rapid prototyping.
 
 CVBlocks is designed to allow Blockly programming of
 computer vision / image processing pipelines for learning and to quickly
@@ -41,13 +41,17 @@ removing empty categories and setting up the nested tree structure).
 ./build.py
 ```
 
+### Additional Information
+Check the wiki for additional development information.
+https://github.com/devellison/cvblocks/wiki
+
 ### Optional
 If you want to debug Blockly uncompressed, you'll currently also need the
 closure library in `./outputs/closure-library`.  See the following:
 https://developers.google.com/blockly/guides/modify/web/closure
 
 ## Running
-For the most part, just point a modern browser at `./output/index.html`.
+For the most part, just point a modern browser at `./output/index.html` after running the build scripts.
 
 Chrome is the browser I'm developing it on, but it at least mostly works with
 FireFox and Safari.  It does not currently work at all with Microsoft's
