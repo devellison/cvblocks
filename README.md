@@ -27,9 +27,11 @@ You may need to install it - see http://lxml.de/installation.html .
 
 ### Dependencies for CVBlocks
 Run `get_deps.py` to retrieve all three dependencies into subdirectories
-of the `./output/` directory.
+of the `./output/` directory.  If you want to use the Blockly Developer Tools,
+you'll need to add the `-c` switch to pull the `closure-library` as well
+(the Developer Tools depend on it).
 ```
-./get_deps.py
+./get_deps.py -c
 ```
 
 ### Building
@@ -44,11 +46,6 @@ removing empty categories and setting up the nested tree structure).
 ### Additional Information
 Check the wiki for additional development information.
 https://github.com/devellison/cvblocks/wiki
-
-### Optional
-If you want to debug Blockly uncompressed, you'll currently also need the
-closure library in `./outputs/closure-library`.  See the following:
-https://developers.google.com/blockly/guides/modify/web/closure
 
 ## Running
 For the most part, just point a modern browser at `./output/index.html` after running the build scripts.
