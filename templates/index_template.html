@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CVBlocks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="cvblocks.css">
+</head>
+<body>
+  <div class="sidebar" id="sidebar_div">
+    <script>
+    // please note,
+    // that IE11 now returns undefined again for window.chrome
+    // and new Opera 30 outputs true for window.chrome
+    // and new IE Edge outputs to true now for window.chrome
+    // and if not iOS Chrome check
+    // so use the below updated condition
+    var isChromium = window.chrome,
+        winNav = window.navigator,
+        vendorName = winNav.vendor,
+        isOpera = winNav.userAgent.indexOf("OPR") > -1,
+        isIEedge = winNav.userAgent.indexOf("Edge") > -1,
+        isIOSChrome = winNav.userAgent.match("CriOS");
+
+    if (isIOSChrome) {
+       // is Google Chrome on IOS
+    } else if (
+      isChromium !== null &&
+      typeof isChromium !== "undefined" &&
+      vendorName === "Google Inc." &&
+      isOpera === false &&
+      isIEedge === false
+    ) {
+       // is Google Chrome
+    } else {
+       document.write('<p style="color: red">NOTICE: Currently CVBlocks is written for <a href="https://www.google.com/chrome">Google Chrome</a>. It seems to work in <a href="https://www.mozilla.org/en-US/firefox/">Firefox</a>.  It is a ways from working in Internet Explorer or Microsoft Edge.</p>');
+    }
+
+    if (window.location.protocol !== "https:")
+    {
+      document.write('<p style="color: red">NOTICE: Camera may only work with HTTPS.<br>Go <a href="https://www.bzlearning.com/cvblocks/">here</a> instead.</p>');
+    }
+    </script>
+    <div class="title_pane"><h1>CVBlocks</h1></div>
+    <div id="sidebar_input_div" >
+      <div class="side_pane">
+        Select a video input to begin processing...
+        <br/><br/>
+        <div hidden>
+          URL To Movie File<br/>
+          <input type="text" id="movieUrl"><button id="btnMovieUrl" onclick="startMovieUrl()">Start</button>
+        </div>
+        <div>
+          Local Image File<br/>
+          <input type="file" id="btnImage" onchange="gCVBC.startImage(this.files[0]);" onclick="this.value=null"/>
+        </div>
+        <br/>
+        <div>
+          Local Movie File<br/>
+          <input type="file" id="btnMovie" onchange="gCVBC.startMovieStream(this.files[0]);" onclick="this.value=null"/>
+        </div>
+        <br/>
+        <div>
+          Camera<br/>
+          <select id="camera_select"></select> <button id="btnCamera" onclick="gCVBC.startCameraStream()">Camera</button>
+        </div>
+      </div>
+    </div> <!-- sidebar input section -->
+
+    <div class="side_pane" id="video_out_div" style="display: none">
+      <img width=320 height=180 id="imgSource" hidden/>
+      <video  width=320 height=180  class="output" id="videoSource" loop="true" hidden></video><br/>
+      <label for="selStep">View processing step </label><select id="selStep"/></select><br/>
+      Avg processing step time: <span id="stepTime"></span><br/>
+      <label for="frameTime">Avg windowed frame time (ms): </label><span id="frameTime"></span><br/>
+      <canvas width=320 height=180  class="output" id="videoOut"></canvas><br/>
+      <canvas width=255 height=255  class="output" id="histogram" hidden></canvas><br/>
+      <div id="video_out_controls_div">
+        <button id="btnPause" onclick="gCVBC.playPauseVideo()">Play/Pause</button>
+        <button id="btnStepB" onclick="gCVBC.stepBack()">|&lt;</button>
+        <button id="btnStepF" onclick="gCVBC.stepForward()">&gt;|</button>
+        <button id="btnFullSize" onclick="toggleFullSize()">[]</button>
+        <button id="btnStop"  onclick="gCVBC.stop()">Stop Processing</button><br/>
+      </div>
+    </div> <!-- video out -->
+
+    <div class="side_pane" id="code_controls_div">
+      <label for="btnImportBlocks">Import design: </label><input type="file" id="btnImportBlocks" onclick="this.value=null" accept=".xml">
+      <br/><br/>
+      <label for="btnExport">Export design as:</label><input type="text" id="exportName" value="mycvblocks.xml"><button id="btnExport" onclick="onExportBlocks()">Export</button>
+      <br/>
+      <br/>
+      <!--  For saving generated javascript to a file...
+      <label for="btnExportCode">Export code as:</label><input type="text" id="exportCodeName"><button id="btnExportCode" onclick="onExportCode()">Export Code</button>
+      -->
+      <button id="btnViewCode" onclick="viewCode()">View generated code..</button>
+    </div>
+    <div class="credits_pane">
+      CVBlocks is under development and owes its existence to the following Open Source packages:<br/>
+      <ul>
+      <li class="credits"><a class="credits" href="https://opencv.org/">OpenCV</a> (<a href="https://opencv.org/license.html">License</a>)</li>
+      <li class="credits"><a class="credits" href="https://developers.google.com/blockly/">Blockly (<a href="https://github.com/google/blockly/blob/master/LICENSE">License</a>)</li>
+      <li class="credits"><a class="credits" href="https://github.com/eligrey/FileSaver.js">FileSaver.js</a> (<a href="https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md">License</a>)</li>
+      </ul>
+      The CVBlocks code itself is being written by <a href="http://devellison.com">Michael Ellison</a>.
+      <hr/>
+      <center>
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />CVBlocks is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+      </center>
+    </div>
+  </div> <!-- sidebar -->
+
+  <div class="cvblocks" id="cvblocks_div">
+    <div id="blocklyArea"></div>
+  </div>
+  <div id="blocklyDiv" style="position: absolute"></div>
+  <div id="codeOverlay" style="position: absolute; display: none"></div>
+
+<!-- begin Blockly toolbox -->
+<!-- end Blockly toolbox -->
+
+<!-- begin Blockly workspace -->
+<!-- end Blockly workspace -->
+
+<!-- Load the giant pile of scripts -->
+<script src="opencv/opencv.js"></script>
+<script src="blockly/blockly_compressed.js"></script>
+<script src="blockly/blocks_compressed.js"></script>
+<script src="blockly/javascript_compressed.js"></script>
+<script src="blockly/msg/js/en.js"></script>
+<script src="filesaver/FileSaver.js"></script>
+<!-- Code generators -->
+<script src="cvblocks_gen.js"></script>
+<!-- Block definitions -->
+<script src="cvblocks_blocks.js"></script>
+<!-- CVBlocks core -->
+<script src="cvblocks_core.js"></script>
+<!-- CVBlocks additional -->
+<script src="cvblocks.js"></script>
+<!-- functions called by generated blocks -->
+<script src="cvblocks_functions.js"></script>
+
+</body>
+</html>

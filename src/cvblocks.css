@@ -1,0 +1,93 @@
+html, body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Entire side showing video / results and controls */
+.sidebar
+{
+  background-color: #f0f0f0;
+  width: 400px;
+  float: left;
+  height: 99%;
+  margin: 0;
+  padding: 0;
+}
+
+.side_pane
+{
+  margin: 0;
+  padding: 5px;
+  border: 1px;
+  border-style: inset;
+}
+
+.title_pane
+{
+  margin: 0;
+  padding: 5px;
+  background-color: #000000;
+  color: #ffffff;
+  text-align: center;
+  border: 1px;
+  border-style: inset;
+}
+
+.credits li, a
+{
+  color: #a0a0a0;
+}
+
+.credits_pane
+{
+  background-color: #404040;
+  color: #a0a0a0;
+  bottom:0;
+  width: 388px;
+  margin: 0;
+  padding: 5px;
+  margin-bottom: 0;
+  font-size: .8rem;
+  border: 1px;
+  border-style: inset;
+}
+/* Blockly section (right section of screen) */
+.cvblocks
+{
+  background-color: #d0d0d0;
+  overflow: hidden;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#blocklyArea {
+  height: 99%;
+  width: 100%;
+  margin: 0;
+  background: #d0d0d0;
+  text-align: center;
+}
+#codeOverlay {
+  font-family: monospace;
+  background-color: rgba(0,0,0,0.8);
+  color: white;
+  z-index: 99;
+  overflow: auto;
+}
+
+@media all and (max-width: 640px) {
+    .sidebar {
+      width: 98%;
+      height: auto;
+    }
+    .credits_pane {
+      display:none;
+    }
+    .cvblocks {
+      width: 98%;
+      height: 100%;
+      float: none;
+    }
+}

@@ -1,3 +1,24 @@
+# Licenses
+
+The code that I'm writing and putting in this repository for CVBlocks is
+licensed under the MIT License at the end of this file.  However, the
+packages CVBlocks depends on have their own OpenSource licenses listed
+below.
+
+# OpenCV
+(3-clause BSD)
+https://github.com/opencv/opencv/blob/3.4.1/LICENSE
+
+# FileSaver.js
+(MIT License)
+https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md
+
+# Blockly
+(Apache 2.0)
+https://github.com/google/blockly/blob/master/LICENSE
+
+
+# CVBlocks
 MIT License
 
 Copyright (c) 2018 Michael Ellison

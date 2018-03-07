@@ -1,0 +1,1686 @@
+<xml xmlns="http://www.w3.org/1999/xhtml"><block type="factory_base" id="$$//{Xp}6S5$*GDD5mQW" x="0" y="0">
+    <mutation connections="LEFT"></mutation>
+    <field name="NAME">cvcolour_hue</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">LEFT</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="fkojRX[*8oKcst]P`b-Y">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="B9f3Uyc|UpM,h,E8HoK%">
+            <field name="TEXT">hue</field>
+            <next>
+              <block type="field_input" id="=9E76bHVNmJ8F^=s9K|4">
+                <field name="TEXT">0</field>
+                <field name="FIELDNAME">Colour</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="6AV:2}}sQ/]:$([_q`:`">
+        <field name="TEXT">Paint the block with this colour.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="/FLLbx8HVJU@_gc54P8f">
+        <field name="TEXT">https://www.youtube.com/watch?v=s2_xaEvcVI0#t=55</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id=",_3^4A9QUgWfpO`/-tV+">
+        <mutation colour="#a55b5b"></mutation>
+        <field name="HUE">0</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="f%/;wQtKpv7f7ksEA7aA" x="0" y="0">
+    <mutation connections="NONE"></mutation>
+    <field name="NAME">onframe</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">NONE</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="rmOqSsoY;_J@ZtuWL|cK">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="SypS3:2R4NmFoD}+R^o]">
+            <field name="TEXT">On Frame</field>
+          </block>
+        </statement>
+        <next>
+          <block type="input_statement" id="$/$WP}20l!/1.j@]@;H:">
+            <field name="INPUTNAME">INPUTS</field>
+            <field name="ALIGN">LEFT</field>
+            <value name="TYPE">
+              <shadow type="type_null" id="kWgn#i.P2=Q@{S(n;+PE"></shadow>
+              <block type="type_other" id="?CAyH?{v!TR^d,ix3/%R">
+                <field name="TYPE">Image</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="7NrCO3cn(R_|d|,}3km[">
+        <field name="TEXT">OnFrame is called for each image frame.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id=";]NMCzc;%$!KrdH-!Dju">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="]HlU$tLLLbB(%}^g(tqq">
+        <mutation colour="#6da55b"></mutation>
+        <field name="HUE">105</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="HYA:i1u)2{@:)S@rdXz1" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">gaussian</field>
+    <field name="INLINE">EXT</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="[_/3nn1cS;NHS?obOONv">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="*Ax^]9+5VQKE0s]xw.CI">
+            <field name="TEXT">Gaussian Blur</field>
+          </block>
+        </statement>
+        <next>
+          <block type="input_value" id="AxmK!FfEPHcfSe8ec8k,">
+            <field name="INPUTNAME">KSIZE</field>
+            <field name="ALIGN">RIGHT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="COjwYx:/^h8wA)G_+u@]">
+                <field name="TEXT">kernel size</field>
+              </block>
+            </statement>
+            <value name="TYPE">
+              <block type="type_number" id="YEj1[$@@Ge.5{y+C[XVV"></block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="]b*ZuyW(xRO4xK#t^;!{">
+        <field name="TEXT">Blurs the image</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="HaB:qrTreN1O0_J@XH:(">
+        <field name="TEXT">https://en.wikipedia.org/wiki/Gaussian_blur</field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <block type="type_other" id="T7:,W#x!nybkonjf.!ae">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <block type="type_other" id="UwY+[YqsC3Ah+kBwenXE">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id=";eunb61;d?5#B/suo-hy">
+        <mutation colour="#805ba5"></mutation>
+        <field name="HUE">270</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="BN$K3jdRBm:Mzx;/Iu[1" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">canny_edge</field>
+    <field name="INLINE">EXT</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="L35}d7R1vB~Jb31n;V$P">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="Lcnk$a#z5OyF.uCb(+0B">
+            <field name="TEXT">Canny Edge Detection</field>
+          </block>
+        </statement>
+        <next>
+          <block type="input_value" id="k/25GSOTOM/,KlS.p+;/">
+            <field name="INPUTNAME">THRESHOLD1</field>
+            <field name="ALIGN">RIGHT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="wg$Qyt;jkctwWMlj@El6">
+                <field name="TEXT">Threshold 1</field>
+              </block>
+            </statement>
+            <value name="TYPE">
+              <block type="type_number" id="~i?J]1vF7yQBI{L/=%*9"></block>
+            </value>
+            <next>
+              <block type="input_value" id="PXP.4F6YF?4`XF@z1fz5">
+                <field name="INPUTNAME">THRESHOLD2</field>
+                <field name="ALIGN">RIGHT</field>
+                <statement name="FIELDS">
+                  <block type="field_static" id="Rz%80~NGE-FQH^?.o}L5">
+                    <field name="TEXT">Threshold 2</field>
+                  </block>
+                </statement>
+                <value name="TYPE">
+                  <block type="type_number" id="VW]HG8cD7^;fIx`oqOuJ"></block>
+                </value>
+                <next>
+                  <block type="input_dummy" id="L2tf`[{0YtEur|ZmZ@C%">
+                    <field name="ALIGN">RIGHT</field>
+                    <statement name="FIELDS">
+                      <block type="field_static" id="3mP~dXb.2o*O@b}*LXz*">
+                        <field name="TEXT">Aperture</field>
+                        <next>
+                          <block type="field_dropdown" id="Gz}1.Ola:oh:hp|(18vb">
+                            <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"></mutation>
+                            <field name="FIELDNAME">Aperture</field>
+                            <field name="USER0">3</field>
+                            <field name="CPU0">3</field>
+                            <field name="USER1">5</field>
+                            <field name="CPU1">5</field>
+                            <field name="USER2">7</field>
+                            <field name="CPU2">7</field>
+                          </block>
+                        </next>
+                      </block>
+                    </statement>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="-y^zdAOr*RGo}}J0m=U9">
+        <field name="TEXT">Finds edges in the image</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="f#^YGpM!.1ci0].FpexC">
+        <field name="TEXT">https://en.wikipedia.org/wiki/Canny_edge_detector</field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <block type="type_other" id="Uhf;,AxuhZ,@rRSt:E~g">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <block type="type_other" id=")Bl_CI*a.g(yx|%$SI_C">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="nZl6JEMUnd_u9wKPB;!M">
+        <mutation colour="#805ba5"></mutation>
+        <field name="HUE">270</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="R7m~S:}7c@nppy(6bFI+" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">equalize_histogram</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="V9-Bzs_n.$[3yfEqu3yG">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="W53}|uVY`-+BicMaW#B(">
+            <field name="TEXT">Equalize Histogram</field>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="!`S,~/6sl5-PTl=kMOR+">
+        <field name="TEXT">Increases contrast</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="+S9GE9_V{.MN2vr(_/o{">
+        <field name="TEXT">https://en.wikipedia.org/wiki/Histogram_equalization</field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <block type="type_other" id="2zu4Z?X1iivB*dhxjAE;">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <block type="type_other" id="Yh2x7oU^{f?k?Fl2lo.8">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="_F;q=qfK`o{.tM|F{?RA">
+        <mutation colour="#805ba5"></mutation>
+        <field name="HUE">270</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="Xr*!xu27neag9TT,Xhn]" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">in_range_hsv</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="Z9I!-z24YPCgQa6]T:%`">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="R*#_`VYA`mamlPd`5k?Y">
+            <field name="TEXT">In Range (HSV)</field>
+          </block>
+        </statement>
+        <next>
+          <block type="input_value" id="KVkkq#L_1xd0~LA;Ak9f">
+            <field name="INPUTNAME">min_h</field>
+            <field name="ALIGN">RIGHT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="/l=;7}Yo~17!.-{J@LQU">
+                <field name="TEXT">min Hue</field>
+              </block>
+            </statement>
+            <value name="TYPE">
+              <block type="type_group" id="6K(OHu~^a)OAMWi`-X9w">
+                <mutation types="2"></mutation>
+                <value name="TYPE0">
+                  <block type="type_number" id="v.x}YHs*?S;Vm!V2-~ps"></block>
+                </value>
+                <value name="TYPE1">
+                  <block type="type_other" id="0KzT^!#9^1Q;g-d*7oB*">
+                    <field name="TYPE">Colour</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="input_value" id="lK?EW~eH+JMREzgK2^UZ">
+                <field name="INPUTNAME">max_h</field>
+                <field name="ALIGN">RIGHT</field>
+                <statement name="FIELDS">
+                  <block type="field_static" id="k]vtYQKzR[SmN6Y)Z_Nk">
+                    <field name="TEXT">max Hue</field>
+                  </block>
+                </statement>
+                <value name="TYPE">
+                  <block type="type_group" id="NH-=g2sUWb(n`LZ`YCmd">
+                    <mutation types="2"></mutation>
+                    <value name="TYPE0">
+                      <block type="type_number" id="1oK/%fDM=fhC85Ih~)c?"></block>
+                    </value>
+                    <value name="TYPE1">
+                      <block type="type_other" id="R%udt{6J}bQfO{x)Y^oA">
+                        <field name="TYPE">Colour</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="input_value" id="/s`@b5r-Wct;A6~H8=DH">
+                    <field name="INPUTNAME">min_s</field>
+                    <field name="ALIGN">RIGHT</field>
+                    <statement name="FIELDS">
+                      <block type="field_static" id="|H!=ZMMj17l:O5Yd9V$P">
+                        <field name="TEXT">min Saturization</field>
+                      </block>
+                    </statement>
+                    <value name="TYPE">
+                      <block type="type_number" id="$*[f[ETr:jc[mLDtG@^("></block>
+                    </value>
+                    <next>
+                      <block type="input_value" id="X-)Hju;CURd$dBu0zCCi">
+                        <field name="INPUTNAME">max_s</field>
+                        <field name="ALIGN">RIGHT</field>
+                        <statement name="FIELDS">
+                          <block type="field_static" id="y}vG}llOkp3ZYvD?*8LG">
+                            <field name="TEXT">max Saturization</field>
+                          </block>
+                        </statement>
+                        <value name="TYPE">
+                          <block type="type_number" id="FE`eCJz[q;91;P)k/SK4"></block>
+                        </value>
+                        <next>
+                          <block type="input_value" id="|Q6ez|qINtVz6^OsEd0b">
+                            <field name="INPUTNAME">min_v</field>
+                            <field name="ALIGN">RIGHT</field>
+                            <statement name="FIELDS">
+                              <block type="field_static" id=".7f`Jfs.8{BX)VxUXLc6">
+                                <field name="TEXT">min Value</field>
+                              </block>
+                            </statement>
+                            <value name="TYPE">
+                              <block type="type_number" id="z0wrNFmdUoO-1+LYy3EP"></block>
+                            </value>
+                            <next>
+                              <block type="input_value" id="92vmWf^CrBjEve,-dK=^">
+                                <field name="INPUTNAME">max_v</field>
+                                <field name="ALIGN">RIGHT</field>
+                                <statement name="FIELDS">
+                                  <block type="field_static" id="ogiOod~9fC5W@i1tgW8w">
+                                    <field name="TEXT">max Value</field>
+                                  </block>
+                                </statement>
+                                <value name="TYPE">
+                                  <block type="type_number" id="s9j#wKcGh}yPEu^XjDVm"></block>
+                                </value>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="[#fW#+f[~dlZ!T:yz%(#">
+        <field name="TEXT">Sets pixels that fall in the specified range to white; all others are set to black.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="|cv-:L}XLY96$/hsPBS`">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <block type="type_other" id="cH,.AT}VZ2XV;/!lH]G2">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <block type="type_other" id="88Pc!RrTKy`CGIsWqS[n">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="{8NGLL-gW:bjvx$]~:U(">
+        <mutation colour="#805ba5"></mutation>
+        <field name="HUE">270</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="lmHPFkWwG;llg1QlS($A" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">find_contours</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="-#$~%b^v`bErq;BQztfs">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="H]JHGNavI$_d|NfGlCB]">
+            <field name="TEXT">Find Contours</field>
+          </block>
+        </statement>
+        <next>
+          <block type="input_dummy" id="3OF3KP2S@Wbln81Eml13">
+            <field name="ALIGN">RIGHT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="E_-WhZz,%m4=S0pRUdQ/">
+                <field name="TEXT">Retrieval Mode</field>
+                <next>
+                  <block type="field_dropdown" id="tOC|jukVFtl]5]w4$R*]">
+                    <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"></mutation>
+                    <field name="FIELDNAME">MODE</field>
+                    <field name="USER0">External</field>
+                    <field name="CPU0">cv.RETR_EXTERNAL</field>
+                    <field name="USER1">List</field>
+                    <field name="CPU1">cv.RETR_LIST</field>
+                    <field name="USER2">Connected Components</field>
+                    <field name="CPU2">cv.RETR_CCOMP</field>
+                    <field name="USER3">Tree</field>
+                    <field name="CPU3">cv.RETR_TREE</field>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="input_dummy" id="Qn1qjIT0ZX+n0zkjdph,">
+                <field name="ALIGN">RIGHT</field>
+                <statement name="FIELDS">
+                  <block type="field_static" id="kM[uIg6%4@Xpn/KD!/Ly">
+                    <field name="TEXT">Approximation Method</field>
+                    <next>
+                      <block type="field_dropdown" id="DHXeu~@3_zuOTKB}MLuJ">
+                        <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"></mutation>
+                        <field name="FIELDNAME">METHOD</field>
+                        <field name="USER0">None (all points)</field>
+                        <field name="CPU0">cv.CHAIN_APPROX_NONE</field>
+                        <field name="USER1">Simple</field>
+                        <field name="CPU1">cv.CHAIN_APPROX_SIMPLE</field>
+                        <field name="USER2">Teh-Chin Chain Approx (TC89 L1)</field>
+                        <field name="CPU2">cv.CHAIN_APPROX_TC89_L1</field>
+                        <field name="USER3">Teh-Chin Chain Approx (TC89 KCOS)</field>
+                        <field name="CPU3">cv.CHAIN_APPROX_TC89_KCOS</field>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <next>
+                  <block type="input_statement" id="**grZT0|8$r,7~{wbrpm">
+                    <field name="INPUTNAME">CONTOURS</field>
+                    <field name="ALIGN">RIGHT</field>
+                    <value name="TYPE">
+                      <block type="type_other" id="U]1=WOs{V%km(kUFxDi$">
+                        <field name="TYPE">CONTOURS</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="sX{m=,4/S6ziRcd];rgq">
+        <field name="TEXT">Finds a list of contours and their hierarchies in the image.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="rrzncrkem^J9/X{,w|iU">
+        <field name="TEXT">https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html#findcontours</field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <block type="type_other" id="PavDB@|:}V823=)b/*;A">
+        <field name="TYPE">CONTOURS</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <block type="type_other" id="1c{`ipL@zPuA|H:U*upB">
+        <field name="TYPE">CONTOURS</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="HzEW62n0{.EXV4QUftP=">
+        <mutation colour="#a5935b"></mutation>
+        <field name="HUE">45</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="3KvbS#);6uJr98o;@xl." x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">draw_contours</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="8dYYero5(KoUncrw[16f">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="R5CrsHfW*}5#[KjSiwxv">
+            <field name="TEXT">Draw Contours</field>
+            <next>
+              <block type="field_colour" id=".gL=FC~%!Z2$?l}n8M)l">
+                <field name="COLOUR">#ff0000</field>
+                <field name="FIELDNAME">contour_colour</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="gYDE%^;sV6G4DP23b5w3">
+        <field name="TEXT">Draws the contours into the image.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="Fjpj^$XA`)F[}Mre61r*">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <block type="type_other" id="!}-(#V,:CF[q:`;(N;T/">
+        <field name="TYPE">CONTOURS</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <block type="type_other" id="2-VA?$r]3!D_5$qFBcjO">
+        <field name="TYPE">CONTOURS</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id=")PS)+CwH%/7V32[`K#w7">
+        <mutation colour="#a5935b"></mutation>
+        <field name="HUE">45</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="iHBF]VWBui!ZQmh8@8JD" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">load_frame</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id=".rqLDH%n,Kt+v^*t49q:">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="qgeQg(fqI*8#.,R0oyxZ">
+            <field name="TEXT">Load Frame </field>
+            <next>
+              <block type="field_variable" id="~in8EV$iuRBOaKyIgJ;b">
+                <field name="TEXT">storedFrame</field>
+                <field name="FIELDNAME">STOREDFRAME</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="JC}L6;[G2,3IF!sZaW8U">
+        <field name="TEXT">Load a previously saved frame as the one to process.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="rt$CgAOFhB)IE%BioA*-">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <block type="type_other" id="KOSf2Bc5wm9!6yVuYf0-">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <block type="type_other" id="Bh_8ept!t,W)N:AZJkvy">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="Y|=}HzK/GFxV5r2y*_VX">
+        <mutation colour="#5ba56d"></mutation>
+        <field name="HUE">135</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="6S`0GAleC@qq!N!Hu8vF" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">store_frame</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="_r$UJ[1hTBUqr8m2u;#]">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="kP`9M[q=f{(8$NO{MG}E">
+            <field name="TEXT">Store frame</field>
+            <next>
+              <block type="field_variable" id="sR8FzpFcN/RM*8wYDX[h">
+                <field name="TEXT">storedFrame</field>
+                <field name="FIELDNAME">STOREDFRAME</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="kH*aXK[-Kr*KaKW)5OP3">
+        <field name="TEXT">Store a frame to load later in onFrame</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="E*JC[/om8zGPQID5@2J7">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <block type="type_other" id="pW:5zyY/-a:t.nfBO)]q">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <block type="type_other" id="Vek93}R47A@HbZ!ZIYXD">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="jkD^7rE``dXD(nY#t9b4">
+        <mutation colour="#5ba56d"></mutation>
+        <field name="HUE">135</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="`5cQ(S^IYFB9L]l%3o+-" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">contour_convex_hull</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="P%dqiOP,6YwPdg3ZN;q?">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="Lk)s7Q9LnrC=G?{eVmHU">
+            <field name="TEXT">Convex Hull</field>
+          </block>
+        </statement>
+        <next>
+          <block type="input_dummy" id="P?RQ|^Yr=uEZ?$IQ1052">
+            <field name="ALIGN">RIGHT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="%c:kdNS_Ws5m}A98E5{3">
+                <field name="TEXT">Set hull area to</field>
+                <next>
+                  <block type="field_variable" id="pr95JHko#DK(~j},TjM}">
+                    <field name="TEXT">hullArea</field>
+                    <field name="FIELDNAME">CONVEXHULLAREA</field>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="input_statement" id="iCY+bu:[8Sgw^a_xNz77">
+                <field name="INPUTNAME">NAME</field>
+                <field name="ALIGN">RIGHT</field>
+                <value name="TYPE">
+                  <block type="type_other" id="l4D2l0HpvnWQYB?cXSbQ">
+                    <field name="TYPE">CONTOURS</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="tzcUsjs_,D}`XFQ9vFcL">
+        <field name="TEXT">Creates a convex hull and calculates the solidity of a contour</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="{/^a.~z*r2uneBD{|1%F">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <block type="type_other" id="JqsKeg*6EOu6oA/;oqpq">
+        <field name="TYPE">CONTOURS</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <block type="type_other" id=".bQXl?i|3JQ[:~3U?ZF(">
+        <field name="TYPE">CONTOURS</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="o3GEVDL}G}]mch+We60Z">
+        <mutation colour="#a5935b"></mutation>
+        <field name="HUE">45</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="l_7)tGJd,lsz2F37Wzy_" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">select_contour</field>
+    <field name="INLINE">EXT</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="o(OvF!v{?y26DLCinLuX">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="xE:Lgga}_=nnuc;Y`|c!">
+            <field name="TEXT">Select the contour with the</field>
+            <next>
+              <block type="field_dropdown" id="E;.:.@B7Q@MQH2;K.%!x">
+                <mutation options="[&quot;text&quot;,&quot;text&quot;]"></mutation>
+                <field name="FIELDNAME">compare</field>
+                <field name="USER0">minimum</field>
+                <field name="CPU0">mincompare</field>
+                <field name="USER1">maximum</field>
+                <field name="CPU1">maxcompare</field>
+                <next>
+                  <block type="field_dropdown" id="tA=yqFWW?FNiJ*Xws{0z">
+                    <mutation options="[&quot;text&quot;,&quot;text&quot;]"></mutation>
+                    <field name="FIELDNAME">maxparam</field>
+                    <field name="USER0">area</field>
+                    <field name="CPU0">maxarea</field>
+                    <field name="USER1">perimeter</field>
+                    <field name="CPU1">maxperimeter</field>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="input_dummy" id="GrC_Pd3w#[ZI8Mn@,3c3">
+            <field name="ALIGN">RIGHT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="]3q!8Q^=m6wbr3cBIB#;">
+                <field name="TEXT">Set</field>
+                <next>
+                  <block type="field_variable" id="#A|oF-+Rt{WLr6+pkP{E">
+                    <field name="TEXT">area</field>
+                    <field name="FIELDNAME">areaval</field>
+                    <next>
+                      <block type="field_static" id="D*6s=*C?G)BJoL[aGB$/">
+                        <field name="TEXT">to contour's area.</field>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="input_dummy" id="qv/Aq6sjTSfqtp$sy1e;">
+                <field name="ALIGN">RIGHT</field>
+                <statement name="FIELDS">
+                  <block type="field_static" id="xcW_oqY*}(~1AZy:LApd">
+                    <field name="TEXT">Set</field>
+                    <next>
+                      <block type="field_variable" id="YKU)9{iSmE(OLC*Y=#MQ">
+                        <field name="TEXT">perimeter</field>
+                        <field name="FIELDNAME">perimeterval</field>
+                        <next>
+                          <block type="field_static" id="UAWHhHhV|uF$s}g2X6yt">
+                            <field name="TEXT">to contour's perimeter.</field>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <next>
+                  <block type="input_statement" id="be]ygBDe$W3`j8f8BH%^">
+                    <field name="INPUTNAME">contour_functions</field>
+                    <field name="ALIGN">LEFT</field>
+                    <value name="TYPE">
+                      <block type="type_other" id="q#yAD0vS7MFP:!!tSQww">
+                        <field name="TYPE">CONTOURS</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="a;Ssvu`rFS*d8}+(4nOs">
+        <field name="TEXT">Selects a single contour from a group</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id=",8Geu!yFVr{7Pn=4u9/m">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="+Zq?%}Utmnh;A7KLKPLM">
+        <mutation colour="#a5935b"></mutation>
+        <field name="HUE">45</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="%Aw}-If.,TH?#OW85S%*" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">gamma_correct</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_value" id="B{Xh7`D%^urP,XPDKbpL">
+        <field name="INPUTNAME">gamma</field>
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="5AJ|t[xFNWLr1@JL*Hnj">
+            <field name="TEXT">Gamma</field>
+          </block>
+        </statement>
+        <value name="TYPE">
+          <shadow type="type_null" id="I)wsRC_Wr@%RJuUh6a-M"></shadow>
+          <block type="type_number" id="#:TDV3S#{H6v2G7v1{tM"></block>
+        </value>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="ip?er#X]W:/kXC_qDk!k" deletable="false" movable="false">
+        <field name="TEXT">Gamma correct the image</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="X(#N(**9_[19)#poYM[S" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="q{tYmw-),67OfhXT81n`"></shadow>
+      <block type="type_other" id="So21t{F?nkisnq/=zt;p">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="?~.F2ul#L(z)=evle%t+"></shadow>
+      <block type="type_other" id="h`w*XsX{|MR_NcZtcsc+">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="|=qfv75ts%u21k6QkqP@">
+        <mutation colour="#805ba5"></mutation>
+        <field name="HUE">270</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="%f5z_IXBB_Cum7qQM^z[" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">erode</field>
+    <field name="INLINE">INT</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="/Q_!5T!RlJw9)~/k(7uP">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="TGO+Z[w#`}yHu|GyZtyx">
+            <field name="TEXT">Erode</field>
+            <next>
+              <block type="field_number" id="he7B;k2oP=}/I{cWq{qZ">
+                <field name="VALUE">5</field>
+                <field name="FIELDNAME">kernel_size</field>
+                <field name="MIN">3</field>
+                <field name="MAX">100</field>
+                <field name="PRECISION">1</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="Aqzcq7TPEt*=_eFnFe^_" deletable="false" movable="false">
+        <field name="TEXT">Erodes the image</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="*zoS2hQ5fJ|k%-nZib$L" deletable="false" movable="false">
+        <field name="TEXT">https://docs.opencv.org/2.4/doc/tutorials/imgproc/erosion_dilatation/erosion_dilatation.html</field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="r`M_dptG-Gie$ttL?7~9"></shadow>
+      <block type="type_other" id="SPk0O{Z_Bq|*tLtbuO|[">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="Xk-.vdS*TZJ]pkP)5vCF"></shadow>
+      <block type="type_other" id="QD-vp|)seTcnSvue?7Dr">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="(!PGjIg;9N=4;CRCZg|0">
+        <mutation colour="#805ba5"></mutation>
+        <field name="HUE">270</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="0Zdee(}I]|5*gXyTJsu3" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">morphologyex</field>
+    <field name="INLINE">EXT</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="Xz|TJO;hlV60LlvWW6}u">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_dropdown" id="EIrhkTfddrD:$YP8WG;r">
+            <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"></mutation>
+            <field name="FIELDNAME">OPERATION</field>
+            <field name="USER0">Erode</field>
+            <field name="CPU0">cv.MORPH_ERODE </field>
+            <field name="USER1">Dilate</field>
+            <field name="CPU1">cv.MORPH_DILATE</field>
+            <field name="USER2">Open</field>
+            <field name="CPU2">cv.MORPH_OPEN</field>
+            <field name="USER3">Close</field>
+            <field name="CPU3">cv.MORPH_CLOSE</field>
+            <field name="USER4">Gradient</field>
+            <field name="CPU4">cv.MORPH_GRADIENT</field>
+            <field name="USER5">Top Hat</field>
+            <field name="CPU5">cv.MORPH_TOPHAT</field>
+            <field name="USER6">Black Hat</field>
+            <field name="CPU6">cv.MORPH_BLACKHAT</field>
+            <next>
+              <block type="field_input" id=",X1MO:tmF1eC0aB~OR.A">
+                <field name="TEXT">1</field>
+                <field name="FIELDNAME">ITERATIONS</field>
+                <next>
+                  <block type="field_static" id="SR|lM*`8.z_WA]hATEt:">
+                    <field name="TEXT">time(s)</field>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="input_dummy" id="Z@PfFnIatXx3NDs(.mdE">
+            <field name="ALIGN">LEFT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="R0|AQ;xwD~`:/]=W*MQd">
+                <field name="TEXT">with a (</field>
+                <next>
+                  <block type="field_input" id=")SQvhL1K3).;9H$Hj4@,">
+                    <field name="TEXT">1</field>
+                    <field name="FIELDNAME">KSIZE_X</field>
+                    <next>
+                      <block type="field_static" id="pZ]4r1OdV1r-MQ2*DRI.">
+                        <field name="TEXT">x</field>
+                        <next>
+                          <block type="field_input" id="a9fxS!]328aU1.)P*5eN">
+                            <field name="TEXT">1</field>
+                            <field name="FIELDNAME">KSIZE_Y</field>
+                            <next>
+                              <block type="field_static" id="mro%n^H4dSb+/Hq?$BDR">
+                                <field name="TEXT">)</field>
+                                <next>
+                                  <block type="field_dropdown" id="H70~EY-JRV5mlf_Tk+T~">
+                                    <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"></mutation>
+                                    <field name="FIELDNAME">KERNEL_SHAPE</field>
+                                    <field name="USER0">rectangle</field>
+                                    <field name="CPU0">cv.MORPH_RECT</field>
+                                    <field name="USER1">cross</field>
+                                    <field name="CPU1">cv.MORPH_CROSS</field>
+                                    <field name="USER2">ellipse</field>
+                                    <field name="CPU2">cv.MORPH_ELLIPSE</field>
+                                    <next>
+                                      <block type="field_static" id="_1f?0@jfD]^]}oPT[+2|">
+                                        <field name="TEXT">kernel</field>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="input_dummy" id="h2c?aA}~f6Auqrd26LH0">
+                <field name="ALIGN">LEFT</field>
+                <statement name="FIELDS">
+                  <block type="field_static" id="vsl0y=qmA:[XG0k{~CwT">
+                    <field name="TEXT">anchored at (</field>
+                    <next>
+                      <block type="field_input" id="$gRO?q0WiK),Y_J@k.pl">
+                        <field name="TEXT">-1</field>
+                        <field name="FIELDNAME">ANCHOR_X</field>
+                        <next>
+                          <block type="field_static" id="DokkH]0D-(HM6Dd?h}b?">
+                            <field name="TEXT">,</field>
+                            <next>
+                              <block type="field_input" id="g.Z|mr/tbjW3+F#+:NGF">
+                                <field name="TEXT">-1</field>
+                                <field name="FIELDNAME">ANCHOR_Y</field>
+                                <next>
+                                  <block type="field_static" id="^y|W$z6(y5qW}O0g_nnD">
+                                    <field name="TEXT">)</field>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="=hrJ5GVHUJh!bO|TykRx">
+        <field name="TEXT">Performs a morphological transformation with the given kernel.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="ALm+%GM$+LFw,?|TqMdu">
+        <field name="TEXT">https://docs.opencv.org/2.4/doc/tutorials/imgproc/opening_closing_hats/opening_closing_hats.html</field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <block type="type_other" id="lVHg6s$5_Oi,@(;Ooz$S">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <block type="type_other" id=":tYRh7qjC-%-oR/ykHv.">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="UX._thKYqU)[e4eHT{:0">
+        <mutation colour="#805ba5"></mutation>
+        <field name="HUE">270</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="%f5z_IXBB_Cum7qQM^z[" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">dilate</field>
+    <field name="INLINE">INT</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="/Q_!5T!RlJw9)~/k(7uP">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="TGO+Z[w#`}yHu|GyZtyx">
+            <field name="TEXT">Dilate</field>
+            <next>
+              <block type="field_number" id="he7B;k2oP=}/I{cWq{qZ">
+                <field name="VALUE">5</field>
+                <field name="FIELDNAME">kernel_size</field>
+                <field name="MIN">3</field>
+                <field name="MAX">100</field>
+                <field name="PRECISION">1</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="Aqzcq7TPEt*=_eFnFe^_" deletable="false" movable="false">
+        <field name="TEXT">Dilates the image</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="*zoS2hQ5fJ|k%-nZib$L" deletable="false" movable="false">
+        <field name="TEXT">https://docs.opencv.org/2.4/doc/tutorials/imgproc/erosion_dilatation/erosion_dilatation.html</field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="r`M_dptG-Gie$ttL?7~9"></shadow>
+      <block type="type_other" id="SPk0O{Z_Bq|*tLtbuO|[">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="Xk-.vdS*TZJ]pkP)5vCF"></shadow>
+      <block type="type_other" id="QD-vp|)seTcnSvue?7Dr">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="(!PGjIg;9N=4;CRCZg|0">
+        <mutation colour="#805ba5"></mutation>
+        <field name="HUE">270</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="Q~8(:$zmcHsGs/K0$JHX" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">threshold</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="Ui`n@HB2yTL.CzaRdt)=">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_dropdown" id="|n*.aT.SZPB:3wSl^)gg">
+            <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"></mutation>
+            <field name="FIELDNAME">THRESHOLD_TYPE</field>
+            <field name="USER0">Binary</field>
+            <field name="CPU0">cv.THRESH_BINARY</field>
+            <field name="USER1">Binary (inverse)</field>
+            <field name="CPU1">cv.THRESH_BINARY_INV</field>
+            <field name="USER2">Truncate</field>
+            <field name="CPU2">cv.THRESH_TRUNC</field>
+            <field name="USER3">To Zero</field>
+            <field name="CPU3">cv.THRESH_TOZERO</field>
+            <field name="USER4">To Zero (inverse)</field>
+            <field name="CPU4">cv.THRESH_TOZERO_INV</field>
+            <field name="USER5">OTSU</field>
+            <field name="CPU5">cv.THRESH_OTSU</field>
+            <field name="USER6">Triangle</field>
+            <field name="CPU6">cv.THRESH_TRIANGLE</field>
+            <next>
+              <block type="field_static" id="V=u)+yiaOJ[aCr5^H?j7">
+                <field name="TEXT">Threshold</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="input_value" id=")o#}%ueQyaT%oM{!((vC">
+            <field name="INPUTNAME">THRESHOLD_VALUE</field>
+            <field name="ALIGN">RIGHT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id=")q4*Q_9gPqC;|XrCUi_0">
+                <field name="TEXT">Value</field>
+              </block>
+            </statement>
+            <value name="TYPE">
+              <shadow type="type_null" id="d+TbNwHBrxuoXx-DHjBe"></shadow>
+              <block type="type_number" id="Z139)UJt3u+Rc^;J-Ikc"></block>
+            </value>
+            <next>
+              <block type="input_value" id="_gdBf^Zi+X-f@w%)dLN6">
+                <field name="INPUTNAME">MAX_VALUE</field>
+                <field name="ALIGN">RIGHT</field>
+                <statement name="FIELDS">
+                  <block type="field_static" id="t9vxcDwbVOSYR@51?),O">
+                    <field name="TEXT">Max Value</field>
+                  </block>
+                </statement>
+                <value name="TYPE">
+                  <shadow type="type_null" id="*)[3Q|=}#EutwI3gQP-`"></shadow>
+                  <block type="type_number" id="VN`MLQxNsUV7,;rhrwGT"></block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="ScfCl%a,9rZw~H(y1Q;)" deletable="false" movable="false">
+        <field name="TEXT">Truncates the colors in an image based on a cutoff value.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="=*:SXM%OliL{:|B7osR!" deletable="false" movable="false">
+        <field name="TEXT">https://en.wikipedia.org/wiki/Thresholding_(image_processing)</field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="r`FMsxw?G@y5NBQ!~Qe/"></shadow>
+      <block type="type_other" id="xo/{;ObDkw.*Cb@vozC?">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="r^^CG#7W}rGv;d]Z*7Pl"></shadow>
+      <block type="type_other" id="{9|Xk9Go@?TWrE(0P*Q1">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="[kVP;x|m5;jLaS3vcCx%">
+        <mutation colour="#805ba5"></mutation>
+        <field name="HUE">270</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="Q~8(:$zmcHsGs/K0$JHX" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">adaptive_threshold</field>
+    <field name="INLINE">EXT</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="Ui`n@HB2yTL.CzaRdt)=">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="1Bwn$l}s#H2^hcP.6s|B">
+            <field name="TEXT">Adaptive</field>
+            <next>
+              <block type="field_dropdown" id="|n*.aT.SZPB:3wSl^)gg">
+                <mutation options="[&quot;text&quot;,&quot;text&quot;]"></mutation>
+                <field name="FIELDNAME">THRESHOLD_TYPE</field>
+                <field name="USER0">Binary</field>
+                <field name="CPU0">cv.THRESH_BINARY</field>
+                <field name="USER1">Binary (inverse)</field>
+                <field name="CPU1">cv.THRESH_BINARY_INV</field>
+                <next>
+                  <block type="field_static" id="V=u)+yiaOJ[aCr5^H?j7">
+                    <field name="TEXT">Threshold</field>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="input_dummy" id="Y]uYmEIQf#4WYp{o]^*6">
+            <field name="ALIGN">RIGHT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="oW_t,6TmdWkD|CQE|}oa">
+                <field name="TEXT">Type</field>
+                <next>
+                  <block type="field_dropdown" id="d~NFC))9r;G*lF#2{/C,">
+                    <mutation options="[&quot;text&quot;,&quot;text&quot;]"></mutation>
+                    <field name="FIELDNAME">ADAPTIVE_TYPE</field>
+                    <field name="USER0">Mean</field>
+                    <field name="CPU0">cv.ADAPTIVE_THRESH_MEAN_C</field>
+                    <field name="USER1">Gaussian</field>
+                    <field name="CPU1">cv.ADAPTIVE_THRESH_GAUSSIAN_C</field>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="input_value" id="p`uVx8O:-L5]/^8*8?Y7">
+                <field name="INPUTNAME">BLOCK_SIZE</field>
+                <field name="ALIGN">RIGHT</field>
+                <statement name="FIELDS">
+                  <block type="field_static" id="lSsX@gTKcJt^7M{mo(Dt">
+                    <field name="TEXT">Block Size</field>
+                  </block>
+                </statement>
+                <value name="TYPE">
+                  <shadow type="type_null" id="nu?D*b,~=jp4oaB0c*Pb"></shadow>
+                  <block type="type_number" id="{?+ulyA3jJ[+^`S=MLvB"></block>
+                </value>
+                <next>
+                  <block type="input_value" id="IsK)B$S$.=7nB=XvJ|#p">
+                    <field name="INPUTNAME">ADAPTIVE_CONSTANT</field>
+                    <field name="ALIGN">RIGHT</field>
+                    <statement name="FIELDS">
+                      <block type="field_static" id="7.;nlH_I#a0T|puqr?x~">
+                        <field name="TEXT">Constant</field>
+                      </block>
+                    </statement>
+                    <value name="TYPE">
+                      <shadow type="type_null" id=".ZM-L|GtZAcF$#O!}QV]"></shadow>
+                      <block type="type_number" id="4=n_J1ag@X0b7c-v7mZl"></block>
+                    </value>
+                    <next>
+                      <block type="input_value" id="_gdBf^Zi+X-f@w%)dLN6">
+                        <field name="INPUTNAME">MAX_VALUE</field>
+                        <field name="ALIGN">RIGHT</field>
+                        <statement name="FIELDS">
+                          <block type="field_static" id="t9vxcDwbVOSYR@51?),O">
+                            <field name="TEXT">Max Value</field>
+                          </block>
+                        </statement>
+                        <value name="TYPE">
+                          <shadow type="type_null" id="*)[3Q|=}#EutwI3gQP-`"></shadow>
+                          <block type="type_number" id="VN`MLQxNsUV7,;rhrwGT"></block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="ScfCl%a,9rZw~H(y1Q;)" deletable="false" movable="false">
+        <field name="TEXT">Truncates the colors in an image based using an adaptive cutoff.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="=*:SXM%OliL{:|B7osR!" deletable="false" movable="false">
+        <field name="TEXT">https://en.wikipedia.org/wiki/Thresholding_(image_processing)</field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="r`FMsxw?G@y5NBQ!~Qe/"></shadow>
+      <block type="type_other" id="xo/{;ObDkw.*Cb@vozC?">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="r^^CG#7W}rGv;d]Z*7Pl"></shadow>
+      <block type="type_other" id="{9|Xk9Go@?TWrE(0P*Q1">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="[kVP;x|m5;jLaS3vcCx%">
+        <mutation colour="#805ba5"></mutation>
+        <field name="HUE">270</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="i!MY{l5WX,8pm{NWt!x)" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">background_subtractor</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="}2],OIO/#Y).e0,]IBF5">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="8xN%6/Z%w!vJJ9S?ngq)">
+            <field name="TEXT">Background Removal</field>
+          </block>
+        </statement>
+        <next>
+          <block type="input_dummy" id="6azm%^p:Sq|{?{Z#v}N@">
+            <field name="ALIGN">RIGHT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="VC,?FIKg:v.Lw{8Y=rpT">
+                <field name="TEXT">Create object</field>
+                <next>
+                  <block type="field_variable" id="}gcM?Nd9ieo.MruYV3I!">
+                    <field name="TEXT">bg_remover</field>
+                    <field name="FIELDNAME">BGREMOVER</field>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="input_value" id="-d/TPEQ,-%knV@eU|=fc">
+                <field name="INPUTNAME">HISTORY_LENGTH</field>
+                <field name="ALIGN">RIGHT</field>
+                <statement name="FIELDS">
+                  <block type="field_static" id="$F+M*M-3)kA?J8CD[z:p">
+                    <field name="TEXT">History Length</field>
+                  </block>
+                </statement>
+                <value name="TYPE">
+                  <shadow type="type_null" id="%OG`nnh#7PSv|trzF/)v"></shadow>
+                  <block type="type_number" id="/,:0~!ix/.^/9XcBJv~x"></block>
+                </value>
+                <next>
+                  <block type="input_value" id="dA70n#Cs46m9t;cR9,FC">
+                    <field name="INPUTNAME">THRESHOLD</field>
+                    <field name="ALIGN">RIGHT</field>
+                    <statement name="FIELDS">
+                      <block type="field_static" id="X):0j16tw1E8aq[u0^8z">
+                        <field name="TEXT">THRESHOLD</field>
+                      </block>
+                    </statement>
+                    <value name="TYPE">
+                      <shadow type="type_null" id="gNh-+f1X`rIj%R0@@mQ("></shadow>
+                      <block type="type_number" id="2)PWBYG27cx(X{d_Dgbh"></block>
+                    </value>
+                    <next>
+                      <block type="input_value" id=":_Y`}@K0KYQ6{5-l[5[z">
+                        <field name="INPUTNAME">DETECT_SHADOWS</field>
+                        <field name="ALIGN">RIGHT</field>
+                        <statement name="FIELDS">
+                          <block type="field_static" id="jXgyqhQxpZ^r]vu:4)m9">
+                            <field name="TEXT">Detect Shadows?</field>
+                          </block>
+                        </statement>
+                        <value name="TYPE">
+                          <shadow type="type_null" id="t^8lo@Rt}TE57Tw/#mKv"></shadow>
+                          <block type="type_boolean" id="|t4Lw9-..)(u5GphEzEp"></block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="ABVv|d9bk;VKnd]DMA}n" deletable="false" movable="false">
+        <field name="TEXT">Removes items that have not been in motion from the image.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="2Ix@sW8.-y(8HsHx@Xq_" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="@~KmT`7G2hB;2Y[%Frim"></shadow>
+      <block type="type_other" id="3eff.ECHwjEjbBpY*HKr">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="9ZSPP0sYWKB:srqb@sfe"></shadow>
+      <block type="type_other" id="+DN7^(baiWWU-@9!90[;">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="@IP7cI#IYd2ya6f0gN_H">
+        <mutation colour="#805ba5"></mutation>
+        <field name="HUE">270</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="Xr*!xu27neag9TT,Xhn]" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">in_range_rgb</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="Z9I!-z24YPCgQa6]T:%`">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="R*#_`VYA`mamlPd`5k?Y">
+            <field name="TEXT">In Range (RGB)</field>
+          </block>
+        </statement>
+        <next>
+          <block type="input_value" id="KVkkq#L_1xd0~LA;Ak9f">
+            <field name="INPUTNAME">min_r</field>
+            <field name="ALIGN">RIGHT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="/l=;7}Yo~17!.-{J@LQU">
+                <field name="TEXT">min Red</field>
+              </block>
+            </statement>
+            <value name="TYPE">
+              <block type="type_number" id="v.x}YHs*?S;Vm!V2-~ps"></block>
+            </value>
+            <next>
+              <block type="input_value" id="lK?EW~eH+JMREzgK2^UZ">
+                <field name="INPUTNAME">max_r</field>
+                <field name="ALIGN">RIGHT</field>
+                <statement name="FIELDS">
+                  <block type="field_static" id="k]vtYQKzR[SmN6Y)Z_Nk">
+                    <field name="TEXT">max Red</field>
+                  </block>
+                </statement>
+                <value name="TYPE">
+                  <block type="type_number" id="1oK/%fDM=fhC85Ih~)c?"></block>
+                </value>
+                <next>
+                  <block type="input_value" id="/s`@b5r-Wct;A6~H8=DH">
+                    <field name="INPUTNAME">min_g</field>
+                    <field name="ALIGN">RIGHT</field>
+                    <statement name="FIELDS">
+                      <block type="field_static" id="|H!=ZMMj17l:O5Yd9V$P">
+                        <field name="TEXT">min Green</field>
+                      </block>
+                    </statement>
+                    <value name="TYPE">
+                      <block type="type_number" id="$*[f[ETr:jc[mLDtG@^("></block>
+                    </value>
+                    <next>
+                      <block type="input_value" id="X-)Hju;CURd$dBu0zCCi">
+                        <field name="INPUTNAME">max_g</field>
+                        <field name="ALIGN">RIGHT</field>
+                        <statement name="FIELDS">
+                          <block type="field_static" id="y}vG}llOkp3ZYvD?*8LG">
+                            <field name="TEXT">max Green</field>
+                          </block>
+                        </statement>
+                        <value name="TYPE">
+                          <block type="type_number" id="FE`eCJz[q;91;P)k/SK4"></block>
+                        </value>
+                        <next>
+                          <block type="input_value" id="|Q6ez|qINtVz6^OsEd0b">
+                            <field name="INPUTNAME">min_b</field>
+                            <field name="ALIGN">RIGHT</field>
+                            <statement name="FIELDS">
+                              <block type="field_static" id=".7f`Jfs.8{BX)VxUXLc6">
+                                <field name="TEXT">min Blue</field>
+                              </block>
+                            </statement>
+                            <value name="TYPE">
+                              <block type="type_number" id="z0wrNFmdUoO-1+LYy3EP"></block>
+                            </value>
+                            <next>
+                              <block type="input_value" id="92vmWf^CrBjEve,-dK=^">
+                                <field name="INPUTNAME">max_b</field>
+                                <field name="ALIGN">RIGHT</field>
+                                <statement name="FIELDS">
+                                  <block type="field_static" id="ogiOod~9fC5W@i1tgW8w">
+                                    <field name="TEXT">max Blue</field>
+                                  </block>
+                                </statement>
+                                <value name="TYPE">
+                                  <block type="type_number" id="s9j#wKcGh}yPEu^XjDVm"></block>
+                                </value>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="[#fW#+f[~dlZ!T:yz%(#">
+        <field name="TEXT">Sets pixels that fall in the specified range to white; all others are set to black.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="|cv-:L}XLY96$/hsPBS`">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <block type="type_other" id="cH,.AT}VZ2XV;/!lH]G2">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <block type="type_other" id="88Pc!RrTKy`CGIsWqS[n">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="{8NGLL-gW:bjvx$]~:U(">
+        <mutation colour="#805ba5"></mutation>
+        <field name="HUE">270</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="9m_Ln-m)7;d~`pVG{3dZ" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">split_image</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="6|W{oWdW5Ls6Em}DE]*9">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id=":dt|T{gS@;?{L[MQ,bUB">
+            <field name="TEXT">Split image into color channels.</field>
+          </block>
+        </statement>
+        <next>
+          <block type="input_dummy" id="siuFZS=b6o47)G7](kU6">
+            <field name="ALIGN">RIGHT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="VQeC7:H-7s`.[RLA!@TA">
+                <field name="TEXT">Red Channel</field>
+                <next>
+                  <block type="field_variable" id="W;sdb_@0alj!BOsiyP:f">
+                    <field name="TEXT">image_red</field>
+                    <field name="FIELDNAME">REDIMAGE</field>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="input_dummy" id="wYOX#U7NHZ7e6pRj;1QF">
+                <field name="ALIGN">RIGHT</field>
+                <statement name="FIELDS">
+                  <block type="field_static" id="@}h0fVi`Q4E$$OcIv!]1">
+                    <field name="TEXT">Green Channel</field>
+                    <next>
+                      <block type="field_variable" id="G+~@k-x*R9]@|Nn~HT4?">
+                        <field name="TEXT">image_green</field>
+                        <field name="FIELDNAME">GREENIMAGE</field>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <next>
+                  <block type="input_dummy" id="6O#hRw+2}.2v-Ln,T2zx">
+                    <field name="ALIGN">RIGHT</field>
+                    <statement name="FIELDS">
+                      <block type="field_static" id="M=%C,G?2Y,VwRcC[cz0U">
+                        <field name="TEXT">Blue Channel</field>
+                        <next>
+                          <block type="field_variable" id=".Jv9GEn+z/j`!7_@Rwy,">
+                            <field name="TEXT">image_blue</field>
+                            <field name="FIELDNAME">BLUEIMAGE</field>
+                          </block>
+                        </next>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="input_dummy" id="6s58IwX,$@$mvkae[`VZ">
+                        <field name="ALIGN">RIGHT</field>
+                        <statement name="FIELDS">
+                          <block type="field_static" id="^}sBpFzlf!Ua[l[^jd/v">
+                            <field name="TEXT">Set pipeline to</field>
+                            <next>
+                              <block type="field_dropdown" id="!+ixiZ*vg;$v2dbm_Md-">
+                                <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"></mutation>
+                                <field name="FIELDNAME">PIPE_IMAGE</field>
+                                <field name="USER0">input</field>
+                                <field name="CPU0">0</field>
+                                <field name="USER1">red</field>
+                                <field name="CPU1">1</field>
+                                <field name="USER2">green</field>
+                                <field name="CPU2">2</field>
+                                <field name="USER3">blue</field>
+                                <field name="CPU3">3</field>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id=":,l?b+xEhtIG5Njz-Dt1" deletable="false" movable="false">
+        <field name="TEXT">Splits the image into RGB channels, places each in an Image variable.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="G[ck#i~$T-R3c.lPDM3T" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="WfIdgVEq~D2CKI.1u3ex"></shadow>
+      <block type="type_other" id="/W0$v)7vzPHBP%t{NVyy">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="$FU#}{fFL7fsZd.E*9!,"></shadow>
+      <block type="type_other" id="rd*{zCbJO#M^TIqbZ,iZ">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="fQIB~4gOal0YrI3/fpGi">
+        <mutation colour="#5ba56d"></mutation>
+        <field name="HUE">135</field>
+      </block>
+    </value>
+  </block></xml>
