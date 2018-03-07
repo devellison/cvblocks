@@ -296,6 +296,8 @@ function CVBlocksCore(video_id,
       try
       {
           let src = cv.imread(image_id);
+          src.copyTo(this.srcFrame);
+          src.delete();
       }
       catch(e)
       {
@@ -303,8 +305,6 @@ function CVBlocksCore(video_id,
           this.onStreamingStopped();
           return;
       }
-      src.copyTo(this.srcFrame);
-      src.delete();
     }
 
     this.onProcess(this.srcFrame);
