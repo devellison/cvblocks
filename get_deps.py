@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # sets up the dependencies for CVBlocks in output/
 #
 import urllib
@@ -63,11 +65,11 @@ if os.path.exists("output/blockly/blockly_compressed.js"):
     print("Blockly already exists. Skipping cloning Blockly...")
 else:
     print("Cloning Blockly...")
-    subprocess.call(['git.exe', 'clone', 'https://github.com/google/blockly.git', 'output/blockly'])
+    subprocess.call(['git', 'clone', 'https://github.com/google/blockly.git', 'output/blockly'])
 
 if args.closure:
     if (os.path.exists("output/closure-library")):
         print("closure-library already exists. Skipping cloning closure-library...")
     else:
         print("Cloning closure-library...")
-        subprocess.call(['git.exe', 'clone', 'https://github.com/google/closure-library.git', 'output/closure-library'])
+        subprocess.call(['git', 'clone', 'https://github.com/google/closure-library.git', 'output/closure-library'])
