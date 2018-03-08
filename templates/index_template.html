@@ -9,6 +9,8 @@
 <body>
   <div class="sidebar" id="sidebar_div">
     <script>
+    // The browser detection code is from:
+    // https://stackoverflow.com/questions/4565112/javascript-how-to-find-out-if-the-user-browser-is-chrome/13348618#13348618
     // please note,
     // that IE11 now returns undefined again for window.chrome
     // and new Opera 30 outputs true for window.chrome
@@ -96,11 +98,12 @@
       <button id="btnViewCode" onclick="viewCode()">View generated code..</button>
     </div>
     <div class="credits_pane">
-      CVBlocks is under development and owes its existence to the following Open Source packages:<br/>
+      CVBlocks is in early development and depends on the following Open Source packages:<br/>
       <ul>
       <li class="credits"><a class="credits" href="https://opencv.org/">OpenCV</a> (<a href="https://opencv.org/license.html">License</a>)</li>
       <li class="credits"><a class="credits" href="https://developers.google.com/blockly/">Blockly (<a href="https://github.com/google/blockly/blob/master/LICENSE">License</a>)</li>
       <li class="credits"><a class="credits" href="https://github.com/eligrey/FileSaver.js">FileSaver.js</a> (<a href="https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md">License</a>)</li>
+      <li class="credits"><a class="credits" href="https://github.com/bgrins/TinyColor">TinyColor</a> (<a href="https://github.com/bgrins/TinyColor/blob/master/LICENSE">License</a>)</li>
       </ul>
       <p>
       The CVBlocks code itself is being written by <a href="http://devellison.com">Michael Ellison</a> and released under
@@ -131,6 +134,7 @@
 <script src="blockly/javascript_compressed.js"></script>
 <script src="blockly/msg/js/en.js"></script>
 <script src="filesaver/FileSaver.js"></script>
+<script src="tinycolor/tinycolor.js"></script>
 <!-- Code generators -->
 <script src="cvblocks_gen.js"></script>
 <!-- Block definitions -->

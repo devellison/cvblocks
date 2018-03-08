@@ -32,6 +32,7 @@ function CVBlocksCore(video_id,
 {
   //-------------------------------------------------------------------------
   // exposed variables
+  this.debug      = false;
   this.canvas_id  = canvas_id;
   this.image_id   = image_id;
   this.hist_id    = hist_id;
@@ -122,7 +123,8 @@ function CVBlocksCore(video_id,
     */
   this.onProcess = function(sourceFrame)
   {
-    try {
+    try
+    {
         this.procStep = 0;
 
         this.beginProcessStep("Original Frame");
@@ -133,8 +135,12 @@ function CVBlocksCore(video_id,
         this.insideOnFrame = true;
         this.blocksOnFrame();
         this.insideOnFrame = false;
-      } catch (e) {
+      }
+      catch (e)
+      {
         console.log("Error in onProcess: " + e);
+        if (this.debug)
+          throw(e);
       }
   }
 
@@ -303,6 +309,8 @@ function CVBlocksCore(video_id,
       {
           console.log("Error loading static image: " + e);
           this.onStreamingStopped();
+          if (this.debug)
+            throw(e);
           return;
       }
     }
@@ -472,18 +480,22 @@ function CVBlocksCore(video_id,
    */
   this.streamCallback = function(stream)
   {
-    try {
-          this.videoIn.srcObject = stream;
-          this.videoIn.play();
-          this.streaming = "camera";
-          console.log("Video streaming started from camera.")
-          setTimeout(cvblocks_video_callback, 0);
-    } catch (e)
+    try
+    {
+      this.videoIn.srcObject = stream;
+      this.videoIn.play();
+      this.streaming = "camera";
+      console.log("Video streaming started from camera.")
+      setTimeout(cvblocks_video_callback, 0);
+    }
+    catch (e)
     {
       console.log("Error starting camera: " + e);
       this.streaming = false;
       if (this.streamcb != undefined)
         this.streamcb(false);
+        if (this.debug)
+          throw(e);
     }
   };
 

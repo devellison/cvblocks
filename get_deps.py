@@ -23,7 +23,8 @@ if not os.path.exists("output/filesaver"):
     os.mkdir("output/filesaver")
 if not os.path.exists("output/blockly"):
     os.mkdir("output/blockly")
-
+if not os.path.exists("output/tinycolor"):
+    os.mkdir("output/tinycolor")
 #
 # OpenCV (Currently using 3.4.1)
 # Main: https://opencv.org/
@@ -55,6 +56,21 @@ else:
     urllib.urlretrieve("https://raw.githubusercontent.com/eligrey/FileSaver.js/1.3.4/LICENSE.md", "output/filesaver/LICENSE.md");
     urllib.urlretrieve("https://raw.githubusercontent.com/eligrey/FileSaver.js/1.3.4/README.md", "output/filesaver/README.md");
     urllib.urlretrieve("https://raw.githubusercontent.com/eligrey/FileSaver.js/1.3.4/FileSaver.min.js", "output/filesaver/FileSaver.js");
+
+#
+# TinyColor
+# Main: http://bgrins.github.io/TinyColor/
+# Source: https://github.com/bgrins/TinyColor
+# Using the minimized version to save space, but should be swappable.
+# MIT License
+#
+if os.path.exists("output/tinycolor/tinycolor.js"):
+    print("tinycolor.js already exists. Skipping downloading...")
+else:
+    print("Downloading tinycolor.js...")
+    urllib.urlretrieve("https://raw.githubusercontent.com/bgrins/TinyColor/master/LICENSE", "output/tinycolor/LICENSE");
+    urllib.urlretrieve("https://raw.githubusercontent.com/bgrins/TinyColor/master/README.md", "output/tinycolor/README.md");
+    urllib.urlretrieve("https://raw.githubusercontent.com/bgrins/TinyColor/master/tinycolor.js", "output/tinycolor/tinycolor.js");
 
 #
 # Blockly

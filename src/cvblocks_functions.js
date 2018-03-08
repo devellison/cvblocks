@@ -1,64 +1,4 @@
 "use strict";
-
-/** convert a byte to a hex string with leading 0 if necessary */
-function byte2hex(b) {
-    var hex = b.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
-}
-
-/** convert an rgb (0-255) value to a hex value ('#afbeaf') */
-function rgb2hex(r, g, b) {
-    return "#" + byte2hex(r) + byte2hex(g) + byte2hex(b);
-}
-
-/** convert a hex color value ('#afbeaf') to an rgb (0-255) value */
-function hex2rgb(hex) {
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {r: parseInt(result[1], 16),g: parseInt(result[2], 16),b: parseInt(result[3], 16)} : null;
-}
-
-/** convert an hsv (0.0 - 1.0) value to an rgb value (0-255) */
-function hsv2rgb(h, s, v) {
-    var r, g, b, i, f, p, q, t;
-    i = Math.floor(h * 6);
-    f = h * 6 - i;
-    p = v * (1 - s);
-    q = v * (1 - f * s);
-    t = v * (1 - (1 - f) * s);
-    switch (i % 6) {
-        case 0: r = v, g = t, b = p; break;
-        case 1: r = q, g = v, b = p; break;
-        case 2: r = p, g = v, b = t; break;
-        case 3: r = p, g = q, b = v; break;
-        case 4: r = t, g = p, b = v; break;
-        case 5: r = v, g = p, b = q; break;
-    }
-    return {r: Math.round(r * 255),g: Math.round(g * 255),b: Math.round(b * 255)};
-}
-
-/** convert an rgb (0-255) value to an hsv (0.0 - 1.0) value */
-function rgb2hsv(r, g, b) {
-    var max = Math.max(r, g, b), min = Math.min(r, g, b),
-        d = max - min,
-        h,
-        s = (max === 0 ? 0 : d / max),
-        v = max / 255;
-
-    switch (max) {
-        case min: h = 0; break;
-        case r: h = (g - b) + d * (g < b ? 6: 0); h /= 6 * d; break;
-        case g: h = (b - r) + d * 2; h /= 6 * d; break;
-        case b: h = (r - g) + d * 4; h /= 6 * d; break;
-    }
-    return {h: h,s: s,v: v };
-}
-
-/** convert to opencv's hsv, where hue is 0-179 */
-function rgb2hsv_opencv(r, g, b) {
-  var hsv = rgb2hsv(r,g,b);
-  return {h: Math.round(hsv.h * 179),s: Math.round(hsv.s * 255),v: Math.round(hsv.v * 255)};
-}
-
 function cvblocks_gaussian(kSize)
 {
   // If we're not in an onFrame event, bail - it's
@@ -132,19 +72,21 @@ function cvblocks_equalize()
 
 function figureOutHue(hueInput)
 {
+  var hueAngle;
   // minh and maxh may be colors specified as '#ffa0c0'.
   if (typeof hueInput === 'string' || hueInput instanceof String)
   {
-
-      var rgb_val = hex2rgb(hueInput);
-      var hsv_val = rgb2hsv_opencv(rgb_val.r,rgb_val.g,rgb_val.b);
-      return hsv_val.h;
+      var color = tinycolor(hueInput);
+      // toHSV returns [0-1] values, openCV expects 0-179 for Hue
+      hueAngle = color.toHsv().h;
   }
   else
-  {
-      return hueInput;
-  }
+    hueAngle = hueInput;
+
+  // Hue in the app shows 0-360. We need to scale it to 0-179
+  return (hueAngle/360)*179;
 }
+
 
 function cvblocks_inrange_hsv(minh,maxh,mins,maxs,minv,maxv)
 {
@@ -153,7 +95,7 @@ function cvblocks_inrange_hsv(minh,maxh,mins,maxs,minv,maxv)
 
     // This could be an RGB string '#ffa0c0' or it could be a number.
     // If a number, do we want it to be interpreted 0-255 or 0-360 for hue angle?
-    // Either way, we need to send it 0-179 to OpenCV for hue, and 0-255 for s/v
+    // Either way, we need to send it 0-179 to OpenCV for hue
     var min_hue = figureOutHue(minh);
     var max_hue = figureOutHue(maxh);
 
@@ -227,15 +169,19 @@ function cvblocks_draw_contours(contour_info, contour_colour)
   if ((contour_info == undefined) || (contour_info == null))
     return;
 
-  var rgb = hex2rgb(contour_colour);
+  var tmpColor = tinycolor(contour_colour);
+  var rgb = tmpColor.toRgb();
   var color = new cv.Scalar(rgb.r,rgb.g,rgb.b,255);
   try {
     cv.drawContours(gCVBC.curFrame, contour_info.contours,
                     -1, color, 1, cv.LINE_8,
                     contour_info.hierarchy);
 
-  } catch (e) {
-    console.log('error: '+e);
+  } catch (e)
+  {
+     console.log('error: '+e);
+     if (gCVBC.debug)
+      throw(e);
   }
 }
 
@@ -301,14 +247,13 @@ function cvblocks_convex_hull(contour_info)
 
   var hull = new cv.Mat();
   var hullHierarchy = new cv.Mat();
+  var hullArray = new cv.MatVector();
 
   contour_info.hullArea = 0;
   if (contour_info.contours.size())
   {
-
     cv.convexHull(contour_info.contours.get(0), hull, false, true);
     contour_info.hullArea = cv.contourArea(hull, false);
-    var hullArray = new cv.MatVector();
     hullArray.push_back(hull);
   }
 
