@@ -219,7 +219,7 @@ Blockly.JavaScript['image_operation'] = function(block) {
 
  Blockly.JavaScript['contour_area'] = function(block) {
    var variable_selected_contour = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('SELECTED_CONTOUR'), Blockly.Variables.NAME_TYPE);
-   var code = 'cvblocks_contour_area( ' + variable_selected_contour + ');\n';
+   var code = 'cvblocks_contour_area( ' + variable_selected_contour + ')';
    // TODO: Change ORDER_NONE to the correct strength.
    return [code, Blockly.JavaScript.ORDER_NONE];
  };
