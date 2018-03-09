@@ -67,69 +67,6 @@ Blockly.JavaScript['in_range_hsv'] = function(block) {
   return code;
 };
 
-Blockly.JavaScript['find_contours'] = function(block) {
-  var dropdown_mode = block.getFieldValue('MODE');
-  var dropdown_method = block.getFieldValue('METHOD');
-  var statements_contours = Blockly.JavaScript.statementToCode(block, 'CONTOURS');
-  // TODO: Assemble JavaScript into code variable.
-  var code = 'var contour_info = cvblocks_find_contours(' + dropdown_mode + ', ' + dropdown_method + ');\n{\n'
-             + statements_contours
-             +'\n}\ncvblocks_end_contours(contour_info);\n';
-  return code;
-};
-
-Blockly.JavaScript['draw_contours'] = function(block) {
-  var contour_colour = block.getFieldValue('contour_colour');
-  var code = 'if (contour_info != undefined)\n{\n'
-            +'cvblocks_draw_contours(contour_info, "' + contour_colour + '");\n'
-            +'}\n';
-
-  if (block.parentBlock_ == null)
-    code = '/* cvblocks_draw_contours - no parent! */';
-
-  return code;
-};
-
-Blockly.JavaScript['select_contour'] = function(block) {
-  var dropdown_compare = block.getFieldValue('compare');
-  var dropdown_maxparam = block.getFieldValue('maxparam');
-  var variable_areaval = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('areaval'), Blockly.Variables.NAME_TYPE);
-  var variable_perimeterval = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('perimeterval'), Blockly.Variables.NAME_TYPE);
-  var statements_contour_functions = Blockly.JavaScript.statementToCode(block, 'contour_functions');
-
-  // TODO: need to fix this. Right now it resets the contours after
-  //       it.  It should push them onto a stack and contained Functions
-  //       should use top of stack, so that statements following
-  //       the select have the full list again.
-  var code =  'if (contour_info != undefined)\n{\n'
-             +'contour_info = cvblocks_select_contour(contour_info,'
-             + '"' + dropdown_compare + '", '
-             + '"' + dropdown_maxparam + '");\n'
-             + variable_areaval + '= contour_info.area;\n'
-             //+ variable_perimeterval + ');\n'
-             + statements_contour_functions + '\n}\n';
-
-  // TODO: pop contour stack here.
-
-  if (block.parentBlock_ == null)
-   code = '/* cvblocks_draw_contours - no parent! */';
-
-  return code;
-};
-
-Blockly.JavaScript['contour_convex_hull'] = function(block) {
-  var variable_convexhullarea = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('CONVEXHULLAREA'), Blockly.Variables.NAME_TYPE);
-  var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
-  // TODO: Assemble JavaScript into code variable.
-  var code = 'if (contour_info != undefined)\n{\n'
-             + 'cvblocks_convex_hull(contour_info);\n'
-             + variable_convexhullarea + ' = contour_info.hullArea;\n'
-             + statements_name + '\n}\n';
-
- if (block.parentBlock_ == null)
-     code = '/* cvblocks_draw_contours - no parent! */';
-  return code;
-};
 
 Blockly.JavaScript['gamma_correct'] = function(block) {
   var value_gamma = Blockly.JavaScript.valueToCode(block, 'gamma', Blockly.JavaScript.ORDER_ATOMIC);
@@ -229,3 +166,60 @@ Blockly.JavaScript['split_image'] = function(block) {
   var code = '\n';
   return code;
 };
+
+Blockly.JavaScript['image_operation'] = function(block) {
+  var dropdown_operation = block.getFieldValue('OPERATION');
+  var variable_storedframe = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('STOREDFRAME'), Blockly.Variables.NAME_TYPE);
+  // TODO: Assemble JavaScript into code variable.
+  var code = '\n';
+  return code;
+};
+/*----------------------------------------------------------------------------
+ * CONTOURS
+ *----------------------------------------------------------------------------
+ */
+ Blockly.JavaScript['find_contours'] = function(block) {
+   var variable_contour_var = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('CONTOUR_VAR'), Blockly.Variables.NAME_TYPE);
+   var dropdown_mode = block.getFieldValue('MODE');
+   var dropdown_method = block.getFieldValue('METHOD');
+
+   if (block.parentBlock_ == null)
+       return '/* cvblocks_find_contours ignored - no parent! */';
+
+   var code = variable_contour_var + ' = cvblocks_find_contours(' + dropdown_mode + ', ' + dropdown_method + ');\n'
+   return code;
+ };
+
+ Blockly.JavaScript['draw_contours'] = function(block) {
+   var variable_contours = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('CONTOURS'), Blockly.Variables.NAME_TYPE);
+   var colour_contour_colour = block.getFieldValue('contour_colour');
+
+   var code = 'cvblocks_draw_contours(' + variable_contours + ', "' + colour_contour_colour + '");\n'
+   return code;
+ };
+
+ Blockly.JavaScript['contour_convex_hull'] = function(block) {
+   var variable_source_contour = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('SOURCE_CONTOUR'), Blockly.Variables.NAME_TYPE);
+   var variable_convex_hull = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('CONVEX_HULL'), Blockly.Variables.NAME_TYPE);
+   var code = variable_convex_hull + ' = cvblocks_convex_hull( ' + variable_source_contour + ');\n';
+   return code;
+ };
+
+ Blockly.JavaScript['select_contour'] = function(block) {
+   var variable_selected_contour = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('SELECTED_CONTOUR'), Blockly.Variables.NAME_TYPE);
+   var dropdown_compare = block.getFieldValue('compare');
+   var dropdown_param = block.getFieldValue('param');
+   var variable_contours = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('CONTOURS'), Blockly.Variables.NAME_TYPE);
+   // TODO: Assemble JavaScript into code variable.
+   var code = variable_selected_contour + ' = cvblocks_select_contour( ' + variable_contours + ', '
+              + '"' + dropdown_compare + '", '
+              + '"' + dropdown_param + '");\n'
+   return code;
+ };
+
+ Blockly.JavaScript['contour_area'] = function(block) {
+   var variable_selected_contour = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('SELECTED_CONTOUR'), Blockly.Variables.NAME_TYPE);
+   var code = 'cvblocks_contour_area( ' + variable_selected_contour + ');\n';
+   // TODO: Change ORDER_NONE to the correct strength.
+   return [code, Blockly.JavaScript.ORDER_NONE];
+ };

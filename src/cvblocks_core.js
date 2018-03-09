@@ -32,7 +32,7 @@ function CVBlocksCore(video_id,
 {
   //-------------------------------------------------------------------------
   // exposed variables
-  this.debug      = false;
+  this.debug      = true;
   this.canvas_id  = canvas_id;
   this.image_id   = image_id;
   this.hist_id    = hist_id;

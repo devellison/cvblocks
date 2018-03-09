@@ -157,98 +157,6 @@ Blockly.Blocks['in_range_hsv'] = {
   }
 };
 
-Blockly.Blocks['find_contours'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Find Contours");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Retrieval Mode")
-        .appendField(new Blockly.FieldDropdown([["External","cv.RETR_EXTERNAL"], ["List","cv.RETR_LIST"], ["Connected Components","cv.RETR_CCOMP"], ["Tree","cv.RETR_TREE"]]), "MODE");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Approximation Method")
-        .appendField(new Blockly.FieldDropdown([["None (all points)","cv.CHAIN_APPROX_NONE"], ["Simple","cv.CHAIN_APPROX_SIMPLE"], ["Teh-Chin Chain Approx (TC89 L1)","cv.CHAIN_APPROX_TC89_L1"], ["Teh-Chin Chain Approx (TC89 KCOS)","cv.CHAIN_APPROX_TC89_KCOS"]]), "METHOD");
-    this.appendStatementInput("CONTOURS")
-        .setCheck("CONTOURS")
-        .setAlign(Blockly.ALIGN_RIGHT);
-    this.setPreviousStatement(true, "Image");
-    this.setNextStatement(true, "Image");
-    this.setColour(45);
- this.setTooltip("Finds a list of contours and their hierarchies in the image.");
- this.setHelpUrl("https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html#findcontours");
- onFrameWatcher(this);
-  }
-};
-
-/** Disables blocks if they aren't inside a findContours block */
-function findContoursWatcher(parentBlock)
-{
-  // contained in find_contours
-  parentBlock.setOnChange(function(changeEvent) {
-    var legal = false;
-    var block = parentBlock;
-    do {
-      if ("find_contours" == block.type) {
-        legal = true;
-        break;
-      }
-      block = block.getSurroundParent();
-    } while (block);
-
-    if (legal) {
-      parentBlock.setWarningText(null);
-      if (!parentBlock.isInFlyout)
-        parentBlock.setDisabled(false);
-    } else {
-      parentBlock.setWarningText('Must be in a find_contours block!');
-      if (!parentBlock.isInFlyout && !parentBlock.getInheritedDisabled())
-        parentBlock.setDisabled(true);
-    }});
-}
-
-Blockly.Blocks['draw_contours'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Draw Contours")
-        .appendField(new Blockly.FieldColour("#ff0000"), "contour_colour");
-    this.setPreviousStatement(true, "CONTOURS");
-    this.setNextStatement(true, "CONTOURS");
-    this.setColour(45);
- this.setTooltip("Draws the contours into the image.");
- this.setHelpUrl("");
- findContoursWatcher(this);
-  }
-};
-
-Blockly.Blocks['select_contour'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Select the contour with the")
-        .appendField(new Blockly.FieldDropdown([["minimum","mincompare"], ["maximum","maxcompare"]]), "compare")
-        .appendField(new Blockly.FieldDropdown([["area","maxarea"], ["perimeter","maxperimeter"]]), "maxparam");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Set")
-        .appendField(new Blockly.FieldVariable("area"), "areaval")
-        .appendField("to contour's area.");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Set")
-        .appendField(new Blockly.FieldVariable("perimeter"), "perimeterval")
-        .appendField("to contour's perimeter.");
-    this.appendStatementInput("contour_functions")
-        .setCheck("CONTOURS");
-    this.setInputsInline(false);
-    this.setPreviousStatement(true, "CONTOURS");
-    this.setNextStatement(true, "CONTOURS");
-    this.setColour(45);
- this.setTooltip("Selects a single contour from a group");
- this.setHelpUrl("");
- findContoursWatcher(this);
-  }
-};
-
 Blockly.Blocks['load_frame'] = {
   init: function() {
     this.appendDummyInput()
@@ -277,26 +185,6 @@ Blockly.Blocks['store_frame'] = {
   }
 };
 
-Blockly.Blocks['contour_convex_hull'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Convex Hull");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Set hull area to")
-        .appendField(new Blockly.FieldVariable("hullArea"), "CONVEXHULLAREA");
-    this.appendStatementInput("NAME")
-        .setCheck("CONTOURS")
-        .setAlign(Blockly.ALIGN_RIGHT);
-    this.setPreviousStatement(true, "CONTOURS");
-    this.setNextStatement(true, "CONTOURS");
-    this.setColour(45);
- this.setTooltip("Creates a convex hull and calculates the solidity of a contour");
- this.setHelpUrl("");
- findContoursWatcher(this);
-  }
-};
-
 Blockly.Blocks['gamma_correct'] = {
   init: function() {
     this.appendValueInput("gamma")
@@ -310,6 +198,7 @@ Blockly.Blocks['gamma_correct'] = {
  onFrameWatcher(this);
   }
 };
+
 Blockly.Blocks['dilate'] = {
   init: function() {
     this.appendDummyInput()
@@ -479,5 +368,121 @@ Blockly.Blocks['split_image'] = {
  this.setTooltip("Splits the image into RGB channels, places each in an Image variable.");
  this.setHelpUrl("");
  onFrameWatcher(this);
+  }
+};
+
+Blockly.Blocks['image_operation'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Use the current frame and");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField(new Blockly.FieldDropdown([["add","ADDIMAGE"], ["subtract","SUBTRACTIMAGE"], ["AND with","ANDIMAGE"], ["OR with","ORIMAGE"], ["XOR with","XORIMAGE"]]), "OPERATION")
+        .appendField(new Blockly.FieldVariable("storedFrame"), "STOREDFRAME");
+    this.setPreviousStatement(true, "Image");
+    this.setNextStatement(true, "Image");
+    this.setColour(135);
+ this.setTooltip("Perform an arithmetic or logical operation between the current frame and selected image.");
+ this.setHelpUrl("");
+ onFrameWatcher(this);
+  }
+};
+/*----------------------------------------------------------------------------
+ * CONTOURS
+ *----------------------------------------------------------------------------
+ */
+Blockly.Blocks['find_contours'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Find Contours and store in")
+        .appendField(new Blockly.FieldVariable("contours"), "CONTOUR_VAR");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Retrieval Mode")
+        .appendField(new Blockly.FieldDropdown([["External","cv.RETR_EXTERNAL"],
+              ["List","cv.RETR_LIST"],
+              ["Connected Components","cv.RETR_CCOMP"],
+              ["Tree","cv.RETR_TREE"]]), "MODE");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Approximation Method")
+        .appendField(new Blockly.FieldDropdown([["None (all points)","cv.CHAIN_APPROX_NONE"], ["Simple","cv.CHAIN_APPROX_SIMPLE"], ["Teh-Chin Chain Approx (TC89 L1)","cv.CHAIN_APPROX_TC89_L1"], ["Teh-Chin Chain Approx (TC89 KCOS)","cv.CHAIN_APPROX_TC89_KCOS"]]), "METHOD");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "Image");
+    this.setNextStatement(true, "Image");
+    this.setColour(45);
+ this.setTooltip("Finds a list of contours and their hierarchies in the image.");
+ this.setHelpUrl("https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html#findcontours");
+ onFrameWatcher(this);
+  }
+};
+
+Blockly.Blocks['draw_contours'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Draw Contour(s) from")
+        .appendField(new Blockly.FieldVariable("contours"), "CONTOURS")
+        .appendField("in")
+        .appendField(new Blockly.FieldColour("#ff0000"), "contour_colour");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(45);
+ this.setTooltip("Draws the contours into the image.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['contour_convex_hull'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Find the convex hull of the");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("contour in")
+        .appendField(new Blockly.FieldVariable("selected_contour"), "SOURCE_CONTOUR");
+    this.appendDummyInput()
+        .appendField("and save in")
+        .appendField(new Blockly.FieldVariable("convex_hull"), "CONVEX_HULL");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(45);
+ this.setTooltip("Creates a convex hull and calculates the solidity of a contour");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['select_contour'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set")
+        .appendField(new Blockly.FieldVariable("selected_contour"), "SELECTED_CONTOUR")
+        .appendField("to the contour ");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("with the")
+        .appendField(new Blockly.FieldDropdown([["minimum","mincompare"], ["maximum","maxcompare"]]), "compare")
+        .appendField(new Blockly.FieldDropdown([["area","area"]]), "param");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("from the contours in")
+        .appendField(new Blockly.FieldVariable("contours"), "CONTOURS");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(45);
+ this.setTooltip("Selects a single contour from a group");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['contour_area'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Area of ")
+        .appendField(new Blockly.FieldVariable("selected_contour"), "SELECTED_CONTOUR");
+    this.setOutput(true, "Number");
+    this.setColour(45);
+ this.setTooltip("Find the area of the provided contour.");
+ this.setHelpUrl("");
   }
 };

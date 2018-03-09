@@ -82,6 +82,7 @@ workspacePlayground.addChangeListener(onCodeChanged);
 Blockly.Xml.domToWorkspace(document.getElementById('workspaceBlocks'), workspacePlayground);
 document.getElementById('btnImportBlocks').addEventListener("change",onImportBlocks);
 
+
 /** Track average frame processing time */
 var trackFrameTime = function()
 {

@@ -131,23 +131,28 @@
   </category>
   <category name="Contours" colour="#a5935b">
     <block type="find_contours">
+      <field name="CONTOUR_VAR" id="WscstGG102AgBpvLJ1T!" variabletype="">contours</field>
       <field name="MODE">cv.RETR_EXTERNAL</field>
       <field name="METHOD">cv.CHAIN_APPROX_NONE</field>
     </block>
     <block type="draw_contours">
+      <field name="CONTOURS" id="WscstGG102AgBpvLJ1T!" variabletype="">contours</field>
       <field name="contour_colour">#ff0000</field>
     </block>
     <block type="select_contour">
-      <field name="compare">mincompare</field>
-      <field name="maxparam">maxarea</field>
-      <field name="areaval" id="tU[#7s=L6f)vS/+3qD9b" variabletype="">area</field>
-      <field name="perimeterval" id="5R(+a(0vk|l.{O-UOS=@" variabletype="">perimeter</field>
+      <field name="SELECTED_CONTOUR" id="]Qd*L:IU(]y0^T`hk%cU" variabletype="">selected_contour</field>
+      <field name="compare">maxcompare</field>
+      <field name="param">area</field>
+      <field name="CONTOURS" id="WscstGG102AgBpvLJ1T!" variabletype="">contours</field>
     </block>
     <block type="contour_convex_hull">
-      <field name="CONVEXHULLAREA" id="R#Lr%XGHF(q]I`pbfEKt" variabletype="">hullArea</field>
+      <field name="SOURCE_CONTOUR" id="]Qd*L:IU(]y0^T`hk%cU" variabletype="">selected_contour</field>
+      <field name="CONVEX_HULL" id="}2Dhf-!+H%s)Ix45qG6G" variabletype="">convex_hull</field>
+    </block>
+    <block type="contour_area">
+      <field name="SELECTED_CONTOUR" id="]Qd*L:IU(]y0^T`hk%cU" variabletype="">selected_contour</field>
     </block>
   </category>
-  <category name="Image Operators"></category>
   <category name="Utilities" colour="#5ba55b">
     <block type="store_frame">
       <field name="STOREDFRAME" id="KF!N)l;.M;+#fB1b9O|7" variabletype="">storedFrame</field>
@@ -160,6 +165,10 @@
       <field name="GREENIMAGE" id="OPC*8hYUgJVt}*W0lOVB" variabletype="">image_green</field>
       <field name="BLUEIMAGE" id="mtgLh@zoliKLK3IV%:6w" variabletype="">image_blue</field>
       <field name="PIPE_IMAGE">0</field>
+    </block>
+    <block type="image_operation">
+      <field name="OPERATION">ADDIMAGE</field>
+      <field name="STOREDFRAME" id="KF!N)l;.M;+#fB1b9O|7" variabletype="">storedFrame</field>
     </block>
   </category>
   <sep></sep>
@@ -206,21 +215,6 @@
       </value>
     </block>
   </category>
-  <category name="Logic" colour="#5C81A6">
-    <block type="controls_if"></block>
-    <block type="logic_compare">
-      <field name="OP">EQ</field>
-    </block>
-    <block type="logic_operation">
-      <field name="OP">AND</field>
-    </block>
-    <block type="logic_negate"></block>
-    <block type="logic_boolean">
-      <field name="BOOL">TRUE</field>
-    </block>
-    <block type="logic_null"></block>
-    <block type="logic_ternary"></block>
-  </category>
   <category name="Loops" colour="#5CA65C">
     <block type="controls_repeat_ext">
       <value name="TIMES">
@@ -253,8 +247,76 @@
     <block type="controls_forEach">
       <field name="VAR" id="n,GtVh6JcLb_=agFH+r)" variabletype="">j</field>
     </block>
-    <block type="controls_flow_statements">
+    <block type="controls_flow_statements" disabled="true">
       <field name="FLOW">BREAK</field>
+    </block>
+  </category>
+  <category name="Lists" colour="#745CA6">
+    <block type="lists_create_with">
+      <mutation items="3"></mutation>
+    </block>
+    <block type="lists_indexOf">
+      <field name="END">FIRST</field>
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR" id="ZH%H5l}mf/zz?g-zwJ/N" variabletype="">list</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_repeat">
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">5</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="lists_length"></block>
+    <block type="lists_isEmpty"></block>
+    <block type="lists_create_with">
+      <mutation items="0"></mutation>
+    </block>
+    <block type="lists_getIndex">
+      <mutation statement="false" at="true"></mutation>
+      <field name="MODE">GET</field>
+      <field name="WHERE">FROM_START</field>
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR" id="ZH%H5l}mf/zz?g-zwJ/N" variabletype="">list</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_setIndex">
+      <mutation at="true"></mutation>
+      <field name="MODE">SET</field>
+      <field name="WHERE">FROM_START</field>
+      <value name="LIST">
+        <block type="variables_get">
+          <field name="VAR" id="ZH%H5l}mf/zz?g-zwJ/N" variabletype="">list</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_getSublist">
+      <mutation at1="true" at2="true"></mutation>
+      <field name="WHERE1">FROM_START</field>
+      <field name="WHERE2">FROM_START</field>
+      <value name="LIST">
+        <block type="variables_get">
+          <field name="VAR" id="ZH%H5l}mf/zz?g-zwJ/N" variabletype="">list</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_split">
+      <mutation mode="SPLIT"></mutation>
+      <field name="MODE">SPLIT</field>
+      <value name="DELIM">
+        <shadow type="text">
+          <field name="TEXT">,</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="lists_sort">
+      <field name="TYPE">NUMERIC</field>
+      <field name="DIRECTION">1</field>
     </block>
   </category>
   <category name="Math" colour="#5C68A6">
@@ -357,73 +419,20 @@
     </block>
     <block type="math_random_float"></block>
   </category>
-  <category name="Lists" colour="#745CA6">
-    <block type="lists_indexOf">
-      <field name="END">FIRST</field>
-      <value name="VALUE">
-        <block type="variables_get">
-          <field name="VAR" id="ZH%H5l}mf/zz?g-zwJ/N" variabletype="">list</field>
-        </block>
-      </value>
+  <category name="Logic" colour="#5C81A6">
+    <block type="controls_if"></block>
+    <block type="logic_compare">
+      <field name="OP">EQ</field>
     </block>
-    <block type="lists_create_with">
-      <mutation items="0"></mutation>
+    <block type="logic_operation">
+      <field name="OP">AND</field>
     </block>
-    <block type="lists_repeat">
-      <value name="NUM">
-        <shadow type="math_number">
-          <field name="NUM">5</field>
-        </shadow>
-      </value>
+    <block type="logic_negate"></block>
+    <block type="logic_boolean">
+      <field name="BOOL">TRUE</field>
     </block>
-    <block type="lists_length"></block>
-    <block type="lists_isEmpty"></block>
-    <block type="lists_create_with">
-      <mutation items="3"></mutation>
-    </block>
-    <block type="lists_getIndex">
-      <mutation statement="false" at="true"></mutation>
-      <field name="MODE">GET</field>
-      <field name="WHERE">FROM_START</field>
-      <value name="VALUE">
-        <block type="variables_get">
-          <field name="VAR" id="ZH%H5l}mf/zz?g-zwJ/N" variabletype="">list</field>
-        </block>
-      </value>
-    </block>
-    <block type="lists_setIndex">
-      <mutation at="true"></mutation>
-      <field name="MODE">SET</field>
-      <field name="WHERE">FROM_START</field>
-      <value name="LIST">
-        <block type="variables_get">
-          <field name="VAR" id="ZH%H5l}mf/zz?g-zwJ/N" variabletype="">list</field>
-        </block>
-      </value>
-    </block>
-    <block type="lists_getSublist">
-      <mutation at1="true" at2="true"></mutation>
-      <field name="WHERE1">FROM_START</field>
-      <field name="WHERE2">FROM_START</field>
-      <value name="LIST">
-        <block type="variables_get">
-          <field name="VAR" id="ZH%H5l}mf/zz?g-zwJ/N" variabletype="">list</field>
-        </block>
-      </value>
-    </block>
-    <block type="lists_split">
-      <mutation mode="SPLIT"></mutation>
-      <field name="MODE">SPLIT</field>
-      <value name="DELIM">
-        <shadow type="text">
-          <field name="TEXT">,</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="lists_sort">
-      <field name="TYPE">NUMERIC</field>
-      <field name="DIRECTION">1</field>
-    </block>
+    <block type="logic_null"></block>
+    <block type="logic_ternary"></block>
   </category>
   <category name="Variables" colour="#A65C81" custom="VARIABLE"></category>
   <category name="Functions" colour="#9A5CA6" custom="PROCEDURE"></category>

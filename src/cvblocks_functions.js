@@ -132,139 +132,6 @@ function cvblocks_gamma_correct(gamma)
 }
 
 
-function cvblocks_find_contours(mode, method)
-{
-  if (!gCVBC.insideOnFrame)
-    return null;
-
-  gCVBC.beginProcessStep("Find Contours");
-
-  // Copy in the original  frame to current - we're not otherwise setting
-  // the current frame by the find itself - but the source frame
-  // would look prettier than what we likely have if we're drawing
-  // contours on it.
-  gCVBC.srcFrame.copyTo(gCVBC.curFrame);
-
-  // find contours only works on 8UC1 images, so convert to that.
-  cv.cvtColor(gCVBC.prevFrame, gCVBC.grayFrame, cv.COLOR_RGB2GRAY, 0);
-
-  var contour_info = {contours: new cv.MatVector(),
-                       hierarchy: new cv.Mat()};
-
-  cv.findContours(gCVBC.grayFrame,
-                  contour_info.contours,
-                  contour_info.hierarchy,
-                  mode,
-                  method);
-
-  // Note - no endProcessStep because there's a second function here.
-  return contour_info;
-}
-
-function cvblocks_draw_contours(contour_info, contour_colour)
-{
-  if (!gCVBC.insideOnFrame)
-    return;
-
-  if ((contour_info == undefined) || (contour_info == null))
-    return;
-
-  var tmpColor = tinycolor(contour_colour);
-  var rgb = tmpColor.toRgb();
-  var color = new cv.Scalar(rgb.r,rgb.g,rgb.b,255);
-  try {
-    cv.drawContours(gCVBC.curFrame, contour_info.contours,
-                    -1, color, 1, cv.LINE_8,
-                    contour_info.hierarchy);
-
-  } catch (e)
-  {
-     console.log('error: '+e);
-     if (gCVBC.debug)
-      throw(e);
-  }
-}
-
-function cvblocks_end_contours(contour_info)
-{
-  if (!gCVBC.insideOnFrame)
-    return;
-
-    contour_info.contours.delete();
-    contour_info.hierarchy.delete();
-  gCVBC.endProcessStep(true);
-}
-
-function cvblocks_select_contour(contour_info, compare, maxparam, areaval, perimeterval)
-{
-  if (!gCVBC.insideOnFrame)
-    return;
-
-  var selectedIndex = -1;
-
-  contour_info.area = 0;
-  let maxArea = 0;
-  if (contour_info.contours.size())
-  {
-    selectedIndex = 0;
-    maxArea = cv.contourArea(contour_info.contours.get(0));
-
-    for (let i = 1; i < contour_info.contours.size(); ++i)
-    {
-      let curArea = cv.contourArea(contour_info.contours.get(i));
-      if (curArea > maxArea)
-      {
-        maxArea = curArea;
-        // perimeterval =
-        selectedIndex = i;
-      }
-    }
-  }
-  contour_info.area = maxArea;
-
-  var selectedContours = new cv.MatVector();
-  var selectedHierarchy = new cv.Mat();
-
-  if (selectedIndex >= 0)
-    selectedContours.push_back(contour_info.contours.get(selectedIndex));
-
-  // TODO: We will actually want contour_info to be a stack eventually,
-  //       so that we can push a new pair on and pop it off to Restore
-  //       the original contours to blocks proceeding us.
-  contour_info.contours.delete();
-  contour_info.hierarchy.delete();
-
-  contour_info.contours = selectedContours;
-  contour_info.hierarchy = selectedHierarchy;
-
-  return contour_info;
-}
-
-function cvblocks_convex_hull(contour_info)
-{
-  if (!gCVBC.insideOnFrame)
-    return;
-
-  var hull = new cv.Mat();
-  var hullHierarchy = new cv.Mat();
-  var hullArray = new cv.MatVector();
-
-  contour_info.hullArea = 0;
-  if (contour_info.contours.size())
-  {
-    cv.convexHull(contour_info.contours.get(0), hull, false, true);
-    contour_info.hullArea = cv.contourArea(hull, false);
-    hullArray.push_back(hull);
-  }
-
-  contour_info.contours.delete();
-  contour_info.hierarchy.delete();
-
-  contour_info.contours = hullArray;
-  contour_info.hierarchy = hullHierarchy;
-}
-
-
 function cvblocks_load_frame(storedFrame)
 {
   if (!gCVBC.insideOnFrame)
@@ -453,4 +320,137 @@ function cvblocks_background_subtractor(bg_subtractor)
 
   gCVBC.endProcessStep();
 
+}
+
+/*----------------------------------------------------------------------------
+ * CONTOURS
+ *----------------------------------------------------------------------------
+ */
+
+function cvblocks_find_contours(mode, method)
+{
+  if (!gCVBC.insideOnFrame)
+    return null;
+
+  gCVBC.beginProcessStep("Find Contours");
+
+  // Copy in the original  frame to current - we're not otherwise setting
+  // the current frame by the find itself - but the source frame
+  // would look prettier than what we likely have if we're drawing
+  // contours on it.
+  gCVBC.prevFrame.copyTo(gCVBC.curFrame);
+
+  // find contours only works on 8UC1 images, so convert to that.
+  cv.cvtColor(gCVBC.prevFrame, gCVBC.grayFrame, cv.COLOR_RGB2GRAY, 0);
+
+  var found_contours = new cv.MatVector();
+  var hierarchy = new cv.Mat();
+
+  cv.findContours(gCVBC.grayFrame,
+                  found_contours,
+                  hierarchy,
+                  mode,
+                  method);
+
+  hierarchy.delete();
+
+  gCVBC.endProcessStep();
+
+  return found_contours;
+}
+
+function cvblocks_draw_contours(contours, contour_colour)
+{
+  if (!gCVBC.insideOnFrame)
+    return;
+
+  if (undefined == contours)
+    return;
+
+  gCVBC.beginProcessStep("Draw Contours");
+  gCVBC.prevFrame.copyTo(gCVBC.curFrame);
+
+  var tmpColor = tinycolor(contour_colour);
+  var rgb = tmpColor.toRgb();
+  var color = new cv.Scalar(rgb.r,rgb.g,rgb.b,255);
+  try
+  {
+    cv.drawContours(gCVBC.curFrame, contours,
+                    -1, color, 1, cv.LINE_8);
+  }
+  catch (e)
+  {
+     console.log('error: '+e);
+     if (gCVBC.debug)
+      throw(e);
+  }
+
+  gCVBC.endProcessStep();
+}
+
+function cvblocks_select_contour(contours, compare, param)
+{
+  var selectedIndex = -1;
+  let selectedParam = 0;
+
+  if (undefined == contours)
+    return undefined;
+
+  if (contours.size())
+  {
+    selectedIndex = 0;
+    selectedParam = cv.contourArea(contours.get(0));
+
+    for (let i = 1; i < contours.size(); ++i)
+    {
+      var curParam;
+
+      if (param == "area")
+        curParam = cv.contourArea(contours.get(i));
+
+      if (   ((compare == "maxcompare") && (curParam > selectedParam))
+          || ((compare == "mincompare") && (curParam < selectedParam)) )
+      {
+        selectedParam = curParam;
+        selectedIndex = i;
+      }
+    }
+  }
+
+  var selectedContours = new cv.MatVector();
+
+  if (selectedIndex >= 0)
+    selectedContours.push_back(contours.get(selectedIndex));
+
+  return selectedContours;
+}
+
+function cvblocks_convex_hull(contours)
+{
+  if (!gCVBC.insideOnFrame)
+    return;
+
+  if (undefined == contours)
+    return undefined;
+
+  var hullArray = new cv.MatVector();
+
+  if (contours.size())
+  {
+    var hull = new cv.Mat();
+    cv.convexHull(contours.get(0), hull, false, true);
+    hullArray.push_back(hull);
+  }
+  return hullArray;
+}
+
+function cvblocks_contour_area(selectedContours)
+{
+  if (undefined == selectedContours)
+    return 0;
+
+  if (selectedContours.size() == 0)
+    return 0;
+
+  return cv.contourArea(selectedContours.get(0));
 }

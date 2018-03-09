@@ -59,21 +59,12 @@ def generate_index():
                     filters.append(curNode)
                 if curNode.get('name') in coreSet:
                     core.append(curNode)
-                # self-closed category tags break blockly
-                if len(curNode) == 0:
-                    emptyNodes = ['Variables','Functions']
-                    if curNode.get('name') not in emptyNodes:
-                        fixupnodes.append(curNode)
-
-            for curNode in fixupnodes:
-                print("Warning! Category (" + curNode.get('name') + ") is empty! Blockly doesn't like these, removing.")
-                curNode.getparent().remove(curNode)
 
             outputTree = etree.tostring(tree, pretty_print=True)
 
-            # self-closed sep tag breaks Blockly.
-            outputTree = outputTree.replace("<sep/>","<sep></sep>");
-
+            # self-closed tags break Blockly.  Add closing tags. This one gets full tags...
+            outputTree = re.sub(r'<([^/>\s]*)\s+([^/>]*)/>',r'<\1 \2></\1>',outputTree)
+            outputTree = re.sub(r'<([^/>\s]*)/>',r'<\1></\1>',outputTree)
             output.write(outputTree);
 
         elif '<!-- begin Blockly workspace -->' in line:

@@ -413,14 +413,20 @@
   </block><block type="factory_base" id="lmHPFkWwG;llg1QlS($A" x="0" y="0">
     <mutation connections="BOTH"></mutation>
     <field name="NAME">find_contours</field>
-    <field name="INLINE">AUTO</field>
+    <field name="INLINE">EXT</field>
     <field name="CONNECTIONS">BOTH</field>
     <statement name="INPUTS">
       <block type="input_dummy" id="-#$~%b^v`bErq;BQztfs">
         <field name="ALIGN">LEFT</field>
         <statement name="FIELDS">
           <block type="field_static" id="H]JHGNavI$_d|NfGlCB]">
-            <field name="TEXT">Find Contours</field>
+            <field name="TEXT">Find Contours and store in</field>
+            <next>
+              <block type="field_variable" id="uJ(U*z1;C{5wTKx9U?`.">
+                <field name="TEXT">contours</field>
+                <field name="FIELDNAME">CONTOUR_VAR</field>
+              </block>
+            </next>
           </block>
         </statement>
         <next>
@@ -467,17 +473,6 @@
                     </next>
                   </block>
                 </statement>
-                <next>
-                  <block type="input_statement" id="**grZT0|8$r,7~{wbrpm">
-                    <field name="INPUTNAME">CONTOURS</field>
-                    <field name="ALIGN">RIGHT</field>
-                    <value name="TYPE">
-                      <block type="type_other" id="U]1=WOs{V%km(kUFxDi$">
-                        <field name="TYPE">CONTOURS</field>
-                      </block>
-                    </value>
-                  </block>
-                </next>
               </block>
             </next>
           </block>
@@ -495,13 +490,15 @@
       </block>
     </value>
     <value name="TOPTYPE">
-      <block type="type_other" id="PavDB@|:}V823=)b/*;A">
-        <field name="TYPE">CONTOURS</field>
+      <shadow type="type_null" id="_TPq~Gj?5?f^[EQ._MJt"></shadow>
+      <block type="type_other" id="1c{`ipL@zPuA|H:U*upB">
+        <field name="TYPE">Image</field>
       </block>
     </value>
     <value name="BOTTOMTYPE">
-      <block type="type_other" id="1c{`ipL@zPuA|H:U*upB">
-        <field name="TYPE">CONTOURS</field>
+      <shadow type="type_null" id="!gEXyNkRbUBWe+PQ/p($"></shadow>
+      <block type="type_other" id="(8*f)vz)RmH-g-v;4Al1">
+        <field name="TYPE">Image</field>
       </block>
     </value>
     <value name="COLOUR">
@@ -520,11 +517,22 @@
         <field name="ALIGN">LEFT</field>
         <statement name="FIELDS">
           <block type="field_static" id="R5CrsHfW*}5#[KjSiwxv">
-            <field name="TEXT">Draw Contours</field>
+            <field name="TEXT">Draw Contour(s) from</field>
             <next>
-              <block type="field_colour" id=".gL=FC~%!Z2$?l}n8M)l">
-                <field name="COLOUR">#ff0000</field>
-                <field name="FIELDNAME">contour_colour</field>
+              <block type="field_variable" id="4iN0t~O(HUh=IUKSP[+i">
+                <field name="TEXT">contours</field>
+                <field name="FIELDNAME">CONTOURS</field>
+                <next>
+                  <block type="field_static" id="93)ClQ(UJV:jY_`$L2SH">
+                    <field name="TEXT">in</field>
+                    <next>
+                      <block type="field_colour" id=".gL=FC~%!Z2$?l}n8M)l">
+                        <field name="COLOUR">#ff0000</field>
+                        <field name="FIELDNAME">contour_colour</field>
+                      </block>
+                    </next>
+                  </block>
+                </next>
               </block>
             </next>
           </block>
@@ -539,16 +547,6 @@
     <value name="HELPURL">
       <block type="text" id="Fjpj^$XA`)F[}Mre61r*">
         <field name="TEXT"></field>
-      </block>
-    </value>
-    <value name="TOPTYPE">
-      <block type="type_other" id="!}-(#V,:CF[q:`;(N;T/">
-        <field name="TYPE">CONTOURS</field>
-      </block>
-    </value>
-    <value name="BOTTOMTYPE">
-      <block type="type_other" id="2-VA?$r]3!D_5$qFBcjO">
-        <field name="TYPE">CONTOURS</field>
       </block>
     </value>
     <value name="COLOUR">
@@ -661,32 +659,37 @@
         <field name="ALIGN">LEFT</field>
         <statement name="FIELDS">
           <block type="field_static" id="Lk)s7Q9LnrC=G?{eVmHU">
-            <field name="TEXT">Convex Hull</field>
+            <field name="TEXT">Find the convex hull of the</field>
           </block>
         </statement>
         <next>
           <block type="input_dummy" id="P?RQ|^Yr=uEZ?$IQ1052">
             <field name="ALIGN">RIGHT</field>
             <statement name="FIELDS">
-              <block type="field_static" id="%c:kdNS_Ws5m}A98E5{3">
-                <field name="TEXT">Set hull area to</field>
+              <block type="field_static" id="q/y]n)bb*,x;aEszpgF~">
+                <field name="TEXT">contour in</field>
                 <next>
-                  <block type="field_variable" id="pr95JHko#DK(~j},TjM}">
-                    <field name="TEXT">hullArea</field>
-                    <field name="FIELDNAME">CONVEXHULLAREA</field>
+                  <block type="field_variable" id="]Cd9|ZlXyD?hU4v|a%P4">
+                    <field name="TEXT">selected_contour</field>
+                    <field name="FIELDNAME">SOURCE_CONTOUR</field>
                   </block>
                 </next>
               </block>
             </statement>
             <next>
-              <block type="input_statement" id="iCY+bu:[8Sgw^a_xNz77">
-                <field name="INPUTNAME">NAME</field>
-                <field name="ALIGN">RIGHT</field>
-                <value name="TYPE">
-                  <block type="type_other" id="l4D2l0HpvnWQYB?cXSbQ">
-                    <field name="TYPE">CONTOURS</field>
+              <block type="input_dummy" id="ZS;m$nhtGAKUkkn:4F:d">
+                <field name="ALIGN">LEFT</field>
+                <statement name="FIELDS">
+                  <block type="field_static" id="?0;;.Rn1M?H_fNlnV[M(">
+                    <field name="TEXT">and save in</field>
+                    <next>
+                      <block type="field_variable" id="e0.hDHc}2oCjnkbA)ny+">
+                        <field name="TEXT">convex_hull</field>
+                        <field name="FIELDNAME">CONVEX_HULL</field>
+                      </block>
+                    </next>
                   </block>
-                </value>
+                </statement>
               </block>
             </next>
           </block>
@@ -701,16 +704,6 @@
     <value name="HELPURL">
       <block type="text" id="{/^a.~z*r2uneBD{|1%F">
         <field name="TEXT"></field>
-      </block>
-    </value>
-    <value name="TOPTYPE">
-      <block type="type_other" id="JqsKeg*6EOu6oA/;oqpq">
-        <field name="TYPE">CONTOURS</field>
-      </block>
-    </value>
-    <value name="BOTTOMTYPE">
-      <block type="type_other" id=".bQXl?i|3JQ[:~3U?ZF(">
-        <field name="TYPE">CONTOURS</field>
       </block>
     </value>
     <value name="COLOUR">
@@ -729,23 +722,14 @@
         <field name="ALIGN">LEFT</field>
         <statement name="FIELDS">
           <block type="field_static" id="xE:Lgga}_=nnuc;Y`|c!">
-            <field name="TEXT">Select the contour with the</field>
+            <field name="TEXT">Set</field>
             <next>
-              <block type="field_dropdown" id="E;.:.@B7Q@MQH2;K.%!x">
-                <mutation options="[&quot;text&quot;,&quot;text&quot;]"></mutation>
-                <field name="FIELDNAME">compare</field>
-                <field name="USER0">minimum</field>
-                <field name="CPU0">mincompare</field>
-                <field name="USER1">maximum</field>
-                <field name="CPU1">maxcompare</field>
+              <block type="field_variable" id="ip+OhR)r`rwts)gvQhSQ">
+                <field name="TEXT">selected_contour</field>
+                <field name="FIELDNAME">SELECTED_CONTOUR</field>
                 <next>
-                  <block type="field_dropdown" id="tA=yqFWW?FNiJ*Xws{0z">
-                    <mutation options="[&quot;text&quot;,&quot;text&quot;]"></mutation>
-                    <field name="FIELDNAME">maxparam</field>
-                    <field name="USER0">area</field>
-                    <field name="CPU0">maxarea</field>
-                    <field name="USER1">perimeter</field>
-                    <field name="CPU1">maxperimeter</field>
+                  <block type="field_static" id="+M{oC?AGbqQ7nl3~(U$@">
+                    <field name="TEXT">to the contour </field>
                   </block>
                 </next>
               </block>
@@ -753,18 +737,25 @@
           </block>
         </statement>
         <next>
-          <block type="input_dummy" id="GrC_Pd3w#[ZI8Mn@,3c3">
+          <block type="input_dummy" id="_IW8UuR9_|_`;Fj7e3VN">
             <field name="ALIGN">RIGHT</field>
             <statement name="FIELDS">
-              <block type="field_static" id="]3q!8Q^=m6wbr3cBIB#;">
-                <field name="TEXT">Set</field>
+              <block type="field_static" id="iK;+X(^FVnH^2P0Csd{g">
+                <field name="TEXT">with the</field>
                 <next>
-                  <block type="field_variable" id="#A|oF-+Rt{WLr6+pkP{E">
-                    <field name="TEXT">area</field>
-                    <field name="FIELDNAME">areaval</field>
+                  <block type="field_dropdown" id="E;.:.@B7Q@MQH2;K.%!x">
+                    <mutation options="[&quot;text&quot;,&quot;text&quot;]"></mutation>
+                    <field name="FIELDNAME">compare</field>
+                    <field name="USER0">minimum</field>
+                    <field name="CPU0">mincompare</field>
+                    <field name="USER1">maximum</field>
+                    <field name="CPU1">maxcompare</field>
                     <next>
-                      <block type="field_static" id="D*6s=*C?G)BJoL[aGB$/">
-                        <field name="TEXT">to contour's area.</field>
+                      <block type="field_dropdown" id="tA=yqFWW?FNiJ*Xws{0z">
+                        <mutation options="[&quot;text&quot;]"></mutation>
+                        <field name="FIELDNAME">param</field>
+                        <field name="USER0">area</field>
+                        <field name="CPU0">area</field>
                       </block>
                     </next>
                   </block>
@@ -772,35 +763,19 @@
               </block>
             </statement>
             <next>
-              <block type="input_dummy" id="qv/Aq6sjTSfqtp$sy1e;">
+              <block type="input_dummy" id="L9z[PzYj0z.MKZ:;*~$z">
                 <field name="ALIGN">RIGHT</field>
                 <statement name="FIELDS">
-                  <block type="field_static" id="xcW_oqY*}(~1AZy:LApd">
-                    <field name="TEXT">Set</field>
+                  <block type="field_static" id="^Z1T`5XQq:VV%YQUGO9W">
+                    <field name="TEXT">from the contours in</field>
                     <next>
-                      <block type="field_variable" id="YKU)9{iSmE(OLC*Y=#MQ">
-                        <field name="TEXT">perimeter</field>
-                        <field name="FIELDNAME">perimeterval</field>
-                        <next>
-                          <block type="field_static" id="UAWHhHhV|uF$s}g2X6yt">
-                            <field name="TEXT">to contour's perimeter.</field>
-                          </block>
-                        </next>
+                      <block type="field_variable" id="N]l)AbG;x=hz[;zAS_V4">
+                        <field name="TEXT">contours</field>
+                        <field name="FIELDNAME">CONTOURS</field>
                       </block>
                     </next>
                   </block>
                 </statement>
-                <next>
-                  <block type="input_statement" id="be]ygBDe$W3`j8f8BH%^">
-                    <field name="INPUTNAME">contour_functions</field>
-                    <field name="ALIGN">LEFT</field>
-                    <value name="TYPE">
-                      <block type="type_other" id="q#yAD0vS7MFP:!!tSQww">
-                        <field name="TYPE">CONTOURS</field>
-                      </block>
-                    </value>
-                  </block>
-                </next>
               </block>
             </next>
           </block>
@@ -1679,6 +1654,175 @@
     </value>
     <value name="COLOUR">
       <block type="colour_hue" id="fQIB~4gOal0YrI3/fpGi">
+        <mutation colour="#5ba56d"></mutation>
+        <field name="HUE">135</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="znsu{hd*^pmwhb;v01(7" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">image_arithmetic</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="x2~Yc6dM;*ASo1zYf}7.">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_variable" id="RjnK9WC:]8|C!+?98dqd">
+            <field name="TEXT">item</field>
+            <field name="FIELDNAME">NAME</field>
+            <next>
+              <block type="field_dropdown" id="YYt)kp`iMhP6=dBvp{3y">
+                <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"></mutation>
+                <field name="FIELDNAME">OPERATION</field>
+                <field name="USER0">&amp;</field>
+                <field name="CPU0">AND</field>
+                <field name="USER1">|</field>
+                <field name="CPU1">OR</field>
+                <field name="USER2">+</field>
+                <field name="CPU2">ADD</field>
+                <field name="USER3">-</field>
+                <field name="CPU3">SUBTRACT</field>
+                <next>
+                  <block type="field_variable" id="7zsxg6.V]-E}5*6_q18i">
+                    <field name="TEXT">item</field>
+                    <field name="FIELDNAME">NAME</field>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="ow-sG%dIgiv*oGh@+Yw!" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="VU[cBkI)8_.D-d0s$FnA" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="zG~*hPG.#(n8^fxc~CH9"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="HbvQ%6q_okng2ZS{d.}7"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="},tB:Dl9!s.bG|Q+*{u[">
+        <mutation colour="#5b67a5"></mutation>
+        <field name="HUE">230</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="]0-CIz4n50ddT|I8CcJ~" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="LEFT"></mutation>
+    <field name="NAME">contour_area</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">LEFT</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="()j(8hQ(lTFGdc.4hXF=">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="cmbH4!S|n;^#jYc|W}z`">
+            <field name="TEXT">Area of </field>
+            <next>
+              <block type="field_variable" id="H!zkjq1ZKoga`L*D:aFX">
+                <field name="TEXT">selected_contour</field>
+                <field name="FIELDNAME">SELECTED_CONTOUR</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="8K)`r:V]@3ZnL}3Gx}-h" deletable="false" movable="false">
+        <field name="TEXT">Find the area of the provided contour.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="{n67UX8M9q7)TPY;y|4z" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="OUTPUTTYPE">
+      <shadow type="type_null" id="{M,,ZoytG~.C`Iy`n?tY"></shadow>
+      <block type="type_number" id="e/_WzrVU_KS]ADP7OvZ9"></block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="kKR4UZGPduSJzJ!{|nk0">
+        <mutation colour="#a5935b"></mutation>
+        <field name="HUE">45</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="Vkt1u{Jg1]5vvc=*#0xp" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">image_operation</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="MV]avy4Vnz1zDSJ4=GqD">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="qON:ddB`^gl;-E+At@kT">
+            <field name="TEXT">Use the current frame and</field>
+          </block>
+        </statement>
+        <next>
+          <block type="input_dummy" id=",4,cDSdRtv+~P-XNu40q">
+            <field name="ALIGN">RIGHT</field>
+            <statement name="FIELDS">
+              <block type="field_dropdown" id=":N0L|F5{=S(AFedBr7qP">
+                <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"></mutation>
+                <field name="FIELDNAME">OPERATION</field>
+                <field name="USER0">add</field>
+                <field name="CPU0">ADDIMAGE</field>
+                <field name="USER1">subtract</field>
+                <field name="CPU1">SUBTRACTIMAGE</field>
+                <field name="USER2">AND with</field>
+                <field name="CPU2">ANDIMAGE</field>
+                <field name="USER3">OR with</field>
+                <field name="CPU3">ORIMAGE</field>
+                <field name="USER4">XOR with</field>
+                <field name="CPU4">XORIMAGE</field>
+                <next>
+                  <block type="field_variable" id="B2w-~0*rc_i!Y`e#KTpJ">
+                    <field name="TEXT">storedFrame</field>
+                    <field name="FIELDNAME">STOREDFRAME</field>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="h:tn-4#d4~Q,G#vu+Txd" deletable="false" movable="false">
+        <field name="TEXT">Perform an arithmetic or logical operation between the current frame and selected image.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="cwJOJlP{?zOiSJm/_vxh" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="kaUIuZ%yH^anKEIWcEQp"></shadow>
+      <block type="type_other" id=")1;d%5PVJeh9pkf=B;/i">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="ie2zfPOFlqBGVdxXA@)D"></shadow>
+      <block type="type_other" id=";PWr9U|8|Wnr=f;O1Nf|">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="u@G{J=*g~XzZKfG(k%T)">
         <mutation colour="#5ba56d"></mutation>
         <field name="HUE">135</field>
       </block>
