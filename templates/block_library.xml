@@ -1553,86 +1553,47 @@
         <field name="ALIGN">LEFT</field>
         <statement name="FIELDS">
           <block type="field_static" id=":dt|T{gS@;?{L[MQ,bUB">
-            <field name="TEXT">Split image into color channels.</field>
+            <field name="TEXT">Split image into channels.</field>
           </block>
         </statement>
         <next>
-          <block type="input_dummy" id="siuFZS=b6o47)G7](kU6">
+          <block type="input_dummy" id="{;9I`xZ8_@?+F2OQ7r=(">
             <field name="ALIGN">RIGHT</field>
             <statement name="FIELDS">
-              <block type="field_static" id="VQeC7:H-7s`.[RLA!@TA">
-                <field name="TEXT">Red Channel</field>
+              <block type="field_static" id="V9CLyimdCb4TVW[ckY-=">
+                <field name="TEXT">Place</field>
                 <next>
-                  <block type="field_variable" id="W;sdb_@0alj!BOsiyP:f">
-                    <field name="TEXT">image_red</field>
-                    <field name="FIELDNAME">REDIMAGE</field>
+                  <block type="field_dropdown" id="!+ixiZ*vg;$v2dbm_Md-">
+                    <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"></mutation>
+                    <field name="FIELDNAME">PIPE_IMAGE</field>
+                    <field name="USER0">red</field>
+                    <field name="CPU0">gCVBC_CONST.split_red</field>
+                    <field name="USER1">green</field>
+                    <field name="CPU1">gCVBC_CONST.split_green</field>
+                    <field name="USER2">blue</field>
+                    <field name="CPU2">gCVBC_CONST.split_blue</field>
+                    <field name="USER3">hue</field>
+                    <field name="CPU3">gCVBC_CONST.split_hue</field>
+                    <field name="USER4">saturation</field>
+                    <field name="CPU4">gCVBC_CONST.split_saturation</field>
+                    <field name="USER5">value</field>
+                    <field name="CPU5">gCVBC_CONST.split_value</field>
+                    <next>
+                      <block type="field_static" id="z9/b_z^Ea2*,Zmb2vB2{">
+                        <field name="TEXT">in pipeline.</field>
+                      </block>
+                    </next>
                   </block>
                 </next>
               </block>
             </statement>
-            <next>
-              <block type="input_dummy" id="wYOX#U7NHZ7e6pRj;1QF">
-                <field name="ALIGN">RIGHT</field>
-                <statement name="FIELDS">
-                  <block type="field_static" id="@}h0fVi`Q4E$$OcIv!]1">
-                    <field name="TEXT">Green Channel</field>
-                    <next>
-                      <block type="field_variable" id="G+~@k-x*R9]@|Nn~HT4?">
-                        <field name="TEXT">image_green</field>
-                        <field name="FIELDNAME">GREENIMAGE</field>
-                      </block>
-                    </next>
-                  </block>
-                </statement>
-                <next>
-                  <block type="input_dummy" id="6O#hRw+2}.2v-Ln,T2zx">
-                    <field name="ALIGN">RIGHT</field>
-                    <statement name="FIELDS">
-                      <block type="field_static" id="M=%C,G?2Y,VwRcC[cz0U">
-                        <field name="TEXT">Blue Channel</field>
-                        <next>
-                          <block type="field_variable" id=".Jv9GEn+z/j`!7_@Rwy,">
-                            <field name="TEXT">image_blue</field>
-                            <field name="FIELDNAME">BLUEIMAGE</field>
-                          </block>
-                        </next>
-                      </block>
-                    </statement>
-                    <next>
-                      <block type="input_dummy" id="6s58IwX,$@$mvkae[`VZ">
-                        <field name="ALIGN">RIGHT</field>
-                        <statement name="FIELDS">
-                          <block type="field_static" id="^}sBpFzlf!Ua[l[^jd/v">
-                            <field name="TEXT">Set pipeline to</field>
-                            <next>
-                              <block type="field_dropdown" id="!+ixiZ*vg;$v2dbm_Md-">
-                                <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"></mutation>
-                                <field name="FIELDNAME">PIPE_IMAGE</field>
-                                <field name="USER0">input</field>
-                                <field name="CPU0">0</field>
-                                <field name="USER1">red</field>
-                                <field name="CPU1">1</field>
-                                <field name="USER2">green</field>
-                                <field name="CPU2">2</field>
-                                <field name="USER3">blue</field>
-                                <field name="CPU3">3</field>
-                              </block>
-                            </next>
-                          </block>
-                        </statement>
-                      </block>
-                    </next>
-                  </block>
-                </next>
-              </block>
-            </next>
           </block>
         </next>
       </block>
     </statement>
     <value name="TOOLTIP">
       <block type="text" id=":,l?b+xEhtIG5Njz-Dt1" deletable="false" movable="false">
-        <field name="TEXT">Splits the image into RGB channels, places each in an Image variable.</field>
+        <field name="TEXT">Splits out the image channels and places the selected one in the pipeline.</field>
       </block>
     </value>
     <value name="HELPURL">
@@ -1656,64 +1617,6 @@
       <block type="colour_hue" id="fQIB~4gOal0YrI3/fpGi">
         <mutation colour="#5ba56d"></mutation>
         <field name="HUE">135</field>
-      </block>
-    </value>
-  </block><block type="factory_base" id="znsu{hd*^pmwhb;v01(7" deletable="false" movable="false" x="0" y="0">
-    <mutation connections="BOTH"></mutation>
-    <field name="NAME">image_arithmetic</field>
-    <field name="INLINE">AUTO</field>
-    <field name="CONNECTIONS">BOTH</field>
-    <statement name="INPUTS">
-      <block type="input_dummy" id="x2~Yc6dM;*ASo1zYf}7.">
-        <field name="ALIGN">LEFT</field>
-        <statement name="FIELDS">
-          <block type="field_variable" id="RjnK9WC:]8|C!+?98dqd">
-            <field name="TEXT">item</field>
-            <field name="FIELDNAME">NAME</field>
-            <next>
-              <block type="field_dropdown" id="YYt)kp`iMhP6=dBvp{3y">
-                <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"></mutation>
-                <field name="FIELDNAME">OPERATION</field>
-                <field name="USER0">&amp;</field>
-                <field name="CPU0">AND</field>
-                <field name="USER1">|</field>
-                <field name="CPU1">OR</field>
-                <field name="USER2">+</field>
-                <field name="CPU2">ADD</field>
-                <field name="USER3">-</field>
-                <field name="CPU3">SUBTRACT</field>
-                <next>
-                  <block type="field_variable" id="7zsxg6.V]-E}5*6_q18i">
-                    <field name="TEXT">item</field>
-                    <field name="FIELDNAME">NAME</field>
-                  </block>
-                </next>
-              </block>
-            </next>
-          </block>
-        </statement>
-      </block>
-    </statement>
-    <value name="TOOLTIP">
-      <block type="text" id="ow-sG%dIgiv*oGh@+Yw!" deletable="false" movable="false">
-        <field name="TEXT"></field>
-      </block>
-    </value>
-    <value name="HELPURL">
-      <block type="text" id="VU[cBkI)8_.D-d0s$FnA" deletable="false" movable="false">
-        <field name="TEXT"></field>
-      </block>
-    </value>
-    <value name="TOPTYPE">
-      <shadow type="type_null" id="zG~*hPG.#(n8^fxc~CH9"></shadow>
-    </value>
-    <value name="BOTTOMTYPE">
-      <shadow type="type_null" id="HbvQ%6q_okng2ZS{d.}7"></shadow>
-    </value>
-    <value name="COLOUR">
-      <block type="colour_hue" id="},tB:Dl9!s.bG|Q+*{u[">
-        <mutation colour="#5b67a5"></mutation>
-        <field name="HUE">230</field>
       </block>
     </value>
   </block><block type="factory_base" id="]0-CIz4n50ddT|I8CcJ~" deletable="false" movable="false" x="0" y="0">
@@ -1778,15 +1681,15 @@
                 <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"></mutation>
                 <field name="FIELDNAME">OPERATION</field>
                 <field name="USER0">add</field>
-                <field name="CPU0">ADDIMAGE</field>
+                <field name="CPU0">gCVBC_CONST.op_add_image</field>
                 <field name="USER1">subtract</field>
-                <field name="CPU1">SUBTRACTIMAGE</field>
+                <field name="CPU1">gCVBC_CONST.op_sub_image</field>
                 <field name="USER2">AND with</field>
-                <field name="CPU2">ANDIMAGE</field>
+                <field name="CPU2">gCVBC_CONST.op_and_image</field>
                 <field name="USER3">OR with</field>
-                <field name="CPU3">ORIMAGE</field>
+                <field name="CPU3">gCVBC_CONST.op_or_image</field>
                 <field name="USER4">XOR with</field>
-                <field name="CPU4">XORIMAGE</field>
+                <field name="CPU4">gCVBC_CONST.op_xor_image</field>
                 <next>
                   <block type="field_variable" id="B2w-~0*rc_i!Y`e#KTpJ">
                     <field name="TEXT">storedFrame</field>
@@ -1825,6 +1728,236 @@
       <block type="colour_hue" id="u@G{J=*g~XzZKfG(k%T)">
         <mutation colour="#5ba56d"></mutation>
         <field name="HUE">135</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="2_1mQZ*q/2T4(tn{``mf" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">sobel</field>
+    <field name="INLINE">EXT</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="Frznm%iRfc_gOEC}bav,">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="aYB+WY.SUmWtGOluU+Q6">
+            <field name="TEXT">Sobel Operator</field>
+          </block>
+        </statement>
+        <next>
+          <block type="input_value" id="=DY6uM*4krJm~G=m$bK3">
+            <field name="INPUTNAME">order_dx</field>
+            <field name="ALIGN">RIGHT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="+[5PQz#XV%%-0bJ~S30r">
+                <field name="TEXT">Order of  the derivative x</field>
+              </block>
+            </statement>
+            <value name="TYPE">
+              <shadow type="type_null" id="A,h6]GI9)MCJ=:)BI(^v"></shadow>
+              <block type="type_number" id="N.gT#`.keSIsx7!uKD0z"></block>
+            </value>
+            <next>
+              <block type="input_value" id="2VaFYqi6vOJt~}Hc,=lV">
+                <field name="INPUTNAME">order_dy</field>
+                <field name="ALIGN">RIGHT</field>
+                <statement name="FIELDS">
+                  <block type="field_static" id="H`D,Lcdk,m!gFgcx:2Zr">
+                    <field name="TEXT">Order of the derivative y</field>
+                  </block>
+                </statement>
+                <value name="TYPE">
+                  <shadow type="type_null" id="8!el|9GSPDPTMLIq*o}0"></shadow>
+                  <block type="type_number" id="GI9BH`3nZy|0V=QHae3Y"></block>
+                </value>
+                <next>
+                  <block type="input_dummy" id="hA`oyJ7YooX9NX}%Ozm)">
+                    <field name="ALIGN">RIGHT</field>
+                    <statement name="FIELDS">
+                      <block type="field_static" id="0?W|Q3H.?nh6z1e:Y6h+">
+                        <field name="TEXT">Kernel size</field>
+                        <next>
+                          <block type="field_dropdown" id="EzznKV9~d|a(2%/@fXMd">
+                            <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"></mutation>
+                            <field name="FIELDNAME">KERNEL_SIZE</field>
+                            <field name="USER0">1</field>
+                            <field name="CPU0">1</field>
+                            <field name="USER1">3</field>
+                            <field name="CPU1">3</field>
+                            <field name="USER2">5</field>
+                            <field name="CPU2">5</field>
+                            <field name="USER3">7</field>
+                            <field name="CPU3">7</field>
+                          </block>
+                        </next>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="input_value" id="JUa]/laWeTh#3ehu*q)F">
+                        <field name="INPUTNAME">SCALE</field>
+                        <field name="ALIGN">RIGHT</field>
+                        <statement name="FIELDS">
+                          <block type="field_static" id="2mcPzG_^)j,5T`DJBCk/">
+                            <field name="TEXT">Scale</field>
+                          </block>
+                        </statement>
+                        <value name="TYPE">
+                          <shadow type="type_null" id="+zjFC!$(uYIm7rp~/}an"></shadow>
+                          <block type="type_number" id="BNsk^WP|c,CkBDzRUhNJ"></block>
+                        </value>
+                        <next>
+                          <block type="input_value" id="3ZuQH-n=}xCnl#mO$uR^">
+                            <field name="INPUTNAME">DELTA</field>
+                            <field name="ALIGN">RIGHT</field>
+                            <statement name="FIELDS">
+                              <block type="field_static" id="k.Hx}yZEUJcl@MP/6t]B">
+                                <field name="TEXT">Delta</field>
+                              </block>
+                            </statement>
+                            <value name="TYPE">
+                              <shadow type="type_null" id="+zjFC!$(uYIm7rp~/}an"></shadow>
+                              <block type="type_number" id="U`$)R;G2Okx@-I?dWeqR"></block>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="HzkeP110!=_}0V%ZfY]K" deletable="false" movable="false">
+        <field name="TEXT">Performs a Sobel operation on the image to enhance edges.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="c4k!rV40l@L=bc!aR$6W" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="_rj*CJP)AM]HGZqRVYU9"></shadow>
+      <block type="type_other" id="Yx%77G0jh3v]vz@2LhnE">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="oc~V;_W[Z?@I-q4-CFj4"></shadow>
+      <block type="type_other" id="GBdRKheP5]/#NKs3t$:y">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="@9enXlY|Cj?=Z/,.=oDT">
+        <mutation colour="#805ba5"></mutation>
+        <field name="HUE">270</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="2_1mQZ*q/2T4(tn{``mf" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">scharr</field>
+    <field name="INLINE">EXT</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="Frznm%iRfc_gOEC}bav,">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="aYB+WY.SUmWtGOluU+Q6">
+            <field name="TEXT">Scharr Operative</field>
+          </block>
+        </statement>
+        <next>
+          <block type="input_value" id="=DY6uM*4krJm~G=m$bK3">
+            <field name="INPUTNAME">order_dx</field>
+            <field name="ALIGN">RIGHT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="+[5PQz#XV%%-0bJ~S30r">
+                <field name="TEXT">Order of  the derivative x</field>
+              </block>
+            </statement>
+            <value name="TYPE">
+              <shadow type="type_null" id="A,h6]GI9)MCJ=:)BI(^v"></shadow>
+              <block type="type_number" id="N.gT#`.keSIsx7!uKD0z"></block>
+            </value>
+            <next>
+              <block type="input_value" id="2VaFYqi6vOJt~}Hc,=lV">
+                <field name="INPUTNAME">order_dy</field>
+                <field name="ALIGN">RIGHT</field>
+                <statement name="FIELDS">
+                  <block type="field_static" id="H`D,Lcdk,m!gFgcx:2Zr">
+                    <field name="TEXT">Order of the derivative y</field>
+                  </block>
+                </statement>
+                <value name="TYPE">
+                  <shadow type="type_null" id="8!el|9GSPDPTMLIq*o}0"></shadow>
+                  <block type="type_number" id="GI9BH`3nZy|0V=QHae3Y"></block>
+                </value>
+                <next>
+                  <block type="input_value" id="JUa]/laWeTh#3ehu*q)F">
+                    <field name="INPUTNAME">SCALE</field>
+                    <field name="ALIGN">RIGHT</field>
+                    <statement name="FIELDS">
+                      <block type="field_static" id="2mcPzG_^)j,5T`DJBCk/">
+                        <field name="TEXT">Scale</field>
+                      </block>
+                    </statement>
+                    <value name="TYPE">
+                      <shadow type="type_null" id="+zjFC!$(uYIm7rp~/}an"></shadow>
+                      <block type="type_number" id="BNsk^WP|c,CkBDzRUhNJ"></block>
+                    </value>
+                    <next>
+                      <block type="input_value" id="3ZuQH-n=}xCnl#mO$uR^">
+                        <field name="INPUTNAME">DELTA</field>
+                        <field name="ALIGN">RIGHT</field>
+                        <statement name="FIELDS">
+                          <block type="field_static" id="k.Hx}yZEUJcl@MP/6t]B">
+                            <field name="TEXT">Delta</field>
+                          </block>
+                        </statement>
+                        <value name="TYPE">
+                          <shadow type="type_null" id="+zjFC!$(uYIm7rp~/}an"></shadow>
+                          <block type="type_number" id="U`$)R;G2Okx@-I?dWeqR"></block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="HzkeP110!=_}0V%ZfY]K" deletable="false" movable="false">
+        <field name="TEXT">Performs a Scharr operation on the image to enhance edges.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="c4k!rV40l@L=bc!aR$6W" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="_rj*CJP)AM]HGZqRVYU9"></shadow>
+      <block type="type_other" id="Yx%77G0jh3v]vz@2LhnE">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="oc~V;_W[Z?@I-q4-CFj4"></shadow>
+      <block type="type_other" id="GBdRKheP5]/#NKs3t$:y">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="@9enXlY|Cj?=Z/,.=oDT">
+        <mutation colour="#805ba5"></mutation>
+        <field name="HUE">270</field>
       </block>
     </value>
   </block></xml>

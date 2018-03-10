@@ -42,6 +42,51 @@
         </shadow>
       </value>
     </block>
+    <block type="sobel">
+      <field name="KERNEL_SIZE">3</field>
+      <value name="order_dx">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="order_dy">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="SCALE">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="DELTA">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="scharr">
+      <value name="order_dx">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="order_dy">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="SCALE">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="DELTA">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
   </category>
   <category name="Brightness" colour="#805ba5">
     <block type="equalize_histogram"></block>
@@ -161,13 +206,10 @@
       <field name="STOREDFRAME" id="KF!N)l;.M;+#fB1b9O|7" variabletype="">storedFrame</field>
     </block>
     <block type="split_image">
-      <field name="REDIMAGE" id="rlvLD(FtA`Z/+k5YheFi" variabletype="">image_red</field>
-      <field name="GREENIMAGE" id="OPC*8hYUgJVt}*W0lOVB" variabletype="">image_green</field>
-      <field name="BLUEIMAGE" id="mtgLh@zoliKLK3IV%:6w" variabletype="">image_blue</field>
-      <field name="PIPE_IMAGE">0</field>
+      <field name="PIPE_IMAGE">gCVBC_CONST.split_red</field>
     </block>
     <block type="image_operation">
-      <field name="OPERATION">ADDIMAGE</field>
+      <field name="OPERATION">gCVBC_CONST.op_sub_image</field>
       <field name="STOREDFRAME" id="KF!N)l;.M;+#fB1b9O|7" variabletype="">storedFrame</field>
     </block>
   </category>
@@ -253,15 +295,10 @@
   </category>
   <category name="Lists" colour="#745CA6">
     <block type="lists_create_with">
-      <mutation items="3"></mutation>
+      <mutation items="0"></mutation>
     </block>
-    <block type="lists_indexOf">
-      <field name="END">FIRST</field>
-      <value name="VALUE">
-        <block type="variables_get">
-          <field name="VAR" id="ZH%H5l}mf/zz?g-zwJ/N" variabletype="">list</field>
-        </block>
-      </value>
+    <block type="lists_create_with">
+      <mutation items="3"></mutation>
     </block>
     <block type="lists_repeat">
       <value name="NUM">
@@ -272,8 +309,13 @@
     </block>
     <block type="lists_length"></block>
     <block type="lists_isEmpty"></block>
-    <block type="lists_create_with">
-      <mutation items="0"></mutation>
+    <block type="lists_indexOf">
+      <field name="END">FIRST</field>
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR" id="ZH%H5l}mf/zz?g-zwJ/N" variabletype="">list</field>
+        </block>
+      </value>
     </block>
     <block type="lists_getIndex">
       <mutation statement="false" at="true"></mutation>
@@ -320,6 +362,19 @@
     </block>
   </category>
   <category name="Math" colour="#5C68A6">
+    <block type="math_arithmetic">
+      <field name="OP">ADD</field>
+      <value name="A">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="B">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
     <block type="math_round">
       <field name="OP">ROUND</field>
       <value name="NUM">
@@ -327,9 +382,6 @@
           <field name="NUM">3.1</field>
         </shadow>
       </value>
-    </block>
-    <block type="math_number">
-      <field name="NUM">0</field>
     </block>
     <block type="math_single">
       <field name="OP">ROOT</field>
@@ -359,18 +411,8 @@
         </shadow>
       </value>
     </block>
-    <block type="math_arithmetic">
-      <field name="OP">ADD</field>
-      <value name="A">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-      <value name="B">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
+    <block type="math_number">
+      <field name="NUM">0</field>
     </block>
     <block type="math_on_list">
       <mutation op="SUM"></mutation>

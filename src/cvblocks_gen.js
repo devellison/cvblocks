@@ -157,13 +157,11 @@ Blockly.JavaScript['background_subtractor'] = function(block) {
   return code;
 };
 
+
 Blockly.JavaScript['split_image'] = function(block) {
-  var variable_redimage = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('REDIMAGE'), Blockly.Variables.NAME_TYPE);
-  var variable_greenimage = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('GREENIMAGE'), Blockly.Variables.NAME_TYPE);
-  var variable_blueimage = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('BLUEIMAGE'), Blockly.Variables.NAME_TYPE);
   var dropdown_pipe_image = block.getFieldValue('PIPE_IMAGE');
   // TODO: Assemble JavaScript into code variable.
-  var code = '\n';
+  var code = 'cvblocks_split_image( ' + dropdown_pipe_image + ' );\n';
   return code;
 };
 
@@ -172,6 +170,45 @@ Blockly.JavaScript['image_operation'] = function(block) {
   var variable_storedframe = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('STOREDFRAME'), Blockly.Variables.NAME_TYPE);
   // TODO: Assemble JavaScript into code variable.
   var code = '\n';
+  return code;
+};
+
+Blockly.JavaScript['sobel'] = function(block) {
+  var value_order_dx = Blockly.JavaScript.valueToCode(block, 'order_dx', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_order_dy = Blockly.JavaScript.valueToCode(block, 'order_dy', Blockly.JavaScript.ORDER_ATOMIC);
+  var dropdown_kernel_size = block.getFieldValue('KERNEL_SIZE');
+  var value_scale = Blockly.JavaScript.valueToCode(block, 'SCALE', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_delta = Blockly.JavaScript.valueToCode(block, 'DELTA', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'cvblocks_sobel('
+            + value_order_dx + ", "
+            + value_order_dy + ", "
+            + dropdown_kernel_size + ", "
+            + value_scale + ", "
+            + value_delta
+            + ');\n';
+  return code;
+};
+
+Blockly.JavaScript['scharr'] = function(block) {
+  var value_order_dx = Blockly.JavaScript.valueToCode(block, 'order_dx', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_order_dy = Blockly.JavaScript.valueToCode(block, 'order_dy', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_scale = Blockly.JavaScript.valueToCode(block, 'SCALE', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_delta = Blockly.JavaScript.valueToCode(block, 'DELTA', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'cvblocks_scharr('
+            + value_order_dx + ", "
+            + value_order_dy + ", "
+            + value_scale + ", "
+            + value_delta
+            + ');\n';
+  return code;
+};
+
+Blockly.JavaScript['image_operation'] = function(block) {
+  var dropdown_operation = block.getFieldValue('OPERATION');
+  var variable_storedframe = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('STOREDFRAME'), Blockly.Variables.NAME_TYPE);
+  var code = 'cvblocks_image_operation( '
+           + dropdown_operation + ', '
+           + variable_storedframe + ');\n';
   return code;
 };
 /*----------------------------------------------------------------------------

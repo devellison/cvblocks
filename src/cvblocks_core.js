@@ -31,6 +31,15 @@ function CVBlocksCore(video_id,
                       streamCallback)
 {
   //-------------------------------------------------------------------------
+  // Constants
+
+  // kPROCSTEP - used to indicate what kind of frame/image a process step
+  //             needs as input and produces as output
+  this.kPROCSTEP_ANY      = -1;
+  this.kPROCSTEP_RGB      = 0;
+  this.kPROCSTEP_GRAY     = 1;
+  this.kPROCSTEP_RGB2GRAY = 2;
+
   // exposed variables
   this.debug      = true;
   this.canvas_id  = canvas_id;
@@ -48,15 +57,23 @@ function CVBlocksCore(video_id,
   this.width      = this.videoIn.width;
   this.height     = this.videoIn.height;
 
+  // actual input frame with alpha
+  this.inFrame   = new cv.Mat(this.height, this.width, cv.CV_8UC4);
 
-  this.srcFrame   = new cv.Mat(this.height, this.width, cv.CV_8UC4);
-  this.dispFrame  = new cv.Mat(this.height, this.width, cv.CV_8UC4);
-  this.tmpFrame   = new cv.Mat(this.height, this.width, cv.CV_8UC4);
+  // source frame w/o alpha channel
+  this.srcFrame   = new cv.Mat(this.height, this.width, cv.CV_8UC3);
+
+  // frame we're displaying
+  this.dispFrame  = new cv.Mat(this.height, this.width, cv.CV_8UC3);
+  this.tmpFrame   = new cv.Mat(this.height, this.width, cv.CV_8UC3);
   this.grayFrame  = new cv.Mat(this.height, this.width, cv.CV_8UC1);
   this.grayFrame2 = new cv.Mat(this.height, this.width, cv.CV_8UC1);
   this.hsvFrame   = new cv.Mat(this.height, this.width, cv.CV_8UC3);
   this.rgbFrame   = new cv.Mat(this.height, this.width, cv.CV_8UC3);
-  this.rgbFrame2  = new cv.Mat(this.height, this.width, cv.CV_8UC3);
+
+  // Previous frame if we need grayscale for this step
+  this.prevGray   = new cv.Mat(this.height, this.width, cv.CV_8UC1);
+  this.prevRgb    = new cv.Mat(this.height, this.width, cv.CV_8UC3);
 
   this.streamcb   = streamCallback; // Called when streaming starts/stops
 
@@ -101,11 +118,17 @@ function CVBlocksCore(video_id,
    * @param {string} stepName - friendly name of the step for selection
    * @param {number} width - image width for the processing buffer
    * @param {number} height - image height for the processing buffer
+   * @param {kPROCSTEP} procStepType - kind of output the procstep has
    */
-  function ProcessInfo(stepNumber, stepName, width, height)
+  function ProcessInfo(stepNumber, stepName, width, height, procStepType)
   {
     this.name       = stepName;
-    this.frame      = new cv.Mat(height, width, cv.CV_8UC4);
+
+    if (procStepType == gCVBC.kPROCSTEP_GRAY)
+      this.frame = new cv.Mat(height, width, cv.CV_8UC1);
+    else
+      this.frame = new cv.Mat(height, width, cv.CV_8UC3);
+
     this.stepNumber = stepNumber;
     this.count      = 0;
     this.time       = 0;
@@ -126,8 +149,7 @@ function CVBlocksCore(video_id,
     try
     {
         this.procStep = 0;
-
-        this.beginProcessStep("Original Frame");
+        this.beginProcessStep("Original Frame",this.kPROCSTEP_RGB);
           sourceFrame.copyTo(this.curFrame);
         this.endProcessStep();
 
@@ -174,6 +196,7 @@ function CVBlocksCore(video_id,
     this.width = this.videoIn.width;
     this.height = this.videoIn.height;
 
+    this.inFrame.delete();
     this.srcFrame.delete();
     this.dispFrame.delete();
     this.tmpFrame.delete();
@@ -181,16 +204,19 @@ function CVBlocksCore(video_id,
     this.grayFrame2.delete();
     this.hsvFrame.delete();
     this.rgbFrame.delete();
-    this.rgbFrame2.delete();
+    this.prevGray.delete();
+    this.prevRgb.delete();
 
-    this.srcFrame   = new cv.Mat(this.height, this.width, cv.CV_8UC4);
-    this.dispFrame  = new cv.Mat(this.height, this.width, cv.CV_8UC4);
-    this.tmpFrame   = new cv.Mat(this.height, this.width, cv.CV_8UC4);
+    this.inFrame    = new cv.Mat(this.height, this.width, cv.CV_8UC4);
+    this.srcFrame   = new cv.Mat(this.height, this.width, cv.CV_8UC3);
+    this.dispFrame  = new cv.Mat(this.height, this.width, cv.CV_8UC3);
+    this.tmpFrame   = new cv.Mat(this.height, this.width, cv.CV_8UC3);
     this.grayFrame  = new cv.Mat(this.height, this.width, cv.CV_8UC1);
     this.grayFrame2 = new cv.Mat(this.height, this.width, cv.CV_8UC1);
     this.hsvFrame   = new cv.Mat(this.height, this.width, cv.CV_8UC3);
     this.rgbFrame   = new cv.Mat(this.height, this.width, cv.CV_8UC3);
-    this.rgbFrame2  = new cv.Mat(this.height, this.width, cv.CV_8UC3);
+    this.prevGray   = new cv.Mat(this.height, this.width, cv.CV_8UC1);
+    this.prevRgb    = new cv.Mat(this.height, this.width, cv.CV_8UC3);
     this.resetProcInfos(false);
     // If I don't delete and recreate this, I'm getting
     // a quarter of the video processed.
@@ -202,13 +228,32 @@ function CVBlocksCore(video_id,
     *  Allocates the buffers and sets up the select tag for viewing
     *  each step on first call.
     *  @param {string} stepName - friendly step name for selection
+    *  @param {kPROCSTEP} - describes the kind of image the step uses for input and output
     */
-  this.beginProcessStep = function(stepName)
+  this.beginProcessStep = function(stepName, procStepType)
   {
     // First time on this step - create a mat for it
     if (this.procInfos.length <= this.procStep)
     {
-      this.procInfos.push(new ProcessInfo(this.procStep, stepName, gCVBC.width, gCVBC.height));
+      var outBufferType = this.kPROCSTEP_RGB;
+      switch (procStepType)
+      {
+        case this.kPROCSTEP_RGB:
+          outBufferType = this.kPROCSTEP_RGB;
+          break;
+        case this.kPROCSTEP_RGB2GRAY:
+        case this.kPROCSTEP_GRAY:
+          outBufferType = this.kPROCSTEP_GRAY;
+          break;
+        case this.kPROCSTEP_ANY:
+          if (this.prevFrame.step[1] == 1)
+            outBufferType = this.kPROCSTEP_GRAY;
+          else
+            outBufferType = this.kPROCSTEP_RGB;
+          break;
+      }
+
+      this.procInfos.push(new ProcessInfo(this.procStep, stepName, gCVBC.width, gCVBC.height, outBufferType));
       // Create a new option
       var option = document.createElement('option');
       option.value = this.procStep;
@@ -217,32 +262,54 @@ function CVBlocksCore(video_id,
       this.selStep.selectedIndex = this.procStep;
     }
 
+
     // Set current
     this.curInfo = this.procInfos[this.procStep];
     this.curFrame = this.curInfo.frame;
-
     this.curInfo.startTime = Date.now();
+
+
+    if (procStepType == this.kPROCSTEP_RGB2GRAY)
+    {
+        if (this.prevFrame.step[1] == 1)
+        {
+          cv.cvtColor(this.prevFrame, this.prevRgb, cv.COLOR_GRAY2RGB,0);
+          this.prevFrame = this.prevRgb;
+        }
+    }
+    else if ((this.procStep != 0) && (this.curFrame.step[0] != this.prevFrame.step[0]))
+    {
+      // If the previous frame's buffer is gray and we want color, or
+      // vice-versa, then we need to convert.  This avoids having to
+      // convert when processing steps match.
+      if (this.prevFrame.step[1] == 1)
+      {
+        cv.cvtColor(this.prevFrame, this.prevRgb, cv.COLOR_GRAY2RGB,0);
+        this.prevFrame = this.prevRgb;
+      }
+      else
+      {
+        cv.cvtColor(this.prevFrame, this.prevGray, cv.COLOR_RGB2GRAY,0);
+        this.prevFrame = this.prevGray;
+      }
+    }
   }
 
   /** Called at the end of each process step to save/display the current
     * frame and update for the next frame.
-    * @param {bool} reusePrev - if true, skips updating prevFrame
-  */
-  this.endProcessStep = function(reusePrev)
+    */
+  this.endProcessStep = function()
   {
     // Display if selected
     if (this.selStep.value == this.procStep)
     {
-      this.curFrame.copyTo(gCVBC.dispFrame);
-      // TODO:Update histogram
+      if (this.curFrame.step[1] == 1)
+        cv.cvtColor(this.curFrame, this.dispFrame, cv.COLOR_GRAY2RGB,0);
+      else
+        this.curFrame.copyTo(this.dispFrame);
     }
 
-    // Prep for next frame - some calls may not want their current frame
-    // to affect future steps.  If reusePrev is true, then we skip updating
-    // prevFrame.
-    if ((reusePrev == undefined) || (!reusePrev))
-      this.prevFrame = this.curFrame;
-
+    this.prevFrame = this.curFrame;
     this.procStep++;
 
     this.curInfo.time += Date.now() - this.curInfo.startTime;
@@ -295,14 +362,14 @@ function CVBlocksCore(video_id,
 
     if ((this.streaming == "movie") || (this.streaming == "camera"))
     {
-      this.capture.read(this.srcFrame);
+      this.capture.read(this.inFrame);
     }
     else if ((this.streaming == "image"))
     {
       try
       {
           let src = cv.imread(image_id);
-          src.copyTo(this.srcFrame);
+          src.copyTo(this.inFrame);
           src.delete();
       }
       catch(e)
@@ -315,6 +382,7 @@ function CVBlocksCore(video_id,
       }
     }
 
+    cv.cvtColor(this.inFrame, this.srcFrame, cv.COLOR_RGBA2RGB,0);
     this.onProcess(this.srcFrame);
     cv.imshow(this.canvas_id,this.dispFrame)
     // -----------------------------------------------------------

@@ -107,6 +107,70 @@ Blockly.Blocks['canny_edge'] = {
   }
 };
 
+Blockly.Blocks['sobel'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Sobel Operator");
+    this.appendValueInput("order_dx")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Order of  the derivative x");
+    this.appendValueInput("order_dy")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Order of the derivative y");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Kernel size")
+        .appendField(new Blockly.FieldDropdown([["1","1"], ["3","3"], ["5","5"], ["7","7"]]), "KERNEL_SIZE");
+    this.appendValueInput("SCALE")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Scale");
+    this.appendValueInput("DELTA")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Delta");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "Image");
+    this.setNextStatement(true, "Image");
+    this.setColour(270);
+ this.setTooltip("Performs a Sobel operation on the image to enhance edges.");
+ this.setHelpUrl("");
+ onFrameWatcher(this);
+  }
+};
+
+Blockly.Blocks['scharr'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Scharr Operative");
+    this.appendValueInput("order_dx")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Order of  the derivative x");
+    this.appendValueInput("order_dy")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Order of the derivative y");
+    this.appendValueInput("SCALE")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Scale");
+    this.appendValueInput("DELTA")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Delta");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "Image");
+    this.setNextStatement(true, "Image");
+    this.setColour(270);
+ this.setTooltip("Performs a Scharr operation on the image to enhance edges.");
+ this.setHelpUrl("");
+ onFrameWatcher(this);
+  }
+};
+
 Blockly.Blocks['equalize_histogram'] = {
   init: function() {
     this.appendDummyInput()
@@ -341,31 +405,19 @@ Blockly.Blocks['background_subtractor'] = {
  onFrameWatcher(this);
   }
 };
-
 Blockly.Blocks['split_image'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Split image into color channels.");
+        .appendField("Split image into channels.");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Red Channel")
-        .appendField(new Blockly.FieldVariable("image_red"), "REDIMAGE");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Green Channel")
-        .appendField(new Blockly.FieldVariable("image_green"), "GREENIMAGE");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Blue Channel")
-        .appendField(new Blockly.FieldVariable("image_blue"), "BLUEIMAGE");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Set pipeline to")
-        .appendField(new Blockly.FieldDropdown([["input","0"], ["red","1"], ["green","2"], ["blue","3"]]), "PIPE_IMAGE");
+        .appendField("Place")
+        .appendField(new Blockly.FieldDropdown([["red","gCVBC_CONST.split_red"], ["green","gCVBC_CONST.split_green"], ["blue","gCVBC_CONST.split_blue"], ["hue","gCVBC_CONST.split_hue"], ["saturation","gCVBC_CONST.split_saturation"], ["value","gCVBC_CONST.split_value"]]), "PIPE_IMAGE")
+        .appendField("in pipeline.");
     this.setPreviousStatement(true, "Image");
     this.setNextStatement(true, "Image");
     this.setColour(135);
- this.setTooltip("Splits the image into RGB channels, places each in an Image variable.");
+ this.setTooltip("Splits out the image channels and places the selected one in the pipeline.");
  this.setHelpUrl("");
  onFrameWatcher(this);
   }
@@ -377,7 +429,7 @@ Blockly.Blocks['image_operation'] = {
         .appendField("Use the current frame and");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField(new Blockly.FieldDropdown([["add","ADDIMAGE"], ["subtract","SUBTRACTIMAGE"], ["AND with","ANDIMAGE"], ["OR with","ORIMAGE"], ["XOR with","XORIMAGE"]]), "OPERATION")
+        .appendField(new Blockly.FieldDropdown([["add","gCVBC_CONST.op_add_image"], ["subtract","gCVBC_CONST.op_sub_image"], ["AND with","gCVBC_CONST.op_and_image"], ["OR with","gCVBC_CONST.op_or_image"], ["XOR with","gCVBC_CONST.op_xor_image"]]), "OPERATION")
         .appendField(new Blockly.FieldVariable("storedFrame"), "STOREDFRAME");
     this.setPreviousStatement(true, "Image");
     this.setNextStatement(true, "Image");

@@ -1,4 +1,29 @@
 "use strict";
+
+// Enumerations / constants
+function CVBlocks_const()
+{
+  // cvblocks_image_operation constants
+  this.op_add_image = 0;
+  this.op_sub_image = 1;
+  this.op_or_image  = 2;
+  this.op_and_image = 3;
+  this.op_xor_image = 4;
+
+  this.split_red    = 1;
+  this.split_green  = 2;
+  this.split_blue   = 3;
+  this.split_hue    = 4;
+  this.split_saturation = 5;
+  this.split_value  = 6;
+  //
+  return this;
+}
+var gCVBC_CONST = new CVBlocks_const();
+
+
+
+// Functions
 function cvblocks_gaussian(kSize)
 {
   // If we're not in an onFrame event, bail - it's
@@ -10,7 +35,7 @@ function cvblocks_gaussian(kSize)
     if (!(kSize & 1))
       kSize++;
 
-  gCVBC.beginProcessStep("Gaussian Blur");
+  gCVBC.beginProcessStep("Gaussian Blur",-1);
     let kernelSize = new cv.Size(kSize, kSize);
     cv.GaussianBlur(gCVBC.prevFrame, gCVBC.curFrame, kernelSize, 0, 0, cv.BORDER_DEFAULT);
   gCVBC.endProcessStep();
@@ -30,11 +55,147 @@ function cvblocks_canny(thresh1, thresh2, aperture)
     if (aperture > 7)
       aperture = 7;
 
-    gCVBC.beginProcessStep("Canny Edge Detector");
-    cv.cvtColor(gCVBC.prevFrame, gCVBC.grayFrame, cv.COLOR_RGB2GRAY, 0);
-    cv.Canny(gCVBC.grayFrame, gCVBC.grayFrame2, thresh1, thresh2, aperture, cv.BORDER_DEFAULT);
-    cv.cvtColor(gCVBC.grayFrame2, gCVBC.curFrame, cv.COLOR_GRAY2RGBA, 0);
+    gCVBC.beginProcessStep("Canny Edge Detector",1);
+    cv.Canny(gCVBC.prevFrame, gCVBC.curFrame, thresh1, thresh2, aperture, cv.BORDER_DEFAULT);
     gCVBC.endProcessStep();
+}
+
+function cvblocks_sobel(dx, dy, kernel, scale, delta)
+{
+  // If we're not in an onFrame event, bail - it's
+  // not set up the way we need.
+  if (!gCVBC.insideOnFrame)
+    return;
+
+  gCVBC.beginProcessStep("Sobel Operator",1);
+    // kernel must be larger than order of derivative
+    // TODO: These all cause assertions to fail - what needs
+    // to be done in such cases (in all of this code) is to pop
+    // a warning flag on the block and stop processing or something
+    // similar when bad data is input.
+    if (kernel != -1) // Special case for Scharr, although we may do it separately
+    {
+      if (kernel <= dx)
+        kernel = dx + 1;
+      if (kernel <= dy)
+        kernel = dy + 1;
+    }
+    if (dx + dy == 0)
+      dx++;
+
+    cv.Sobel(gCVBC.prevFrame, gCVBC.curFrame, cv.CV_8U, dx, dy, kernel, scale, delta, cv.BORDER_DEFAULT);
+  gCVBC.endProcessStep();
+}
+
+function cvblocks_scharr(dx, dy, scale, delta)
+{
+  // If we're not in an onFrame event, bail - it's
+  // not set up the way we need.
+  if (!gCVBC.insideOnFrame)
+    return;
+
+  gCVBC.beginProcessStep("Scharr Operator",1);
+
+  if (dx + dy != 1)
+  {
+    dx = 1;
+    dy = 0;
+  }
+
+  cv.Scharr(gCVBC.prevFrame, gCVBC.curFrame, cv.CV_8U, dx, dy, scale, delta, cv.BORDER_DEFAULT);
+  gCVBC.endProcessStep();
+}
+
+function cvblocks_image_operation(operation, image)
+{
+  if (!gCVBC.insideOnFrame)
+    return;
+  if (image == undefined)
+    return;
+
+  var want_gray = 0;
+  if (image.step[1] == 1)
+    want_gray = 1;
+
+  gCVBC.beginProcessStep("Image Operation", want_gray);
+
+  switch (operation)
+  {
+    case gCVBC_CONST.op_add_image:
+      cv.add(gCVBC.prevFrame,image,gCVBC.curFrame);
+      break;
+    case gCVBC_CONST.op_sub_image:
+      cv.subtract(gCVBC.prevFrame,image,gCVBC.curFrame);
+      break;
+    case gCVBC_CONST.op_and_image:
+      cv.bitwise_and(gCVBC.prevFrame,image,gCVBC.curFrame);
+      break;
+    case gCVBC_CONST.op_or_image:
+      cv.bitwise_or(gCVBC.prevFrame,image,gCVBC.curFrame);
+      break;
+    case gCVBC_CONST.op_xor_image:
+      cv.bitwise_xor(gCVBC.prevFrame,image,gCVBC.curFrame);
+      break;
+  }
+
+  gCVBC.endProcessStep();
+}
+
+function cvblocks_split_image(which)
+{
+  if (!gCVBC.insideOnFrame)
+    return;
+
+  gCVBC.beginProcessStep("Split Image",2);
+
+  var split_list;
+  var convert_hsv = false;
+
+  switch (which)
+  {
+    case gCVBC_CONST.split_red:
+      split_list = [0,0];
+      break;
+    case gCVBC_CONST.split_green:
+      split_list = [1,0];
+      break;
+    case gCVBC_CONST.split_blue:
+      split_list = [2,0];
+      break;
+    case gCVBC_CONST.split_hue:
+      split_list = [0,0];
+      convert_hsv = true;
+      break;
+    case gCVBC_CONST.split_saturation:
+      split_list = [1,0];
+      convert_hsv = true;
+      break;
+    case gCVBC_CONST.split_value:
+      split_list = [2,0];
+      convert_hsv = true;
+      break;
+  }
+
+  var inputVector = new cv.MatVector();
+  var outputVector = new cv.MatVector();
+  if (convert_hsv)
+  {
+    cv.cvtColor(gCVBC.prevFrame, gCVBC.hsvFrame, cv.COLOR_RGB2HSV,0);
+    inputVector.push_back(gCVBC.hsvFrame);
+  }
+  else
+  {
+      inputVector.push_back(gCVBC.prevFrame);
+  }
+
+  outputVector.push_back(gCVBC.curFrame);
+
+  cv.mixChannels( inputVector, outputVector, split_list);
+
+  inputVector.delete();
+  outputVector.delete();
+
+  gCVBC.endProcessStep();
 }
 
 function cvblocks_equalize()
@@ -42,31 +203,38 @@ function cvblocks_equalize()
   if (!gCVBC.insideOnFrame)
     return;
 
-    gCVBC.beginProcessStep("Equalize Histogram");
-    // We're currently staying in RGB mode.
-    // So even for grayscale images, we need to split to HSV,
-    // then equalize the brightness.
-    cv.cvtColor(gCVBC.prevFrame, gCVBC.hsvFrame, cv.COLOR_RGB2HSV, 0);
+    gCVBC.beginProcessStep("Equalize Histogram",-1);
 
-    let inputVector = new cv.MatVector();
-    let outputVector = new cv.MatVector();
+    if (gCVBC.curFrame.step[1] == 1)
+    {
+      // Grayscale is easy
+      cv.equalizeHist(gCVBC.prevFrame, gCVBC.curFrame);
+    }
+    else
+    {
+      // Our previous image is RGB, but we need to equalize in HSV
+      // then convert back to RGB
+      cv.cvtColor(gCVBC.prevFrame, gCVBC.hsvFrame, cv.COLOR_RGB2HSV, 0);
 
-    // Pull out the V channel from HSV, equalize it, then stuff it back in.
-    inputVector.push_back(gCVBC.hsvFrame);
-    outputVector.push_back(gCVBC.grayFrame);
-    let hsvToGray = [2,0];
-    cv.mixChannels( inputVector, outputVector, hsvToGray);
+      let inputVector = new cv.MatVector();
+      let outputVector = new cv.MatVector();
 
-    cv.equalizeHist(gCVBC.grayFrame, gCVBC.grayFrame);
+      // Pull out the V channel from HSV, equalize it, then stuff it back in.
+      inputVector.push_back(gCVBC.hsvFrame);
+      outputVector.push_back(gCVBC.grayFrame);
+      let hsvToGray = [2,0];
+      cv.mixChannels( inputVector, outputVector, hsvToGray);
 
-    let grayToHSV = [0,2];
-    cv.mixChannels( outputVector, inputVector, grayToHSV);
+      cv.equalizeHist(gCVBC.grayFrame, gCVBC.grayFrame);
 
-    inputVector.delete();
-    outputVector.delete();
+      let grayToHSV = [0,2];
+      cv.mixChannels( outputVector, inputVector, grayToHSV);
 
-    cv.cvtColor(gCVBC.hsvFrame, gCVBC.rgbFrame, cv.COLOR_HSV2RGB, 0);
-    cv.cvtColor(gCVBC.rgbFrame, gCVBC.curFrame, cv.COLOR_RGB2RGBA, 0);
+      inputVector.delete();
+      outputVector.delete();
+
+      cv.cvtColor(gCVBC.hsvFrame, gCVBC.curFrame, cv.COLOR_HSV2RGB, 0);
+    }
     gCVBC.endProcessStep();
 }
 
@@ -99,7 +267,7 @@ function cvblocks_inrange_hsv(minh,maxh,mins,maxs,minv,maxv)
     var min_hue = figureOutHue(minh);
     var max_hue = figureOutHue(maxh);
 
-    gCVBC.beginProcessStep("In Range (HSV)");
+    gCVBC.beginProcessStep("In Range (HSV)",2);
     // We're currently staying in RGB mode.
     // So even for grayscale images, we need to split to HSV,
     // then equalize the brightness.
@@ -107,11 +275,10 @@ function cvblocks_inrange_hsv(minh,maxh,mins,maxs,minv,maxv)
 
     let low = new cv.Mat(gCVBC.hsvFrame.rows, gCVBC.hsvFrame.cols, gCVBC.hsvFrame.type(), [min_hue,mins,minv,0]);
     let high = new cv.Mat(gCVBC.hsvFrame.rows, gCVBC.hsvFrame.cols,  gCVBC.hsvFrame.type(), [max_hue,maxs,maxv,255]);
-    cv.inRange(gCVBC.hsvFrame, low, high, gCVBC.grayFrame); // ,gTmpFrame
+    cv.inRange(gCVBC.hsvFrame, low, high, gCVBC.curFrame); // ,gTmpFrame
     low.delete();
     high.delete();
 
-    cv.cvtColor(gCVBC.grayFrame, gCVBC.curFrame, cv.COLOR_GRAY2RGB, 0);
     gCVBC.endProcessStep();
 }
 
@@ -120,7 +287,7 @@ function cvblocks_gamma_correct(gamma)
   if (!gCVBC.insideOnFrame)
     return;
 
-  gCVBC.beginProcessStep("Gamma Correct");
+  gCVBC.beginProcessStep("Gamma Correct",-1);
 
   var gammaLut = new cv.Mat(1,256,cv.CV_8U);
   for (var i = 0; i < 256; ++i)
@@ -137,10 +304,15 @@ function cvblocks_load_frame(storedFrame)
   if (!gCVBC.insideOnFrame)
     return;
 
-  gCVBC.beginProcessStep("Load Frame");
-
   if (storedFrame == null)
     storedFrame = gCVBC.srcFrame;
+
+  var want_gray = 0;
+  if (storedFrame.step[1] == 1)
+    want_gray = 1;
+
+  gCVBC.beginProcessStep("Load Frame", want_gray);
+
   gCVBC.curFrame = storedFrame;
 
   gCVBC.endProcessStep();
@@ -150,7 +322,8 @@ function cvblocks_store_frame()
 {
   if (!gCVBC.insideOnFrame)
     return;
-  gCVBC.beginProcessStep("Store Frame");
+
+  gCVBC.beginProcessStep("Store Frame", -1);
 
   let storedFrame = gCVBC.prevFrame;
   // Might just not beginProcessStep/endProcessStep,
@@ -167,7 +340,7 @@ function cvblocks_erode(kernelSize)
   if (!gCVBC.insideOnFrame)
     return;
 
-    gCVBC.beginProcessStep("Erode");
+    gCVBC.beginProcessStep("Erode",-1);
     if ((kernelSize == null) || (kernelSize <= 1))
       kernelSize = 3;
 
@@ -185,7 +358,7 @@ function cvblocks_dilate(kernelSize)
   if (!gCVBC.insideOnFrame)
     return;
 
-    gCVBC.beginProcessStep("Dilate");
+    gCVBC.beginProcessStep("Dilate", -1);
 
     let kernel = cv.Mat.ones(kernelSize, kernelSize, cv.CV_8U);
     let anchor = new cv.Point(-1, -1);
@@ -201,7 +374,10 @@ function cvblocks_morphex(operation, kx, ky, kShape, ax, ay, iterations)
   if (!gCVBC.insideOnFrame)
     return;
 
-    gCVBC.beginProcessStep("MorphologyEx" );
+    var want_gray = -1;
+    if (operation == cv.MORPH_HITMISS)
+      want_gray = 1;
+    gCVBC.beginProcessStep("MorphologyEx", want_gray);
 
     if (ax >= kx)
       ax = kx - 1;
@@ -212,26 +388,7 @@ function cvblocks_morphex(operation, kx, ky, kShape, ax, ay, iterations)
     let kAnchor = new cv.Point(ax,ay);
     let kernel = new cv.Mat();
     kernel = cv.getStructuringElement(kShape,kSize,kAnchor);
-    switch (operation)
-    {
-      case cv.MORPH_HITMISS:
-        // these don't like RGBA
-        cv.cvtColor(gCVBC.prevFrame, gCVBC.grayFrame, cv.COLOR_RGBA2GRAY, 0);
-        cv.morphologyEx(gCVBC.grayFrame, gCVBC.grayFrame2, operation, kernel, kAnchor, iterations);
-        cv.cvtColor(gCVBC.grayFrame2, gCVBC.curFrame, cv.COLOR_GRAY2RGBA, 0);
-        break;
-      case cv.MORPH_GRADIENT:
-      case cv.MORPH_TOPHAT:
-      case cv.MORPH_BLACKHAT:
-        // these don't like RGBA
-        cv.cvtColor(gCVBC.prevFrame, gCVBC.rgbFrame, cv.COLOR_RGBA2RGB, 0);
-        cv.morphologyEx(gCVBC.rgbFrame, gCVBC.rgbFrame2, operation, kernel, kAnchor, iterations);
-        cv.cvtColor(gCVBC.rgbFrame2, gCVBC.curFrame, cv.COLOR_RGB2RGBA, 0);
-        break;
-      default:
-        cv.morphologyEx(gCVBC.prevFrame, gCVBC.curFrame, operation, kernel, kAnchor, iterations);
-        break;
-    }
+    cv.morphologyEx(gCVBC.prevFrame, gCVBC.curFrame, operation, kernel, kAnchor, iterations);
 
     kernel.delete();
 
@@ -244,24 +401,13 @@ function cvblocks_threshold(thresh_value, max_value, operation)
   if (!gCVBC.insideOnFrame)
     return;
 
-  gCVBC.beginProcessStep("Threshold" );
+  var want_gray = -1;
+  if (( operation == cv.THRESH_OTSU) || (operation == cv.THRESH_TRIANGLE))
+    want_gray = 1;
 
-  switch (operation)
-  {
-    case cv.THRESH_OTSU:
-    case cv.THRESH_TRIANGLE:
-      // these don't like RGBA
-      cv.cvtColor(gCVBC.prevFrame, gCVBC.grayFrame, cv.COLOR_RGBA2GRAY, 0);
-      cv.threshold(gCVBC.grayFrame, gCVBC.grayFrame2, thresh_value, max_value, operation);
-      cv.cvtColor(gCVBC.grayFrame2, gCVBC.curFrame, cv.COLOR_GRAY2RGBA, 0);
-      break;
-    default:
-      // Alpha truncation sucks. Avoid it.
-      cv.cvtColor(gCVBC.prevFrame, gCVBC.rgbFrame, cv.COLOR_RGBA2RGB, 0);
-      cv.threshold(gCVBC.rgbFrame, gCVBC.rgbFrame2, thresh_value, max_value,  operation);
-      cv.cvtColor(gCVBC.rgbFrame2, gCVBC.curFrame, cv.COLOR_RGB2RGBA, 0);
-      break;
-  }
+  gCVBC.beginProcessStep("Threshold", want_gray);
+
+  cv.threshold(gCVBC.prevFrame, gCVBC.curFrame, thresh_value, max_value,  operation);
 
   gCVBC.endProcessStep();
 }
@@ -278,11 +424,11 @@ function cvblocks_adaptive_threshold(max_value, adapt_const, block_size, thresh_
   if ((block_size % 2) == 0)
     block_size++;
 
-    gCVBC.beginProcessStep("Adaptive Threshold" );
+  gCVBC.beginProcessStep("Adaptive Threshold",1);
 
-  cv.cvtColor(gCVBC.prevFrame, gCVBC.grayFrame, cv.COLOR_RGBA2GRAY, 0);
-  cv.adaptiveThreshold(gCVBC.grayFrame, gCVBC.grayFrame2, max_value, adapt_type, thresh_type, block_size, adapt_const);
-  cv.cvtColor(gCVBC.grayFrame2, gCVBC.curFrame, cv.COLOR_GRAY2RGBA, 0);
+
+  cv.adaptiveThreshold(gCVBC.prevFrame, gCVBC.curFrame, max_value, adapt_type, thresh_type, block_size, adapt_const);
+
 
   gCVBC.endProcessStep();
 }
@@ -301,22 +447,19 @@ function cvblocks_background_subtractor(bg_subtractor)
   if (!gCVBC.insideOnFrame)
     return;
 
-  gCVBC.beginProcessStep("Background Remover" );
+  gCVBC.beginProcessStep("Background Remover",0);
 
   // retrieve a mask into gray Frame
   bg_subtractor.apply(gCVBC.prevFrame, gCVBC.grayFrame);
 
   // Mask the previous frame into current frame.
   let maskVector = new cv.MatVector();
-  let alphaFrame = new cv.Mat(gCVBC.prevFrame.rows,gCVBC.prevFrame.cols, cv.CV_8UC1,new cv.Scalar(255));
   maskVector.push_back(gCVBC.grayFrame);
   maskVector.push_back(gCVBC.grayFrame);
   maskVector.push_back(gCVBC.grayFrame);
-  maskVector.push_back(alphaFrame);
   cv.merge(maskVector, gCVBC.rgbFrame);
   cv.bitwise_and(gCVBC.prevFrame, gCVBC.rgbFrame, gCVBC.curFrame);
   maskVector.delete();
-  alphaFrame.delete();
 
   gCVBC.endProcessStep();
 
@@ -332,21 +475,17 @@ function cvblocks_find_contours(mode, method)
   if (!gCVBC.insideOnFrame)
     return null;
 
-  gCVBC.beginProcessStep("Find Contours");
+  gCVBC.beginProcessStep("Find Contours",1);
 
   // Copy in the original  frame to current - we're not otherwise setting
-  // the current frame by the find itself - but the source frame
-  // would look prettier than what we likely have if we're drawing
-  // contours on it.
+  // the current frame by the find itself... may just remove the
+  // beginProcessStep, but then we have to do color conversion ourselves
   gCVBC.prevFrame.copyTo(gCVBC.curFrame);
-
-  // find contours only works on 8UC1 images, so convert to that.
-  cv.cvtColor(gCVBC.prevFrame, gCVBC.grayFrame, cv.COLOR_RGB2GRAY, 0);
 
   var found_contours = new cv.MatVector();
   var hierarchy = new cv.Mat();
 
-  cv.findContours(gCVBC.grayFrame,
+  cv.findContours(gCVBC.prevFrame,
                   found_contours,
                   hierarchy,
                   mode,
@@ -367,7 +506,7 @@ function cvblocks_draw_contours(contours, contour_colour)
   if (undefined == contours)
     return;
 
-  gCVBC.beginProcessStep("Draw Contours");
+  gCVBC.beginProcessStep("Draw Contours",0);
   gCVBC.prevFrame.copyTo(gCVBC.curFrame);
 
   var tmpColor = tinycolor(contour_colour);
