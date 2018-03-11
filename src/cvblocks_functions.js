@@ -41,6 +41,51 @@ function cvblocks_gaussian(kSize)
   gCVBC.endProcessStep();
 }
 
+function cvblocks_mean_blur(kSize)
+{
+  // If we're not in an onFrame event, bail - it's
+  // not set up the way we need.
+  if (!gCVBC.insideOnFrame)
+    return;
+
+    // If kSize is not odd, make it so.
+    if (!(kSize & 1))
+      kSize++;
+
+  gCVBC.beginProcessStep("Mean Blur",-1);
+    let kernelSize = new cv.Size(kSize, kSize);
+    cv.blur(gCVBC.prevFrame, gCVBC.curFrame, kernelSize);
+  gCVBC.endProcessStep();
+}
+
+function cvblocks_median_blur(kSize)
+{
+  // If we're not in an onFrame event, bail - it's
+  // not set up the way we need.
+  if (!gCVBC.insideOnFrame)
+    return;
+
+    // If kSize is not odd, make it so.
+    if (!(kSize & 1))
+      kSize++;
+
+  gCVBC.beginProcessStep("Median Blur",-1);
+    cv.medianBlur(gCVBC.prevFrame, gCVBC.curFrame, kSize);
+  gCVBC.endProcessStep();
+}
+
+function cvblocks_bilateral_filter(diameter, sColor, sSpace)
+{
+  // If we're not in an onFrame event, bail - it's
+  // not set up the way we need.
+  if (!gCVBC.insideOnFrame)
+    return;
+
+  gCVBC.beginProcessStep("Bilateral Filter",-1);
+    cv.bilateralFilter(gCVBC.prevFrame, gCVBC.curFrame, diameter, sColor, sSpace);
+  gCVBC.endProcessStep();
+}
+
 function cvblocks_canny(thresh1, thresh2, aperture)
 {
   // If we're not in an onFrame event, bail - it's
@@ -84,6 +129,16 @@ function cvblocks_sobel(dx, dy, kernel, scale, delta)
       dx++;
 
     cv.Sobel(gCVBC.prevFrame, gCVBC.curFrame, cv.CV_8U, dx, dy, kernel, scale, delta, cv.BORDER_DEFAULT);
+  gCVBC.endProcessStep();
+}
+
+function cvblocks_laplacian(kernel, scale, delta)
+{
+  if (!gCVBC.insideOnFrame)
+    return;
+
+  gCVBC.beginProcessStep("Laplacian",1);
+    cv.Laplacian(gCVBC.prevFrame, gCVBC.curFrame, cv.CV_8U, kernel, scale, delta, cv.BORDER_DEFAULT);
   gCVBC.endProcessStep();
 }
 
@@ -273,11 +328,17 @@ function cvblocks_inrange_hsv(minh,maxh,mins,maxs,minv,maxv)
     // then equalize the brightness.
     cv.cvtColor(gCVBC.prevFrame, gCVBC.hsvFrame, cv.COLOR_RGB2HSV, 0);
 
+    // This is slow, but scalar version of inRange isn't available?
+    // TODO: fix this.
     let low = new cv.Mat(gCVBC.hsvFrame.rows, gCVBC.hsvFrame.cols, gCVBC.hsvFrame.type(), [min_hue,mins,minv,0]);
     let high = new cv.Mat(gCVBC.hsvFrame.rows, gCVBC.hsvFrame.cols,  gCVBC.hsvFrame.type(), [max_hue,maxs,maxv,255]);
     cv.inRange(gCVBC.hsvFrame, low, high, gCVBC.curFrame); // ,gTmpFrame
     low.delete();
     high.delete();
+
+    //let low = new cv.Scalar(min_hue,mins,minv,0);
+    //let high = new cv.Scalar(max_hue,maxs,maxv,255);
+    //cv.inRangeS(gCVBC.hsvFrame, low, high, gCVBC.curFrame);
 
     gCVBC.endProcessStep();
 }
@@ -292,7 +353,7 @@ function cvblocks_gamma_correct(gamma)
   var gammaLut = new cv.Mat(1,256,cv.CV_8U);
   for (var i = 0; i < 256; ++i)
     gammaLut[i] = Math.pow(i/255.0, gamma) * 255.0;
-  cv.cvLUT(gCVBC.prevFrame, gammaLut, gCVBC.curFrame);
+  cv.LUT(gCVBC.prevFrame, gammaLut, gCVBC.curFrame);
   gammaLut.delete();
 
   gCVBC.endProcessStep();

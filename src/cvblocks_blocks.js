@@ -81,6 +81,92 @@ Blockly.Blocks['gaussian'] = {
   }
 };
 
+Blockly.Blocks['mean_blur'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Mean Blur");
+    this.appendValueInput("KSIZE")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("kernel size");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "Image");
+    this.setNextStatement(true, "Image");
+    this.setColour(270);
+ this.setTooltip("Blurs the image by taking the average of surrounding pixels.");
+ this.setHelpUrl("");
+ onFrameWatcher(this);
+  }
+};
+
+Blockly.Blocks['median_blur'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Median Blur");
+    this.appendValueInput("KSIZE")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("kernel size");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "Image");
+    this.setNextStatement(true, "Image");
+    this.setColour(270);
+ this.setTooltip("Blurs the image by taking the median of surrounding pixels.");
+ this.setHelpUrl("");
+ onFrameWatcher(this);
+  }
+};
+
+Blockly.Blocks['bilateral_filter'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Bilateral Filter");
+    this.appendValueInput("DIAMETER")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Diameter");
+    this.appendValueInput("SIGMACOLOR")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Sigma Color");
+    this.appendValueInput("SIGMASPACE")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Sigma Space");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "Image");
+    this.setNextStatement(true, "Image");
+    this.setColour(270);
+ this.setTooltip("");
+ this.setHelpUrl("");
+ onFrameWatcher(this);
+  }
+};
+Blockly.Blocks['laplacian'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Laplacian Filter");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Kernel size")
+        .appendField(new Blockly.FieldDropdown([["1","1"], ["3","3"], ["5","5"], ["7","7"]]), "KERNEL_SIZE");
+    this.appendValueInput("SCALE")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Scale");
+    this.appendValueInput("DELTA")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Delta");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "Image");
+    this.setNextStatement(true, "Image");
+    this.setColour(270);
+ this.setTooltip("Performs a Sobel operation on the image to enhance edges.");
+ this.setHelpUrl("");
+ onFrameWatcher(this);
+  }
+};
 Blockly.Blocks['canny_edge'] = {
   init: function() {
     this.appendDummyInput()

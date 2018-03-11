@@ -8,6 +8,37 @@ Blockly.JavaScript['gaussian'] = function(block) {
   return code;
 };
 
+Blockly.JavaScript['mean_blur'] = function(block) {
+  var value_ksize = Blockly.JavaScript.valueToCode(block, 'KSIZE', Blockly.JavaScript.ORDER_ATOMIC);
+  if ((value_ksize == undefined) || (value_ksize.length == 0))
+    value_ksize = "3";
+
+  var code = 'cvblocks_mean_blur(' + value_ksize + ');\n';
+  return code;
+};
+
+Blockly.JavaScript['median_blur'] = function(block) {
+  var value_ksize = Blockly.JavaScript.valueToCode(block, 'KSIZE', Blockly.JavaScript.ORDER_ATOMIC);
+  if ((value_ksize == undefined) || (value_ksize.length == 0))
+    value_ksize = "3";
+
+  var code = 'cvblocks_median_blur(' + value_ksize + ');\n';
+  return code;
+};
+
+Blockly.JavaScript['bilateral_filter'] = function(block) {
+  var value_diameter = Blockly.JavaScript.valueToCode(block, 'DIAMETER', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_sigmacolor = Blockly.JavaScript.valueToCode(block, 'SIGMACOLOR', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_sigmaspace = Blockly.JavaScript.valueToCode(block, 'SIGMASPACE', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'cvblocks_bilateral_filter( ' +
+            + value_diameter + ', '
+            + value_sigmacolor + ', '
+            + value_sigmaspace
+            + ' );\n';
+  return code;
+};
+
+
 Blockly.JavaScript['onframe'] = function(block) {
   var statements_inputs = Blockly.JavaScript.statementToCode(block, 'INPUTS');
   var code = 'gCVBC.blocksOnFrame = function()\n{\n'+ statements_inputs + '\n};\n';
@@ -182,6 +213,18 @@ Blockly.JavaScript['sobel'] = function(block) {
   var code = 'cvblocks_sobel('
             + value_order_dx + ", "
             + value_order_dy + ", "
+            + dropdown_kernel_size + ", "
+            + value_scale + ", "
+            + value_delta
+            + ');\n';
+  return code;
+};
+
+Blockly.JavaScript['laplacian'] = function(block) {
+  var dropdown_kernel_size = block.getFieldValue('KERNEL_SIZE');
+  var value_scale = Blockly.JavaScript.valueToCode(block, 'SCALE', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_delta = Blockly.JavaScript.valueToCode(block, 'DELTA', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'cvblocks_laplacian('
             + dropdown_kernel_size + ", "
             + value_scale + ", "
             + value_delta

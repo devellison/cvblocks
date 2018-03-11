@@ -1960,4 +1960,294 @@
         <field name="HUE">270</field>
       </block>
     </value>
+  </block><block type="factory_base" id="HYA:i1u)2{@:)S@rdXz1" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">mean_blur</field>
+    <field name="INLINE">EXT</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="[_/3nn1cS;NHS?obOONv">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="*Ax^]9+5VQKE0s]xw.CI">
+            <field name="TEXT">Mean Blur</field>
+          </block>
+        </statement>
+        <next>
+          <block type="input_value" id="AxmK!FfEPHcfSe8ec8k,">
+            <field name="INPUTNAME">KSIZE</field>
+            <field name="ALIGN">RIGHT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="COjwYx:/^h8wA)G_+u@]">
+                <field name="TEXT">kernel size</field>
+              </block>
+            </statement>
+            <value name="TYPE">
+              <block type="type_number" id="YEj1[$@@Ge.5{y+C[XVV"></block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="]b*ZuyW(xRO4xK#t^;!{">
+        <field name="TEXT">Blurs the image by taking the average of surrounding pixels.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="HaB:qrTreN1O0_J@XH:(">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <block type="type_other" id="T7:,W#x!nybkonjf.!ae">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <block type="type_other" id="UwY+[YqsC3Ah+kBwenXE">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id=";eunb61;d?5#B/suo-hy">
+        <mutation colour="#805ba5"></mutation>
+        <field name="HUE">270</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="HYA:i1u)2{@:)S@rdXz1" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">median_blur</field>
+    <field name="INLINE">EXT</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="[_/3nn1cS;NHS?obOONv">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="*Ax^]9+5VQKE0s]xw.CI">
+            <field name="TEXT">Median Blur</field>
+          </block>
+        </statement>
+        <next>
+          <block type="input_value" id="AxmK!FfEPHcfSe8ec8k,">
+            <field name="INPUTNAME">KSIZE</field>
+            <field name="ALIGN">RIGHT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="COjwYx:/^h8wA)G_+u@]">
+                <field name="TEXT">kernel size</field>
+              </block>
+            </statement>
+            <value name="TYPE">
+              <block type="type_number" id="YEj1[$@@Ge.5{y+C[XVV"></block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="]b*ZuyW(xRO4xK#t^;!{">
+        <field name="TEXT">Blurs the image by taking the median of surrounding pixels.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="HaB:qrTreN1O0_J@XH:(">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <block type="type_other" id="T7:,W#x!nybkonjf.!ae">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <block type="type_other" id="UwY+[YqsC3Ah+kBwenXE">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id=";eunb61;d?5#B/suo-hy">
+        <mutation colour="#805ba5"></mutation>
+        <field name="HUE">270</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="HYA:i1u)2{@:)S@rdXz1" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">bilateral_filter</field>
+    <field name="INLINE">EXT</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="[_/3nn1cS;NHS?obOONv">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="*Ax^]9+5VQKE0s]xw.CI">
+            <field name="TEXT">Bilateral Filter</field>
+          </block>
+        </statement>
+        <next>
+          <block type="input_value" id="AxmK!FfEPHcfSe8ec8k,">
+            <field name="INPUTNAME">DIAMETER</field>
+            <field name="ALIGN">RIGHT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="COjwYx:/^h8wA)G_+u@]">
+                <field name="TEXT">Diameter</field>
+              </block>
+            </statement>
+            <value name="TYPE">
+              <block type="type_number" id="YEj1[$@@Ge.5{y+C[XVV"></block>
+            </value>
+            <next>
+              <block type="input_value" id="hm%NU!z}VaKhpNBJJo;}">
+                <field name="INPUTNAME">SIGMACOLOR</field>
+                <field name="ALIGN">RIGHT</field>
+                <statement name="FIELDS">
+                  <block type="field_static" id="X8ieyKmyp1/yPH,C~[(!">
+                    <field name="TEXT">Sigma Color</field>
+                  </block>
+                </statement>
+                <value name="TYPE">
+                  <block type="type_number" id="Q]c0#xSHF/HJrW#bo`l-"></block>
+                </value>
+                <next>
+                  <block type="input_value" id="J%q2e(HZkKE,KzIKqEd5">
+                    <field name="INPUTNAME">SIGMASPACE</field>
+                    <field name="ALIGN">RIGHT</field>
+                    <statement name="FIELDS">
+                      <block type="field_static" id="3b^(.C3/R[vvq:lmt`mn">
+                        <field name="TEXT">Sigma Space</field>
+                      </block>
+                    </statement>
+                    <value name="TYPE">
+                      <block type="type_number" id="b!3Ud)fIIDCryjWM7HCs"></block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="]b*ZuyW(xRO4xK#t^;!{">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="HaB:qrTreN1O0_J@XH:(">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <block type="type_other" id="T7:,W#x!nybkonjf.!ae">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <block type="type_other" id="UwY+[YqsC3Ah+kBwenXE">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id=";eunb61;d?5#B/suo-hy">
+        <mutation colour="#805ba5"></mutation>
+        <field name="HUE">270</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="2_1mQZ*q/2T4(tn{``mf" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">laplacian</field>
+    <field name="INLINE">EXT</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="Frznm%iRfc_gOEC}bav,">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="aYB+WY.SUmWtGOluU+Q6">
+            <field name="TEXT">Laplacian Filter</field>
+          </block>
+        </statement>
+        <next>
+          <block type="input_dummy" id="hA`oyJ7YooX9NX}%Ozm)">
+            <field name="ALIGN">RIGHT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="0?W|Q3H.?nh6z1e:Y6h+">
+                <field name="TEXT">Kernel size</field>
+                <next>
+                  <block type="field_dropdown" id="EzznKV9~d|a(2%/@fXMd">
+                    <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"></mutation>
+                    <field name="FIELDNAME">KERNEL_SIZE</field>
+                    <field name="USER0">1</field>
+                    <field name="CPU0">1</field>
+                    <field name="USER1">3</field>
+                    <field name="CPU1">3</field>
+                    <field name="USER2">5</field>
+                    <field name="CPU2">5</field>
+                    <field name="USER3">7</field>
+                    <field name="CPU3">7</field>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="input_value" id="JUa]/laWeTh#3ehu*q)F">
+                <field name="INPUTNAME">SCALE</field>
+                <field name="ALIGN">RIGHT</field>
+                <statement name="FIELDS">
+                  <block type="field_static" id="2mcPzG_^)j,5T`DJBCk/">
+                    <field name="TEXT">Scale</field>
+                  </block>
+                </statement>
+                <value name="TYPE">
+                  <shadow type="type_null" id="+zjFC!$(uYIm7rp~/}an"></shadow>
+                  <block type="type_number" id="BNsk^WP|c,CkBDzRUhNJ"></block>
+                </value>
+                <next>
+                  <block type="input_value" id="3ZuQH-n=}xCnl#mO$uR^">
+                    <field name="INPUTNAME">DELTA</field>
+                    <field name="ALIGN">RIGHT</field>
+                    <statement name="FIELDS">
+                      <block type="field_static" id="k.Hx}yZEUJcl@MP/6t]B">
+                        <field name="TEXT">Delta</field>
+                      </block>
+                    </statement>
+                    <value name="TYPE">
+                      <shadow type="type_null" id="+zjFC!$(uYIm7rp~/}an"></shadow>
+                      <block type="type_number" id="U`$)R;G2Okx@-I?dWeqR"></block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="HzkeP110!=_}0V%ZfY]K" deletable="false" movable="false">
+        <field name="TEXT">Performs a Sobel operation on the image to enhance edges.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="c4k!rV40l@L=bc!aR$6W" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="_rj*CJP)AM]HGZqRVYU9"></shadow>
+      <block type="type_other" id="Yx%77G0jh3v]vz@2LhnE">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="oc~V;_W[Z?@I-q4-CFj4"></shadow>
+      <block type="type_other" id="GBdRKheP5]/#NKs3t$:y">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="@9enXlY|Cj?=Z/,.=oDT">
+        <mutation colour="#805ba5"></mutation>
+        <field name="HUE">270</field>
+      </block>
+    </value>
   </block></xml>
