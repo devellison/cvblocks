@@ -193,6 +193,7 @@ function CVBlocksCore(video_id,
   /** resets all buffers for size changes */
   this.resetBuffers = function()
   {
+    console.log("Resetting buffers for size change")
     this.width = this.videoIn.width;
     this.height = this.videoIn.height;
 
@@ -356,9 +357,12 @@ function CVBlocksCore(video_id,
 
     var entryTime   = Date.now();
     var frameDelay  = 0;
+
+    this.checkUpdateFrameSize();
     // start processing.
-    if (this.width != this.videoIn.width)
-      this.resetBuffers();
+    // if (this.width != this.videoIn.width)
+    //    resetBuffers();
+
 
     if ((this.streaming == "movie") || (this.streaming == "camera"))
     {
@@ -368,7 +372,7 @@ function CVBlocksCore(video_id,
     {
       try
       {
-          let src = cv.imread(image_id);
+          let src = cv.imread(this.image_id);
           src.copyTo(this.inFrame);
           src.delete();
       }
@@ -406,6 +410,49 @@ function CVBlocksCore(video_id,
 
     setTimeout(cvblocks_video_callback, kFrameTime);
   };
+
+  this.checkUpdateFrameSize = function()
+  {
+    var w = 0;
+    var h = 0;
+
+    // Find our best size
+    if (this.streaming == "image")
+    {
+        w = this.imageIn.naturalWidth;
+        h = this.imageIn.naturalHeight;
+    }
+    else
+    {
+        w = this.videoIn.videoWidth;
+        h = this.videoIn.videoHeight;
+    }
+
+    // don't resize on empty frames.
+    if ((w == 0) || (h == 0))
+      return;
+
+    // match to width
+    var r = this.videoIn.width / w;
+
+    var x = Math.round(w * r);
+    var y = Math.round(h * r);
+    if ((x != this.width) || (y != this.height))
+    {
+      console.log("updating size to (" + x + ", " + y + " )");
+      this.imageIn.width = x;
+      this.imageIn.height = y;
+      this.videoIn.width = x;
+      this.videoIn.height = y;
+
+      this.canvas.w = x;
+      this.canvas.h = y;
+      this.width = x;
+      this.height = y;
+
+      this.resetBuffers();
+    }
+  }
 
   /** Called when streaming has stopped, from the video callback */
   this.onStreamingStopped = function()
