@@ -76,6 +76,13 @@ html, body{
   z-index: 99;
   overflow: auto;
 }
+#consoleOverlay {
+  font-family: monospace;
+  background-color: rgba(0,0,0,0.8);
+  color: white;
+  z-index: 100;
+  overflow: auto;
+}
 
 @media all and (max-width: 640px) {
     .sidebar {

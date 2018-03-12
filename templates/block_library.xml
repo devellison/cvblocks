@@ -2632,4 +2632,50 @@
         <field name="HUE">225</field>
       </block>
     </value>
+  </block><block type="factory_base" id="2jg7J(b/L}$iqzh7hhl7" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">log</field>
+    <field name="INLINE">INT</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="jh4de1(h?gL9x%VVo?]/">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="$pAWP^l7gejH~d~$`cP1">
+            <field name="TEXT">Log</field>
+          </block>
+        </statement>
+        <next>
+          <block type="input_value" id="prqp*p3SX=8LMW.=|?0H">
+            <field name="INPUTNAME">LOGMESSAGE</field>
+            <field name="ALIGN">LEFT</field>
+            <value name="TYPE">
+              <shadow type="type_null" id="BUU]r%X($J;QYjMBfCy5"></shadow>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="J1l3kpw-)TAM2v62Ig+h" deletable="false" movable="false">
+        <field name="TEXT">Output to the log console.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="RPD@3~etSyvZlxPA87JF" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="$~C.(Y9tP{W_MCO`RFg]"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="!d+k0DOVU7~KqWe]be)e"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="Y6WfCJ(I*v-GEJG}XLX!">
+        <mutation colour="#5ba56d"></mutation>
+        <field name="HUE">135</field>
+      </block>
+    </value>
   </block></xml>

@@ -353,3 +353,10 @@ Blockly.JavaScript['draw_circles'] = function(block) {
   var code = 'cvblocks_draw_circles(' + variable_circles + ', "' + colour_circle_colour + '");\n'
   return code;
 };
+
+Blockly.JavaScript['log'] = function(block) {
+  var value_logmessage = Blockly.JavaScript.valueToCode(block, 'LOGMESSAGE', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'cvblocks_log(' + value_logmessage + ');\n';
+  return code;
+};

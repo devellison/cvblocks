@@ -779,3 +779,8 @@ function cvblocks_draw_circles(circles, circle_colour)
 
   gCVBC.endProcessStep();
 }
+
+function cvblocks_log(message)
+{
+  gCVBC.log(message);
+}

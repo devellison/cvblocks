@@ -733,3 +733,18 @@ Blockly.Blocks['draw_lines'] = {
  this.setHelpUrl("");
   }
 };
+
+Blockly.Blocks['log'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Log");
+    this.appendValueInput("LOGMESSAGE")
+        .setCheck(null);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(135);
+ this.setTooltip("Output to the log console.");
+ this.setHelpUrl("");
+  }
+};

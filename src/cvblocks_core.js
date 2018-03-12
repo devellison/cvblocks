@@ -20,6 +20,7 @@ function cvblocks_stream_callback(stream) {gCVBC.streamCallback(stream);}
  * @param {string} hist_id - id of histogram tag for output
  * @param {string} step_sel_id - id of select tag for step selection
  * @param {string} camera_sel_id - id of select tag for camera selection
+   @param {string} console_id - id of div for console overlay
  * @param {callback} streamCallback - called when streaming state changes
  */
 function CVBlocksCore(video_id,
@@ -28,6 +29,7 @@ function CVBlocksCore(video_id,
                       hist_id,
                       step_sel_id,
                       camera_sel_id,
+                      console_id,
                       streamCallback)
 {
   //-------------------------------------------------------------------------
@@ -50,6 +52,7 @@ function CVBlocksCore(video_id,
   this.histogram  = document.getElementById(hist_id);
   this.videoIn    = document.getElementById(video_id);
   this.selStep    = document.getElementById(step_sel_id);
+  this.console    = document.getElementById(console_id);
 
   this.capture    = new cv.VideoCapture(this.videoIn);
   this.context    = this.canvas.getContext("2d");
@@ -106,7 +109,19 @@ function CVBlocksCore(video_id,
   const kFrameTime = 1000.0/kFPS;
   let camselect  = document.getElementById(camera_sel_id);
 
-
+  this.log = function(msg)
+  {
+    var newline = document.createElement("div");
+    newline.innerHTML = msg;
+    this.console.appendChild(newline);
+    // TODO: right now this scrolls automatically, and wins
+    // if the user is trying to scroll back in the history.
+    // need to add detection of the user scrolling to turn
+    // this off, then back on if they scroll to bottom.
+    this.console.scrollTop = this.console.scrollHeight;
+    // also log it to javascript console
+    console.log(msg);
+  }
   //-------------------------------------------------------------------------
   // These are the functions required by the Blockly generated code for
   // processing.
@@ -160,7 +175,7 @@ function CVBlocksCore(video_id,
       }
       catch (e)
       {
-        console.log("Error in onProcess: " + e);
+        this.log("Error in onProcess: " + e);
         if (this.debug)
           throw(e);
       }
@@ -193,7 +208,7 @@ function CVBlocksCore(video_id,
   /** resets all buffers for size changes */
   this.resetBuffers = function()
   {
-    console.log("Resetting buffers for size change")
+    this.log("Resetting buffers for size change")
     this.width = this.videoIn.width;
     this.height = this.videoIn.height;
 
@@ -341,7 +356,7 @@ function CVBlocksCore(video_id,
     {
       this.videoIn.pause();
       this.streaming = false;
-      console.log("Streaming video stopping...");
+      this.log("Streaming video stopping...");
     }
   };
 
@@ -378,7 +393,7 @@ function CVBlocksCore(video_id,
       }
       catch(e)
       {
-          console.log("Error loading static image: " + e);
+          this.log("Error loading static image: " + e);
           this.onStreamingStopped();
           if (this.debug)
             throw(e);
@@ -439,7 +454,7 @@ function CVBlocksCore(video_id,
     var y = Math.round(h * r);
     if ((x != this.width) || (y != this.height))
     {
-      console.log("updating size to (" + x + ", " + y + " )");
+      this.log("updating size to (" + x + ", " + y + " )");
       this.imageIn.width = x;
       this.imageIn.height = y;
       this.videoIn.width = x;
@@ -457,7 +472,7 @@ function CVBlocksCore(video_id,
   /** Called when streaming has stopped, from the video callback */
   this.onStreamingStopped = function()
   {
-    console.log("Streaming video stopped.");
+    this.log("Streaming video stopped.");
     this.videoIn.srcObject = null;
     this.videoIn.source    = null;
 
@@ -466,11 +481,11 @@ function CVBlocksCore(video_id,
 
     this.streaming       = false;
 
-    console.log("Best frame time: " + this.frameTimeBest  + "ms")
-    console.log("Worst frame time: " + this.frameTimeWorst + "ms")
-    console.log("Avg frame time: " +
+    this.log("Best frame time: " + this.frameTimeBest  + "ms")
+    this.log("Worst frame time: " + this.frameTimeWorst + "ms")
+    this.log("Avg frame time: " +
         this.frameTimeTotal / this.frameTimeCount + "ms")
-    console.log("Frames: " + this.frameTimeCount);
+    this.log("Frames: " + this.frameTimeCount);
 
     if (this.streamcb != undefined)
       this.streamcb(false);
@@ -510,7 +525,7 @@ function CVBlocksCore(video_id,
     this.videoIn.src = movieUrl;
     this.streaming = "movie";
     this.videoIn.play();
-    console.log("Video streaming started from movie URL.")
+    this.log("Video streaming started from movie URL.")
     setTimeout(cvblocks_video_callback, 0);
 
     if (this.streamcb != undefined)
@@ -538,7 +553,7 @@ function CVBlocksCore(video_id,
     this.videoIn.src = fileURL;
     this.streaming = "movie";
     this.videoIn.play();
-    console.log("Video streaming started from movie file.")
+    this.log("Video streaming started from movie file.")
     setTimeout(cvblocks_video_callback, 0);
 
     if (this.streamcb != undefined)
@@ -572,14 +587,14 @@ function CVBlocksCore(video_id,
   this.startCameraStream = function()
   {
     this.stop();
-    console.log("Starting video stream from camera.")
+    this.log("Starting video stream from camera.")
     this.resetFrameCounters();
 
     var constraints = { deviceId: { exact: camselect.value } };
 
     navigator.mediaDevices.getUserMedia({ video: constraints })
       .then(cvblocks_stream_callback).catch(function(err){
-                console.log("Unable to acquire camera: " + err);
+                this.log("Unable to acquire camera: " + err);
                 if (gCVBC.streamcb != undefined)
                   gCVBC.streamcb(false);
                   window.alert("Unable to acquire camera:" + err)
@@ -600,12 +615,12 @@ function CVBlocksCore(video_id,
       this.videoIn.srcObject = stream;
       this.videoIn.play();
       this.streaming = "camera";
-      console.log("Video streaming started from camera.")
+      this.log("Video streaming started from camera.")
       setTimeout(cvblocks_video_callback, 0);
     }
     catch (e)
     {
-      console.log("Error starting camera: " + e);
+      this.log("Error starting camera: " + e);
       this.streaming = false;
       if (this.streamcb != undefined)
         this.streamcb(false);

@@ -332,6 +332,13 @@
       <field name="OPERATION">gCVBC_CONST.op_sub_image</field>
       <field name="STOREDFRAME" id="KF!N)l;.M;+#fB1b9O|7" variabletype="">storedFrame</field>
     </block>
+    <block type="log">
+      <value name="LOGMESSAGE">
+        <shadow type="text">
+          <field name="TEXT">Hello World!</field>
+        </shadow>
+      </value>
+    </block>
   </category>
   <sep></sep>
   <category name="Colour" colour="#A6745C">

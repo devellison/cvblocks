@@ -8,6 +8,7 @@ var gCVBC = new CVBlocksCore("videoSource",
                              "histogram",
                              "selStep",
                              "camera_select",
+                             "consoleOverlay",
                              streamCallback);
 
 // Inject Blockly into our div
@@ -49,6 +50,7 @@ var options = {
   var blocklyArea = document.getElementById('blocklyArea');
   var blocklyDiv = document.getElementById('blocklyDiv');
   var codeOverlay = document.getElementById('codeOverlay');
+  var consoleOverlay = document.getElementById('consoleOverlay');
   var workspacePlayground = Blockly.inject(blocklyDiv,options);
   var onresize = function(e) {
     // Compute the absolute coordinates and dimensions of blocklyArea.
@@ -70,7 +72,11 @@ var options = {
     codeOverlay.style.top    = blocklyDiv.style.top;
     codeOverlay.style.width  = blocklyDiv.style.width;
     codeOverlay.style.height = blocklyDiv.style.height;
-
+    // Position console overlay
+    consoleOverlay.style.left   = blocklyDiv.style.left;
+    consoleOverlay.style.top    = blocklyDiv.style.top;
+    consoleOverlay.style.width  = blocklyDiv.style.width;
+    consoleOverlay.style.height = blocklyDiv.style.height;
     Blockly.svgResize(workspacePlayground);
   };
   onresize();
@@ -217,6 +223,8 @@ function onImportBlocks(event)
 }
 
 var gViewingCode = false;
+var gViewingConsole = false;
+
 function viewCode()
 {
   var viewButton = document.getElementById("btnViewCode");
@@ -235,6 +243,24 @@ function viewCode()
     gViewingCode = true;
   }
 }
+
+function viewConsole()
+{
+  var viewButton = document.getElementById("btnViewConsole");
+  if (gViewingConsole)
+  {
+    consoleOverlay.style.display = "none";
+    viewButton.innerHTML = "View console.."
+    gViewingConsole = false;
+  }
+  else
+  {
+    consoleOverlay.style.display = "block";
+    viewButton.innerHTML = "Hide console.."
+    gViewingConsole = true;
+  }
+}
+
 /** export generated javascript code - mostly just for debugging right now */
 function onExportCode()
 {
