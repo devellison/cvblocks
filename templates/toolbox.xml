@@ -1,24 +1,5 @@
 <xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
-  <category name="Filters" colour="#805ba5">
-    <block type="background_subtractor">
-      <field name="BGREMOVER" id=")tcL9I5$+KI%eu?+z$,C" variabletype="">bg_remover</field>
-      <value name="HISTORY_LENGTH">
-        <shadow type="math_number">
-          <field name="NUM">100</field>
-        </shadow>
-      </value>
-      <value name="THRESHOLD">
-        <shadow type="math_number">
-          <field name="NUM">16</field>
-        </shadow>
-      </value>
-      <value name="DETECT_SHADOWS">
-        <shadow type="logic_boolean">
-          <field name="BOOL">TRUE</field>
-        </shadow>
-      </value>
-    </block>
-  </category>
+  <category name="Filters" colour="#805ba5"></category>
   <category name="Blur" colour="#805ba5">
     <block type="gaussian">
       <value name="KSIZE">
@@ -225,6 +206,7 @@
       <field name="ANCHOR_Y">-1</field>
     </block>
   </category>
+  <category name="Shapes" colour="#a5935b"></category>
   <category name="Contours" colour="#a5935b">
     <block type="find_contours">
       <field name="CONTOUR_VAR" id="WscstGG102AgBpvLJ1T!" variabletype="">contours</field>
@@ -247,6 +229,93 @@
     </block>
     <block type="contour_area">
       <field name="SELECTED_CONTOUR" id="]Qd*L:IU(]y0^T`hk%cU" variabletype="">selected_contour</field>
+    </block>
+  </category>
+  <category name="Lines and Circles" colour="#5b6da5">
+    <block type="hough_linesp">
+      <field name="LINES" id="0:T7#O2_|AGd}_KVxR16" variabletype="">lines</field>
+      <field name="THETA">1</field>
+      <value name="RHO">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="THRESHOLD">
+        <shadow type="math_number">
+          <field name="NUM">2</field>
+        </shadow>
+      </value>
+      <value name="MINLINELENGTH">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="MAXLINEGAP">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="draw_lines">
+      <field name="LINES" id="0:T7#O2_|AGd}_KVxR16" variabletype="">lines</field>
+      <field name="line_colour">#ff0000</field>
+    </block>
+    <block type="hough_circles">
+      <field name="CIRCLES" id="4zBO:bZv^[Ww(|04FdZr" variabletype="">circles</field>
+      <value name="DP">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="MINDIST">
+        <shadow type="math_number">
+          <field name="NUM">45</field>
+        </shadow>
+      </value>
+      <value name="PARAM1">
+        <shadow type="math_number">
+          <field name="NUM">75</field>
+        </shadow>
+      </value>
+      <value name="PARAM2">
+        <shadow type="math_number">
+          <field name="NUM">40</field>
+        </shadow>
+      </value>
+      <value name="MINRADIUS">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="MAXRADIUS">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="draw_circles">
+      <field name="CIRCLES" id="4zBO:bZv^[Ww(|04FdZr" variabletype="">circles</field>
+      <field name="circle_colour">#ff0000</field>
+    </block>
+  </category>
+  <category name="Motion" colour="#a55b5b">
+    <block type="background_subtractor">
+      <field name="BGREMOVER" id="=YRfK$G2Y%BK#cn,~1V2" variabletype="">bg_remover</field>
+      <value name="HISTORY_LENGTH">
+        <shadow type="math_number">
+          <field name="NUM">100</field>
+        </shadow>
+      </value>
+      <value name="THRESHOLD">
+        <shadow type="math_number">
+          <field name="NUM">16</field>
+        </shadow>
+      </value>
+      <value name="DETECT_SHADOWS">
+        <shadow type="logic_boolean">
+          <field name="BOOL">TRUE</field>
+        </shadow>
+      </value>
     </block>
   </category>
   <category name="Utilities" colour="#5ba55b">

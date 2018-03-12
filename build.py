@@ -50,13 +50,29 @@ def generate_index():
 
             # group everything between filters and contours into filters,
             # and all core operations in core
-            inFilter = True
-            coreSet = ['Variables','Math','Logic','Colour','Loops','Lists','Functions']
+            inFilter = False
+            inShapes = False
+
+            rootStandalones = ['Utilities','Motion']
+            coreSet = ['Variables','Math','Logic','Colour','Loops','Lists','Functions','Text']
+
             for curNode in allnodes:
-                if curNode.get('name') == 'Contours':
+                if curNode.get('name') == 'Filters':
+                    inShapes = False
+                    inFilter = True
+                    filers = curNode
+                elif curNode.get('name') == 'Shapes':
                     inFilter = False
+                    inShapes = True
+                    shapes = curNode;
+                elif curNode.get('name') in rootStandalones:
+                    inShapes = False
+                    inFilter = False
+
                 if (inFilter == True) & (curNode.get('name') != 'Filters'):
                     filters.append(curNode)
+                if (inShapes == True) & (curNode.get('name') != 'Shapes'):
+                    shapes.append(curNode)
                 if curNode.get('name') in coreSet:
                     core.append(curNode)
 

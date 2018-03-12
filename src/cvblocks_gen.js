@@ -303,3 +303,53 @@ Blockly.JavaScript['image_operation'] = function(block) {
    // TODO: Change ORDER_NONE to the correct strength.
    return [code, Blockly.JavaScript.ORDER_NONE];
  };
+
+ Blockly.JavaScript['hough_linesp'] = function(block) {
+   var variable_lines = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('LINES'), Blockly.Variables.NAME_TYPE);
+   var value_rho = Blockly.JavaScript.valueToCode(block, 'RHO', Blockly.JavaScript.ORDER_ATOMIC);
+   var angle_theta = block.getFieldValue('THETA');
+   var value_threshold = Blockly.JavaScript.valueToCode(block, 'THRESHOLD', Blockly.JavaScript.ORDER_ATOMIC);
+   var value_minlinelength = Blockly.JavaScript.valueToCode(block, 'MINLINELENGTH', Blockly.JavaScript.ORDER_ATOMIC);
+   var value_maxlinegap = Blockly.JavaScript.valueToCode(block, 'MAXLINEGAP', Blockly.JavaScript.ORDER_ATOMIC);
+   var code = variable_lines + ' = cvblocks_hough_linesp( '
+            + value_rho + ', '
+            + angle_theta + ', '
+            + value_threshold + ', '
+            + value_minlinelength + ', '
+            + value_maxlinegap
+            + ' );\n'
+   return code;
+ };
+
+ Blockly.JavaScript['hough_circles'] = function(block) {
+  var variable_circles = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('CIRCLES'), Blockly.Variables.NAME_TYPE);
+  var value_dp = Blockly.JavaScript.valueToCode(block, 'DP', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_mindist = Blockly.JavaScript.valueToCode(block, 'MINDIST', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_param1 = Blockly.JavaScript.valueToCode(block, 'PARAM1', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_param2 = Blockly.JavaScript.valueToCode(block, 'PARAM2', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_minradius = Blockly.JavaScript.valueToCode(block, 'MINRADIUS', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_maxradius = Blockly.JavaScript.valueToCode(block, 'MAXRADIUS', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = variable_circles + ' = cvblocks_hough_circles( '
+           + value_dp + ', '
+           + value_mindist + ', '
+           + value_param1 + ', '
+           + value_param2 + ', '
+           + value_minradius + ', '
+           + value_maxradius
+           + ' );\n'
+  return code;
+};
+
+Blockly.JavaScript['draw_lines'] = function(block) {
+  var variable_lines = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('LINES'), Blockly.Variables.NAME_TYPE);
+  var colour_line_colour = block.getFieldValue('line_colour');
+  var code = 'cvblocks_draw_lines(' + variable_lines + ', "' + colour_line_colour + '");\n'
+  return code;
+};
+
+Blockly.JavaScript['draw_circles'] = function(block) {
+  var variable_circles = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('CIRCLES'), Blockly.Variables.NAME_TYPE);
+  var colour_circle_colour = block.getFieldValue('circle_colour');
+  var code = 'cvblocks_draw_circles(' + variable_circles + ', "' + colour_circle_colour + '");\n'
+  return code;
+};

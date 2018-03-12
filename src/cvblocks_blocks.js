@@ -485,12 +485,13 @@ Blockly.Blocks['background_subtractor'] = {
         .appendField("Detect Shadows?");
     this.setPreviousStatement(true, "Image");
     this.setNextStatement(true, "Image");
-    this.setColour(270);
- this.setTooltip("Removes the background from video.");
+    this.setColour(0);
+ this.setTooltip("Removes items that have not been in motion from the image.");
  this.setHelpUrl("");
  onFrameWatcher(this);
   }
 };
+
 Blockly.Blocks['split_image'] = {
   init: function() {
     this.appendDummyInput()
@@ -498,7 +499,7 @@ Blockly.Blocks['split_image'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField("Place")
-        .appendField(new Blockly.FieldDropdown([["red","gCVBC_CONST.split_red"], ["green","gCVBC_CONST.split_green"], ["blue","gCVBC_CONST.split_blue"], ["hue","gCVBC_CONST.split_hue"], ["saturation","gCVBC_CONST.split_saturation"], ["value","gCVBC_CONST.split_value"]]), "PIPE_IMAGE")
+        .appendField(new Blockly.FieldDropdown([["red","gCVBC_CONST.split_red"], ["green","gCVBC_CONST.split_green"], ["blue","gCVBC_CONST.split_blue"], ["hue","gCVBC_CONST.split_hue"], ["saturation","gCVBC_CONST.split_saturation"], ["value","gCVBC_CONST.split_value"], ["hue (as RGB)","gCVBC_CONST.split_hue2rgb"]]), "PIPE_IMAGE")
         .appendField("in pipeline.");
     this.setPreviousStatement(true, "Image");
     this.setNextStatement(true, "Image");
@@ -621,6 +622,114 @@ Blockly.Blocks['contour_area'] = {
     this.setOutput(true, "Number");
     this.setColour(45);
  this.setTooltip("Find the area of the provided contour.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['hough_linesp'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Hough Line Transform (Probabilistic)");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Lines saved in")
+        .appendField(new Blockly.FieldVariable("lines"), "LINES");
+    this.appendValueInput("RHO")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Distance resolution (pixels)");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Angle resolution")
+        .appendField(new Blockly.FieldAngle(90), "THETA");
+    this.appendValueInput("THRESHOLD")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Threshold (votes)");
+    this.appendValueInput("MINLINELENGTH")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Min. Line Length");
+    this.appendValueInput("MAXLINEGAP")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Max Line Gap");
+    this.setPreviousStatement(true, "Image");
+    this.setNextStatement(true, "Image");
+    this.setColour(225);
+ this.setTooltip("Finds lines in the image");
+ this.setHelpUrl("");
+ onFrameWatcher(this);
+  }
+};
+
+Blockly.Blocks['hough_circles'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Hough Circle Transform");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Circles saved in")
+        .appendField(new Blockly.FieldVariable("circles"), "CIRCLES");
+    this.appendValueInput("DP")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Inverse of (accum res)/(image res)");
+    this.appendValueInput("MINDIST")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Min dist between centers");
+    this.appendValueInput("PARAM1")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Canny threshold");
+    this.appendValueInput("PARAM2")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Accumulator threshold");
+    this.appendValueInput("MINRADIUS")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Minimum Radius");
+    this.appendValueInput("MAXRADIUS")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Maximum Radius");
+    this.setPreviousStatement(true, "Image");
+    this.setNextStatement(true, "Image");
+    this.setColour(225);
+ this.setTooltip("Finds circles in the image.");
+ this.setHelpUrl("");
+ onFrameWatcher(this);
+  }
+};
+
+Blockly.Blocks['draw_circles'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Draw circle(s) from")
+        .appendField(new Blockly.FieldVariable("circles"), "CIRCLES")
+        .appendField("in")
+        .appendField(new Blockly.FieldColour("#ff0000"), "circle_colour");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(225);
+ this.setTooltip("Draws the circles into the image");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['draw_lines'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Draw line(s) from")
+        .appendField(new Blockly.FieldVariable("lines"), "LINES")
+        .appendField("in")
+        .appendField(new Blockly.FieldColour("#ff0000"), "line_colour");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(225);
+ this.setTooltip("Draws the lines into the image");
  this.setHelpUrl("");
   }
 };

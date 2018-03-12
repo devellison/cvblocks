@@ -15,7 +15,8 @@ function CVBlocks_const()
   this.split_blue   = 3;
   this.split_hue    = 4;
   this.split_saturation = 5;
-  this.split_value  = 6;
+  this.split_value   = 6;
+  this.split_hue2rgb = 7;
   //
   return this;
 }
@@ -201,7 +202,11 @@ function cvblocks_split_image(which)
   if (!gCVBC.insideOnFrame)
     return;
 
-  gCVBC.beginProcessStep("Split Image",2);
+  var want_gray = gCVBC.kPROCSTEP_RGB2GRAY;
+  if (which == gCVBC_CONST.split_hue2rgb)
+    want_gray = gCVBC.kPROCSTEP_RGB;
+
+  gCVBC.beginProcessStep("Split Image",want_gray);
 
   var split_list;
   var convert_hsv = false;
@@ -229,10 +234,15 @@ function cvblocks_split_image(which)
       split_list = [2,0];
       convert_hsv = true;
       break;
+    case gCVBC_CONST.split_hue2rgb:
+      split_list = [0,0,1,1,1,2]; //[0,0];
+      convert_hsv = true;
+      break;
   }
 
   var inputVector = new cv.MatVector();
   var outputVector = new cv.MatVector();
+
   if (convert_hsv)
   {
     cv.cvtColor(gCVBC.prevFrame, gCVBC.hsvFrame, cv.COLOR_RGB2HSV,0);
@@ -243,9 +253,19 @@ function cvblocks_split_image(which)
       inputVector.push_back(gCVBC.prevFrame);
   }
 
-  outputVector.push_back(gCVBC.curFrame);
+  if (which == gCVBC_CONST.split_hue2rgb)
+  {
+    var inputOnes = new cv.Mat.ones(gCVBC.height, gCVBC.width, cv.CV_8UC1);
+    inputVector.push_back(inputOnes);
+  }
 
+  outputVector.push_back(gCVBC.curFrame);
   cv.mixChannels( inputVector, outputVector, split_list);
+
+  if (which == gCVBC_CONST.split_hue2rgb)
+  {
+    cv.cvtColor(gCVBC.curFrame, gCVBC.curFrame, cv.COLOR_HSV2RGB,0);
+  }
 
   inputVector.delete();
   outputVector.delete();
@@ -653,4 +673,109 @@ function cvblocks_contour_area(selectedContours)
     return 0;
 
   return cv.contourArea(selectedContours.get(0));
+}
+
+function cvblocks_hough_linesp(rho,theta,thresh,minlen,maxgap)
+{
+  if (!gCVBC.insideOnFrame)
+    return null;
+
+    gCVBC.beginProcessStep("Hough Lines",1);
+    gCVBC.prevFrame.copyTo(gCVBC.curFrame);
+
+    // convert theta from degrees to radians
+    let thetaRad = (theta * Math.PI )/180.0;
+
+    let lines = new cv.Mat();
+    cv.HoughLinesP(gCVBC.curFrame, lines, rho, thetaRad, thresh, minlen, maxgap);
+
+    gCVBC.endProcessStep();
+
+    return lines;
+}
+
+function cvblocks_hough_circles(dp,minDist,param1,param2,minrad,maxrad)
+{
+  if (!gCVBC.insideOnFrame)
+    return null;
+
+  gCVBC.beginProcessStep("Hough Circles",1);
+  gCVBC.prevFrame.copyTo(gCVBC.curFrame);
+
+  let circles = new cv.Mat();
+  cv.HoughCircles(gCVBC.curFrame, circles, cv.HOUGH_GRADIENT,
+                  dp,minDist,param1,param2,minrad,maxrad);
+
+  gCVBC.endProcessStep();
+  return circles;
+}
+
+function cvblocks_draw_lines(lines, line_colour)
+{
+  if (!gCVBC.insideOnFrame)
+    return;
+
+  if (undefined == lines)
+    return;
+
+  gCVBC.beginProcessStep("Draw Lines",0);
+  gCVBC.prevFrame.copyTo(gCVBC.curFrame);
+
+  var tmpColor = tinycolor(line_colour);
+  var rgb = tmpColor.toRgb();
+  var color = new cv.Scalar(rgb.r,rgb.g,rgb.b,255);
+
+  try
+  {
+    for (let i = 0; i < lines.rows; ++i)
+    {
+        let startPoint = new cv.Point(lines.data32S[i * 4], lines.data32S[i * 4 + 1]);
+        let endPoint = new cv.Point(lines.data32S[i * 4 + 2], lines.data32S[i * 4 + 3]);
+        cv.line(gCVBC.curFrame, startPoint, endPoint, color);
+    }
+  }
+  catch (e)
+  {
+     console.log('error: '+e);
+     if (gCVBC.debug)
+      throw(e);
+  }
+
+  gCVBC.endProcessStep();
+}
+
+function cvblocks_draw_circles(circles, circle_colour)
+{
+  if (!gCVBC.insideOnFrame)
+    return;
+
+  if (undefined == circles)
+    return;
+
+  gCVBC.beginProcessStep("Draw Circles",0);
+  gCVBC.prevFrame.copyTo(gCVBC.curFrame);
+
+  var tmpColor = tinycolor(circle_colour);
+  var rgb = tmpColor.toRgb();
+  var color = new cv.Scalar(rgb.r,rgb.g,rgb.b,255);
+
+  try
+  {
+    for (let i = 0; i < circles.cols; ++i)
+    {
+        let x = circles.data32F[i * 3];
+        let y = circles.data32F[i * 3 + 1];
+        let radius = circles.data32F[i * 3 + 2];
+        let center = new cv.Point(x, y);
+        cv.circle(gCVBC.curFrame, center, radius, color);
+    }
+  }
+  catch (e)
+  {
+     console.log('error: '+e);
+     if (gCVBC.debug)
+      throw(e);
+  }
+
+  gCVBC.endProcessStep();
 }

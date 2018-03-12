@@ -1414,8 +1414,8 @@
     </value>
     <value name="COLOUR">
       <block type="colour_hue" id="@IP7cI#IYd2ya6f0gN_H">
-        <mutation colour="#805ba5"></mutation>
-        <field name="HUE">270</field>
+        <mutation colour="#a55b5b"></mutation>
+        <field name="HUE">0</field>
       </block>
     </value>
   </block><block type="factory_base" id="Xr*!xu27neag9TT,Xhn]" x="0" y="0">
@@ -1564,7 +1564,7 @@
                 <field name="TEXT">Place</field>
                 <next>
                   <block type="field_dropdown" id="!+ixiZ*vg;$v2dbm_Md-">
-                    <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"></mutation>
+                    <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"></mutation>
                     <field name="FIELDNAME">PIPE_IMAGE</field>
                     <field name="USER0">red</field>
                     <field name="CPU0">gCVBC_CONST.split_red</field>
@@ -1578,6 +1578,8 @@
                     <field name="CPU4">gCVBC_CONST.split_saturation</field>
                     <field name="USER5">value</field>
                     <field name="CPU5">gCVBC_CONST.split_value</field>
+                    <field name="USER6">hue (as RGB)</field>
+                    <field name="CPU6">gCVBC_CONST.split_hue2rgb</field>
                     <next>
                       <block type="field_static" id="z9/b_z^Ea2*,Zmb2vB2{">
                         <field name="TEXT">in pipeline.</field>
@@ -2248,6 +2250,386 @@
       <block type="colour_hue" id="@9enXlY|Cj?=Z/,.=oDT">
         <mutation colour="#805ba5"></mutation>
         <field name="HUE">270</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="VM)*K-gyDOpTkBy}d+|s" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">hough_linesp</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="Dh@BJMY!;6BlAZ)ES42*">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="C-*$a4AS5cYzj#Ai`D(1">
+            <field name="TEXT">Hough Line Transform (Probabilistic)</field>
+          </block>
+        </statement>
+        <next>
+          <block type="input_dummy" id="XSy;reaRnh/$AyN_5p[p">
+            <field name="ALIGN">RIGHT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="P8SO/}Q5L8UWJSY?O@m)">
+                <field name="TEXT">Lines saved in</field>
+                <next>
+                  <block type="field_variable" id="nxIHnycw[jP%F$t|_#Bz">
+                    <field name="TEXT">lines</field>
+                    <field name="FIELDNAME">LINES</field>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="input_value" id="F=4V(GFnsQ]_85.8hI_T">
+                <field name="INPUTNAME">RHO</field>
+                <field name="ALIGN">RIGHT</field>
+                <statement name="FIELDS">
+                  <block type="field_static" id="59z}0ORF6je(?rqoh]u|">
+                    <field name="TEXT">Distance resolution (pixels)</field>
+                  </block>
+                </statement>
+                <value name="TYPE">
+                  <shadow type="type_null" id="5Y;Z`=+@YAM_C9:%XG-."></shadow>
+                  <block type="type_number" id="%h4!eP4~xyF/2DVp2me["></block>
+                </value>
+                <next>
+                  <block type="input_dummy" id="vs7s;*0G,4eQ[R.w}C@q">
+                    <field name="ALIGN">RIGHT</field>
+                    <statement name="FIELDS">
+                      <block type="field_static" id="Gnsua080:Ujm%aRV^$Zk">
+                        <field name="TEXT">Angle resolution</field>
+                        <next>
+                          <block type="field_angle" id="4aV+X}+wa42{E]h43/(x">
+                            <field name="ANGLE">90</field>
+                            <field name="FIELDNAME">THETA</field>
+                          </block>
+                        </next>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="input_value" id="ABfC?PmP(dkD7|!a5H@E">
+                        <field name="INPUTNAME">THRESHOLD</field>
+                        <field name="ALIGN">RIGHT</field>
+                        <statement name="FIELDS">
+                          <block type="field_static" id="w:lE%8l2rO?G7-CG=lOK">
+                            <field name="TEXT">Threshold (votes)</field>
+                          </block>
+                        </statement>
+                        <value name="TYPE">
+                          <shadow type="type_null" id="5Y;Z`=+@YAM_C9:%XG-."></shadow>
+                          <block type="type_number" id="rSS%aO%pgt}]F29jpYCF"></block>
+                        </value>
+                        <next>
+                          <block type="input_value" id="BXWyZ^_)!$#R$ek*G,7b">
+                            <field name="INPUTNAME">MINLINELENGTH</field>
+                            <field name="ALIGN">RIGHT</field>
+                            <statement name="FIELDS">
+                              <block type="field_static" id="[g@8#_G`neytqfjIn?L=">
+                                <field name="TEXT">Min. Line Length</field>
+                              </block>
+                            </statement>
+                            <value name="TYPE">
+                              <shadow type="type_null" id="5Y;Z`=+@YAM_C9:%XG-."></shadow>
+                              <block type="type_number" id="]Z,HLU^mxkuR]I~RKy:W"></block>
+                            </value>
+                            <next>
+                              <block type="input_value" id="2.x*7u)4A7pqX$XNspvI">
+                                <field name="INPUTNAME">MAXLINEGAP</field>
+                                <field name="ALIGN">RIGHT</field>
+                                <statement name="FIELDS">
+                                  <block type="field_static" id="8KI|,,b5;Fv(C[p2*7h_">
+                                    <field name="TEXT">Max Line Gap</field>
+                                  </block>
+                                </statement>
+                                <value name="TYPE">
+                                  <shadow type="type_null" id="5Y;Z`=+@YAM_C9:%XG-."></shadow>
+                                  <block type="type_number" id="`Dcix!nBL2Agd;Yy*F3N"></block>
+                                </value>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="SXIR#nV)hTGPN`dmdx0D" deletable="false" movable="false">
+        <field name="TEXT">Finds lines in the image</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="3]q2CeEQkpbiq5PVTo@b" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="=;1Th+DIoJPnVl^NN?[V"></shadow>
+      <block type="type_other" id="`Ce%{QT8QF7JdX4/iMGS">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="J`]/;%1|1a1ocygM1.[m"></shadow>
+      <block type="type_other" id="l@a~r*$+X@[~IXeyV*{m">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="zwy;hfK~7oR0iQ6ad-cQ">
+        <mutation colour="#5b6da5"></mutation>
+        <field name="HUE">225</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="VM)*K-gyDOpTkBy}d+|s" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">hough_circles</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="Dh@BJMY!;6BlAZ)ES42*">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="C-*$a4AS5cYzj#Ai`D(1">
+            <field name="TEXT">Hough Circle Transform</field>
+          </block>
+        </statement>
+        <next>
+          <block type="input_dummy" id="XSy;reaRnh/$AyN_5p[p">
+            <field name="ALIGN">RIGHT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="P8SO/}Q5L8UWJSY?O@m)">
+                <field name="TEXT">Circles saved in</field>
+                <next>
+                  <block type="field_variable" id="nxIHnycw[jP%F$t|_#Bz">
+                    <field name="TEXT">circles</field>
+                    <field name="FIELDNAME">CIRCLES</field>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="input_value" id="F=4V(GFnsQ]_85.8hI_T">
+                <field name="INPUTNAME">DP</field>
+                <field name="ALIGN">RIGHT</field>
+                <statement name="FIELDS">
+                  <block type="field_static" id="59z}0ORF6je(?rqoh]u|">
+                    <field name="TEXT">Inverse of (accum res)/(image res)</field>
+                  </block>
+                </statement>
+                <value name="TYPE">
+                  <shadow type="type_null" id="5Y;Z`=+@YAM_C9:%XG-."></shadow>
+                  <block type="type_number" id="%h4!eP4~xyF/2DVp2me["></block>
+                </value>
+                <next>
+                  <block type="input_value" id="ABfC?PmP(dkD7|!a5H@E">
+                    <field name="INPUTNAME">MINDIST</field>
+                    <field name="ALIGN">RIGHT</field>
+                    <statement name="FIELDS">
+                      <block type="field_static" id="w:lE%8l2rO?G7-CG=lOK">
+                        <field name="TEXT">Min dist between centers</field>
+                      </block>
+                    </statement>
+                    <value name="TYPE">
+                      <shadow type="type_null" id="5Y;Z`=+@YAM_C9:%XG-."></shadow>
+                      <block type="type_number" id="rSS%aO%pgt}]F29jpYCF"></block>
+                    </value>
+                    <next>
+                      <block type="input_value" id=";@kx#vd!/B^6s:pu9s[j">
+                        <field name="INPUTNAME">PARAM1</field>
+                        <field name="ALIGN">RIGHT</field>
+                        <statement name="FIELDS">
+                          <block type="field_static" id="?Ir/8zkysG~Ex8fiq:#S">
+                            <field name="TEXT">Canny threshold</field>
+                          </block>
+                        </statement>
+                        <value name="TYPE">
+                          <shadow type="type_null" id="5Y;Z`=+@YAM_C9:%XG-."></shadow>
+                          <block type="type_number" id="f2Nn=)/:6ZD5~x-/f8t$"></block>
+                        </value>
+                        <next>
+                          <block type="input_value" id="XW^A+|O%,yo6+KJ?nHG^">
+                            <field name="INPUTNAME">PARAM2</field>
+                            <field name="ALIGN">RIGHT</field>
+                            <statement name="FIELDS">
+                              <block type="field_static" id="_i7wY+A9ZbCAvYX|-f*w">
+                                <field name="TEXT">Accumulator threshold</field>
+                              </block>
+                            </statement>
+                            <value name="TYPE">
+                              <shadow type="type_null" id="5Y;Z`=+@YAM_C9:%XG-."></shadow>
+                              <block type="type_number" id="GquJV9$zOVxhtl5y_otW"></block>
+                            </value>
+                            <next>
+                              <block type="input_value" id="|hkA~u[:4{BGo+#4]FWw">
+                                <field name="INPUTNAME">MINRADIUS</field>
+                                <field name="ALIGN">RIGHT</field>
+                                <statement name="FIELDS">
+                                  <block type="field_static" id="(E`Q9#w3)5eDto)JFZUE">
+                                    <field name="TEXT">Minimum Radius</field>
+                                  </block>
+                                </statement>
+                                <value name="TYPE">
+                                  <shadow type="type_null" id="5Y;Z`=+@YAM_C9:%XG-."></shadow>
+                                  <block type="type_number" id="8gC3M:@Yr?}c;Jq2EJxK"></block>
+                                </value>
+                                <next>
+                                  <block type="input_value" id="v)Wrd=Tr|{hSmWvy=E1q">
+                                    <field name="INPUTNAME">MAXRADIUS</field>
+                                    <field name="ALIGN">RIGHT</field>
+                                    <statement name="FIELDS">
+                                      <block type="field_static" id="o~g4VsG$j/j~-fnZa(MC">
+                                        <field name="TEXT">Maximum Radius</field>
+                                      </block>
+                                    </statement>
+                                    <value name="TYPE">
+                                      <shadow type="type_null" id="5Y;Z`=+@YAM_C9:%XG-."></shadow>
+                                      <block type="type_number" id="yyNlF~|NU+@[q[^muM^q"></block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="SXIR#nV)hTGPN`dmdx0D" deletable="false" movable="false">
+        <field name="TEXT">Finds circles in the image.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="3]q2CeEQkpbiq5PVTo@b" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="=;1Th+DIoJPnVl^NN?[V"></shadow>
+      <block type="type_other" id="`Ce%{QT8QF7JdX4/iMGS">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="J`]/;%1|1a1ocygM1.[m"></shadow>
+      <block type="type_other" id="l@a~r*$+X@[~IXeyV*{m">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="zwy;hfK~7oR0iQ6ad-cQ">
+        <mutation colour="#5b6da5"></mutation>
+        <field name="HUE">225</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="3KvbS#);6uJr98o;@xl." x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">draw_circles</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="8dYYero5(KoUncrw[16f">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="R5CrsHfW*}5#[KjSiwxv">
+            <field name="TEXT">Draw circle(s) from</field>
+            <next>
+              <block type="field_variable" id="4iN0t~O(HUh=IUKSP[+i">
+                <field name="TEXT">circles</field>
+                <field name="FIELDNAME">CIRCLES</field>
+                <next>
+                  <block type="field_static" id="93)ClQ(UJV:jY_`$L2SH">
+                    <field name="TEXT">in</field>
+                    <next>
+                      <block type="field_colour" id=".gL=FC~%!Z2$?l}n8M)l">
+                        <field name="COLOUR">#ff0000</field>
+                        <field name="FIELDNAME">circle_colour</field>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="gYDE%^;sV6G4DP23b5w3">
+        <field name="TEXT">Draws the circles into the image</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="Fjpj^$XA`)F[}Mre61r*">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id=")PS)+CwH%/7V32[`K#w7">
+        <mutation colour="#5b6da5"></mutation>
+        <field name="HUE">225</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="3KvbS#);6uJr98o;@xl." x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">draw_lines</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="8dYYero5(KoUncrw[16f">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="R5CrsHfW*}5#[KjSiwxv">
+            <field name="TEXT">Draw line(s) from</field>
+            <next>
+              <block type="field_variable" id="4iN0t~O(HUh=IUKSP[+i">
+                <field name="TEXT">lines</field>
+                <field name="FIELDNAME">LINES</field>
+                <next>
+                  <block type="field_static" id="93)ClQ(UJV:jY_`$L2SH">
+                    <field name="TEXT">in</field>
+                    <next>
+                      <block type="field_colour" id=".gL=FC~%!Z2$?l}n8M)l">
+                        <field name="COLOUR">#ff0000</field>
+                        <field name="FIELDNAME">line_colour</field>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="gYDE%^;sV6G4DP23b5w3">
+        <field name="TEXT">Draws the lines into the image</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="Fjpj^$XA`)F[}Mre61r*">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id=")PS)+CwH%/7V32[`K#w7">
+        <mutation colour="#5b6da5"></mutation>
+        <field name="HUE">225</field>
       </block>
     </value>
   </block></xml>
