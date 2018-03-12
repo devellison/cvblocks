@@ -44,7 +44,7 @@ function CVBlocksCore(video_id,
   this.kPROCSTEP_RGB2GRAY = 2;
 
   // exposed variables
-  this.debug      = true;
+  this.debug      = false;
   this.canvas_id  = canvas_id;
   this.image_id   = image_id;
   this.hist_id    = hist_id;
@@ -177,8 +177,11 @@ function CVBlocksCore(video_id,
       catch (e)
       {
         this.log("Error in onProcess: " + e);
+        this.streaming = false;
+        setTimeout(cvblocks_video_callback, 0);
         if (this.debug)
           throw(e);
+
       }
   }
 
