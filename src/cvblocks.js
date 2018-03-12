@@ -83,7 +83,7 @@ var options = {
   window.addEventListener("resize", onresize());
 //--------------
 
-workspacePlayground.addChangeListener(onCodeChanged);
+workspacePlayground.addChangeListener(cvblocks_code_callback);
 // Initialze to blank workspace
 Blockly.Xml.domToWorkspace(document.getElementById('workspaceBlocks'), workspacePlayground);
 document.getElementById('btnImportBlocks').addEventListener("change",onImportBlocks);
@@ -189,16 +189,6 @@ function startMovieUrl(event)
   var movieUrl = document.getElementById("movieUrl").value;
   gCVBC.startMovieUrl(movieUrl);
 }
-/**
- * When Blockly updates, pull the code and update our onFrame functions
- */
-function onCodeChanged(event)
-{
-  gCVBC.resetProcInfos(true);
-  var code = Blockly.JavaScript.workspaceToCode(workspacePlayground)
-  eval(code);
-}
-
 /** export the blocks to an xml file */
 function onExportBlocks()
 {

@@ -5,6 +5,7 @@
 function cvblocks_video_callback()  { gCVBC.videoCallback(); }
 function cvblocks_camera_callback(deviceInfos) { gCVBC.cameraCallback(deviceInfos);}
 function cvblocks_stream_callback(stream) {gCVBC.streamCallback(stream);}
+function cvblocks_code_callback() {gCVBC.onCodeChanged();}
 
 /**
 * Core object for CVBlocks.
@@ -347,6 +348,15 @@ function CVBlocksCore(video_id,
     this.frameTimeWindowAccum = 0;
   };
 
+  this.onCodeChanged = function()
+  {
+    this.resetProcInfos(true);
+    var code = Blockly.JavaScript.workspaceToCode(workspacePlayground)
+    eval(code);
+
+    if (this.streaming == "image")
+      this.videoCallback();
+  }
   //-----------------
   // Streaming video functions
 
@@ -422,8 +432,8 @@ function CVBlocksCore(video_id,
 
     this.frameTimeTotal += callbackTime;
     this.frameTimeCount++;
-
-    setTimeout(cvblocks_video_callback, kFrameTime);
+    if (this.streaming != "image")
+      setTimeout(cvblocks_video_callback, kFrameTime);
   };
 
   this.checkUpdateFrameSize = function()
