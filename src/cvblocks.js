@@ -78,7 +78,7 @@ var options = {
     consoleOverlay.style.width  = blocklyDiv.style.width;
     consoleOverlay.style.height = blocklyDiv.style.height;
     Blockly.svgResize(workspacePlayground);
-    gCVBC.onResize();
+    gCVBC.onUpdate();
   };
   onresize();
   window.addEventListener("resize", onresize());
@@ -88,6 +88,13 @@ workspacePlayground.addChangeListener(cvblocks_code_callback);
 // Initialze to blank workspace
 Blockly.Xml.domToWorkspace(document.getElementById('workspaceBlocks'), workspacePlayground);
 document.getElementById('btnImportBlocks').addEventListener("change",onImportBlocks);
+
+// Add examples
+var examples = document.getElementById('example_select');
+let option = document.createElement('option');
+option.value = ["example_barcode","image_barcode"];
+option.text = "Barcode Finder";
+examples.appendChild(option);
 
 
 /** Track average frame processing time */
@@ -194,7 +201,7 @@ function startMovieUrl(event)
 function onExportBlocks()
 {
   var xml = Blockly.Xml.workspaceToDom(workspacePlayground);
-  var xml_text = Blockly.Xml.domToText(xml);
+  var xml_text = Blockly.Xml.domToPrettyText(xml);
   var blob = new Blob([xml_text], {type: "text/plain;charset=utf-8"});
   var filename = getSaveFilename("exportName","myBlocks",".xml");
 
@@ -275,4 +282,16 @@ function getSaveFilename(input_id, defaultFilename, extension)
     filename = filename + extension;
 
   return filename;
+}
+
+function load_example()
+{
+  var pair =example_select.value.split(',');
+  var example_id = pair[0];
+  var image_id = pair[1];
+
+  workspacePlayground.clear();
+  var example = document.getElementById(example_id);
+  Blockly.Xml.domToWorkspace(example, workspacePlayground);
+  gCVBC.startImageExternal(image_id);
 }

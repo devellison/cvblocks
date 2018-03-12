@@ -625,6 +625,22 @@ Blockly.Blocks['contour_area'] = {
  this.setHelpUrl("");
   }
 };
+Blockly.Blocks['bounding_rect'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Get bounding rect of ")
+        .appendField(new Blockly.FieldVariable("selected_contour"), "SELECTEDCONTOUR");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("as ")
+        .appendField(new Blockly.FieldVariable("bounding_rect"), "RECT");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(45);
+ this.setTooltip("Retrieves a bounding rectangle of the contour.");
+ this.setHelpUrl("");
+  }
+};
 
 Blockly.Blocks['hough_linesp'] = {
   init: function() {
@@ -731,6 +747,21 @@ Blockly.Blocks['draw_lines'] = {
     this.setColour(225);
  this.setTooltip("Draws the lines into the image");
  this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['draw_rect'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Draw the rectangle in")
+        .appendField(new Blockly.FieldVariable("bounding_rect"), "DRAWRECT")
+        .appendField(new Blockly.FieldColour("#ff0000"), "RECT_COLOUR");
+    this.setPreviousStatement(true, "Image");
+    this.setNextStatement(true, "Image");
+    this.setColour(225);
+ this.setTooltip("Draws the given rectangle.");
+ this.setHelpUrl("");
+ onFrameWatcher(this);
   }
 };
 

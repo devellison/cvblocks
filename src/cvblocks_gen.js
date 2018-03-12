@@ -304,6 +304,14 @@ Blockly.JavaScript['image_operation'] = function(block) {
    return [code, Blockly.JavaScript.ORDER_NONE];
  };
 
+ Blockly.JavaScript['bounding_rect'] = function(block) {
+   var variable_selectedcontour = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('SELECTEDCONTOUR'), Blockly.Variables.NAME_TYPE);
+   var variable_rect = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('RECT'), Blockly.Variables.NAME_TYPE);
+   var code = variable_rect + ' = cvblocks_bounding_rect( '
+              + variable_selectedcontour + ' );\n';
+   return code;
+ };
+
  Blockly.JavaScript['hough_linesp'] = function(block) {
    var variable_lines = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('LINES'), Blockly.Variables.NAME_TYPE);
    var value_rho = Blockly.JavaScript.valueToCode(block, 'RHO', Blockly.JavaScript.ORDER_ATOMIC);
@@ -351,6 +359,13 @@ Blockly.JavaScript['draw_circles'] = function(block) {
   var variable_circles = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('CIRCLES'), Blockly.Variables.NAME_TYPE);
   var colour_circle_colour = block.getFieldValue('circle_colour');
   var code = 'cvblocks_draw_circles(' + variable_circles + ', "' + colour_circle_colour + '");\n'
+  return code;
+};
+
+Blockly.JavaScript['draw_rect'] = function(block) {
+  var variable_drawrect = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('DRAWRECT'), Blockly.Variables.NAME_TYPE);
+  var colour_rect_colour = block.getFieldValue('RECT_COLOUR');
+  var code = 'cvblocks_draw_rect(' + variable_drawrect + ', "' + colour_rect_colour + '");\n'
   return code;
 };
 

@@ -87,11 +87,11 @@
     </div> <!-- video out -->
 
     <div class="side_pane" id="code_controls_div">
+      Examples: <select id="example_select"></select><button onclick="load_example()">Load</button><br/><br/>
       <label for="btnImportBlocks">Import design: </label><input type="file" id="btnImportBlocks" onclick="this.value=null" accept=".xml">
       <br/><br/>
       <label for="btnExport">Export design as:</label><input type="text" id="exportName" value="mycvblocks.xml"><button id="btnExport" onclick="onExportBlocks()">Export</button>
-      <br/>
-      <br/>
+      <br/><br/>
       <!--  For saving generated javascript to a file...
       <label for="btnExportCode">Export code as:</label><input type="text" id="exportCodeName"><button id="btnExportCode" onclick="onExportCode()">Export Code</button>
       -->
@@ -128,6 +128,9 @@
 
 <!-- begin Blockly workspace -->
 <!-- end Blockly workspace -->
+
+<!-- begin examples -->
+<!-- end examples -->
 
 <!-- Load the giant pile of scripts -->
 <script src="opencv/opencv.js"></script>

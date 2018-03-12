@@ -2678,4 +2678,118 @@
         <field name="HUE">135</field>
       </block>
     </value>
+  </block><block type="factory_base" id="`fb[~*`.EE,myZ#6:c8|" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">bounding_rect</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id=")|vO7S,-G-FFZFB7DkHw">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="Rhm)dbIdzO*)_E_UbRhl">
+            <field name="TEXT">Get bounding rect of </field>
+            <next>
+              <block type="field_variable" id="Wn,WW|Jz`ih84E!g4MQU">
+                <field name="TEXT">selected_contour</field>
+                <field name="FIELDNAME">SELECTEDCONTOUR</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="input_dummy" id="ReQ$5V+B;n)UB48w5@uz">
+            <field name="ALIGN">RIGHT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="R69C$ARW$Sm`^yca8w0m">
+                <field name="TEXT">as </field>
+                <next>
+                  <block type="field_variable" id="bL+,$2V.*7RFwDYdppkr">
+                    <field name="TEXT">bounding_rect</field>
+                    <field name="FIELDNAME">RECT</field>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="Je5WC]oRYYCN]}sm5bq=" deletable="false" movable="false">
+        <field name="TEXT">Retrieves a bounding rectangle of the contour.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="2A*j]TXWm!TCwzG?FA2G" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="i24@8tiX)|3IpJGHm-ZT"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="#2}B2z(kCsOK,,Nl2!zr"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id=")X2ci]eMRZs)sz,s*cG3">
+        <mutation colour="#a5935b"></mutation>
+        <field name="HUE">45</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="k!QmZRBwg70;)SOBn=vr" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">draw_rect</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="1T;B3;/%o_~RjLWURX9@">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="pGZr1s|!#zeGP36A;m]j">
+            <field name="TEXT">Draw the rectangle in</field>
+            <next>
+              <block type="field_variable" id="sSU)hsi?XX0mk}@*0W{b">
+                <field name="TEXT">bounding_rect</field>
+                <field name="FIELDNAME">DRAWRECT</field>
+                <next>
+                  <block type="field_colour" id=".MhXK]~Sxcd%d:[dQFl_">
+                    <field name="COLOUR">#ff0000</field>
+                    <field name="FIELDNAME">RECT_COLOUR</field>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id=",Fh)W7cS3;5+pK2|QPH=" deletable="false" movable="false">
+        <field name="TEXT">Draws the given rectangle.</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="M6YoJgYJbh7bk4TK]#By" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="H3Wd)I%Bm+XCf9K;j-tf"></shadow>
+      <block type="type_other" id="qsSWc8+Q;M^=M@m|Y0JH">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id=")./6FyW^jm2txxDcI2l_"></shadow>
+      <block type="type_other" id="B3TiyL%C7`R%T|(e%uJ{">
+        <field name="TYPE">Image</field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="O7U~Ro%l2O=kF%uO)5z~">
+        <mutation colour="#5b6da5"></mutation>
+        <field name="HUE">225</field>
+      </block>
+    </value>
   </block></xml>

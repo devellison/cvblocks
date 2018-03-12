@@ -12,7 +12,8 @@ source_files = ['cvblocks_blocks.js',       # Blockly block definitions
                 'cvblocks_functions.js',    # Functions called by generated code
                 'cvblocks.css',             # Style sheet for CVBlocks
                 'cvblocks_core.js',         # Core engine for CVBlocks
-                'cvblocks.js'];             # Glue code between CVBlocks and other parts - mostly the host HTML
+                'cvblocks.js',              # Glue code between CVBlocks and other parts - mostly the host HTML
+                'example.jpg'];             # Example image for barcode
 
 output_dir   = "output/"
 template_dir = "templates/"
@@ -27,6 +28,7 @@ template_dir = "templates/"
 def generate_index():
     toolboxFile = open(template_dir + "index_template.html","r")
     workspaceFile = open(template_dir + "workspace_blocks.xml","r")
+    exampleFile = open(template_dir + "example_barcode.xml","r")
     output = open(output_dir + "index.html","w")
 
     for line in toolboxFile:
@@ -87,6 +89,10 @@ def generate_index():
             output.write(line)
             for workspaceLine in workspaceFile:
                 output.write(workspaceLine)
+        elif '<!-- begin examples -->' in line:
+            output.write(line)
+            for exampleLine in exampleFile:
+                output.write(exampleLine)
         else:
             output.write(line)
 

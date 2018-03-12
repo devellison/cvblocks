@@ -675,6 +675,19 @@ function cvblocks_contour_area(selectedContours)
   return cv.contourArea(selectedContours.get(0));
 }
 
+function cvblocks_bounding_rect(selectedContours)
+{
+  if (undefined == selectedContours)
+    return null;
+
+  if (selectedContours.size() == 0)
+    return null;
+
+  var rect = cv.boundingRect(selectedContours.get(0));
+  return rect;
+}
+
+
 function cvblocks_hough_linesp(rho,theta,thresh,minlen,maxgap)
 {
   if (!gCVBC.insideOnFrame)
@@ -769,6 +782,38 @@ function cvblocks_draw_circles(circles, circle_colour)
         let center = new cv.Point(x, y);
         cv.circle(gCVBC.curFrame, center, radius, color);
     }
+  }
+  catch (e)
+  {
+     console.log('error: '+e);
+     if (gCVBC.debug)
+      throw(e);
+  }
+
+  gCVBC.endProcessStep();
+}
+
+
+function cvblocks_draw_rect(rect, rect_colour)
+{
+  if (!gCVBC.insideOnFrame)
+    return;
+
+  if ((null == rect) || (undefined == rect))
+    return;
+
+  gCVBC.beginProcessStep("Draw Rect",0);
+  gCVBC.prevFrame.copyTo(gCVBC.curFrame);
+
+  var tmpColor = tinycolor(rect_colour);
+  var rgb = tmpColor.toRgb();
+  var color = new cv.Scalar(rgb.r,rgb.g,rgb.b,255);
+
+  try
+  {
+    let topLeft = new cv.Point(rect.x, rect.y);
+    let bottomRight = new cv.Point(rect.x + rect.width, rect.y + rect.height);
+    cv.rectangle(gCVBC.curFrame, topLeft, bottomRight, color);
   }
   catch (e)
   {

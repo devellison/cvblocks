@@ -1,0 +1,113 @@
+<img id="image_barcode" width="360" height="180" src="example.jpg" style="display: none;">
+﻿<xml xmlns="http://www.w3.org/1999/xhtml" id="example_barcode" style="display: none;">
+  <variables>
+    <variable type="" id="KF!N)l;.M;+#fB1b9O|7">storedFrame</variable>
+    <variable type="" id="WscstGG102AgBpvLJ1T!">contours</variable>
+    <variable type="" id="]Qd*L:IU(]y0^T`hk%cU">selected_contour</variable>
+    <variable type="" id="69Kuk7imsdyI2}0Lkpce">bounding_rect</variable>
+  </variables>
+  <block type="onframe" id="TZuFk1^XK=}fM!!7f5QD" deletable="false" movable="false" x="38" y="13">
+    <statement name="INPUTS">
+      <block type="store_frame" id="M4vxr}%n+kf53wG`0BwN">
+        <field name="STOREDFRAME" id="KF!N)l;.M;+#fB1b9O|7" variabletype="">storedFrame</field>
+        <next>
+          <block type="sobel" id="M:eF42n9R#e_EB2HgyxT">
+            <field name="KERNEL_SIZE">3</field>
+            <value name="order_dx">
+              <shadow type="math_number" id="P!db0$xj+HcECb?!At(;">
+                <field name="NUM">2</field>
+              </shadow>
+            </value>
+            <value name="order_dy">
+              <shadow type="math_number" id="oVvhJZCdtKc4FtnAtTi[">
+                <field name="NUM">0</field>
+              </shadow>
+            </value>
+            <value name="SCALE">
+              <shadow type="math_number" id=")rx]7Fv_^nO@k}@3~DlQ">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="DELTA">
+              <shadow type="math_number" id=":~zm}.L0)1N]Ku[?UprG">
+                <field name="NUM">-200</field>
+              </shadow>
+            </value>
+            <next>
+              <block type="mean_blur" id="`G]Dgt:B#Ui;j#gJ-hK`">
+                <value name="KSIZE">
+                  <shadow type="math_number" id="_LZse*n-H17/DNnz@mKs">
+                    <field name="NUM">3</field>
+                  </shadow>
+                </value>
+                <next>
+                  <block type="morphologyex" id="|8buB}6Otvc?#pXiq3.p">
+                    <field name="OPERATION">cv.MORPH_CLOSE</field>
+                    <field name="ITERATIONS">2</field>
+                    <field name="KSIZE_X">5</field>
+                    <field name="KSIZE_Y">5</field>
+                    <field name="KERNEL_SHAPE">cv.MORPH_RECT</field>
+                    <field name="ANCHOR_X">-1</field>
+                    <field name="ANCHOR_Y">-1</field>
+                    <next>
+                      <block type="threshold" id="yQ0JGv~Qb=`z7*N087zm">
+                        <field name="THRESHOLD_TYPE">cv.THRESH_BINARY</field>
+                        <value name="THRESHOLD_VALUE">
+                          <shadow type="math_number" id="zKtQ!Ko4(pv9~#oxqA_h">
+                            <field name="NUM">50</field>
+                          </shadow>
+                        </value>
+                        <value name="MAX_VALUE">
+                          <shadow type="math_number" id="T{T_2c@gG9kdYQ.s/P{g">
+                            <field name="NUM">255</field>
+                          </shadow>
+                        </value>
+                        <next>
+                          <block type="erode" id="2cV/!p6drnqr?AdxLQ2c">
+                            <field name="kernel_size">5</field>
+                            <next>
+                              <block type="find_contours" id="pvrN]t5{LBJ2lmM]Ng^H">
+                                <field name="CONTOUR_VAR" id="WscstGG102AgBpvLJ1T!" variabletype="">contours</field>
+                                <field name="MODE">cv.RETR_EXTERNAL</field>
+                                <field name="METHOD">cv.CHAIN_APPROX_NONE</field>
+                                <next>
+                                  <block type="select_contour" id="AU_{I^KJ=nD3ML1k@N{v">
+                                    <field name="SELECTED_CONTOUR" id="]Qd*L:IU(]y0^T`hk%cU" variabletype="">selected_contour</field>
+                                    <field name="compare">maxcompare</field>
+                                    <field name="param">area</field>
+                                    <field name="CONTOURS" id="WscstGG102AgBpvLJ1T!" variabletype="">contours</field>
+                                    <next>
+                                      <block type="bounding_rect" id="Xa$4Wxn9Kb%tPduJD9V|">
+                                        <field name="SELECTEDCONTOUR" id="]Qd*L:IU(]y0^T`hk%cU" variabletype="">selected_contour</field>
+                                        <field name="RECT" id="69Kuk7imsdyI2}0Lkpce" variabletype="">bounding_rect</field>
+                                        <next>
+                                          <block type="load_frame" id=":yfgvU%fb4N2Wlg_Df}+">
+                                            <field name="STOREDFRAME" id="KF!N)l;.M;+#fB1b9O|7" variabletype="">storedFrame</field>
+                                            <next>
+                                              <block type="draw_rect" id="kBGYb]]AZ5ZSv9!M/};}">
+                                                <field name="DRAWRECT" id="69Kuk7imsdyI2}0Lkpce" variabletype="">bounding_rect</field>
+                                                <field name="RECT_COLOUR">#cc33cc</field>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

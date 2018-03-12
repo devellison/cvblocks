@@ -230,8 +230,11 @@
     <block type="contour_area">
       <field name="SELECTED_CONTOUR" id="]Qd*L:IU(]y0^T`hk%cU" variabletype="">selected_contour</field>
     </block>
+    <block type="bounding_rect">
+      <field name="SELECTEDCONTOUR" id="]Qd*L:IU(]y0^T`hk%cU" variabletype="">selected_contour</field>
+    </block>
   </category>
-  <category name="Lines and Circles" colour="#5b6da5">
+  <category name="Rects, Lines, and Circles" colour="#5b6da5">
     <block type="hough_linesp">
       <field name="LINES" id="0:T7#O2_|AGd}_KVxR16" variabletype="">lines</field>
       <field name="THETA">1</field>
@@ -296,6 +299,9 @@
     <block type="draw_circles">
       <field name="CIRCLES" id="4zBO:bZv^[Ww(|04FdZr" variabletype="">circles</field>
       <field name="circle_colour">#ff0000</field>
+    </block>
+    <block type="draw_rect">
+      <field name="NAME">#ff0000</field>
     </block>
   </category>
   <category name="Motion" colour="#a55b5b">

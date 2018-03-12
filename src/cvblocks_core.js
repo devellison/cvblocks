@@ -6,6 +6,7 @@ function cvblocks_video_callback()  { gCVBC.videoCallback(); }
 function cvblocks_camera_callback(deviceInfos) { gCVBC.cameraCallback(deviceInfos);}
 function cvblocks_stream_callback(stream) {gCVBC.streamCallback(stream);}
 function cvblocks_code_callback() {gCVBC.onCodeChanged();}
+function cvblocks_on_sel_step() {gCVBC.onUpdate();}
 
 /**
 * Core object for CVBlocks.
@@ -109,6 +110,8 @@ function CVBlocksCore(video_id,
   const kFPS     = 30;
   const kFrameTime = 1000.0/kFPS;
   let camselect  = document.getElementById(camera_sel_id);
+
+  selStep.addEventListener("change",cvblocks_on_sel_step);
 
   this.log = function(msg)
   {
@@ -441,7 +444,7 @@ function CVBlocksCore(video_id,
       setTimeout(cvblocks_video_callback, kFrameTime);
   };
 
-  this.onResize = function()
+  this.onUpdate = function()
   {
     // Most things are taken care of in the frame handler,
     // but if it's not running, like for a still image,
@@ -595,6 +598,7 @@ function CVBlocksCore(video_id,
     var reader  = new FileReader();
     reader.addEventListener("load", function ()
     {
+      //gCVBC.image_id = gCVBC.imageIn.id;
       gCVBC.imageIn.src = reader.result;
       gCVBC.streaming = "image";
       setTimeout(cvblocks_video_callback, 0);
@@ -608,6 +612,19 @@ function CVBlocksCore(video_id,
       this.streamcb(true);
   };
 
+  /** Start using a still image from an url */
+  this.startImageExternal = function(ext_image_id)
+  {
+    this.stop();
+    this.resetFrameCounters();
+
+    gCVBC.imageIn.src = document.getElementById(ext_image_id).src;
+    gCVBC.streaming = "image";
+    setTimeout(cvblocks_video_callback, 0);
+
+    if (this.streamcb != undefined)
+      this.streamcb(true);
+  };
 
   /** Start streaming from a camera */
   this.startCameraStream = function()
