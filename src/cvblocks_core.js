@@ -365,6 +365,8 @@ function CVBlocksCore(video_id,
     if (this.streaming)
     {
       this.videoIn.pause();
+      if (this.streaming == "image")
+        setTimeout(cvblocks_video_callback, 0);
       this.streaming = false;
       this.log("Streaming video stopping...");
     }
@@ -435,6 +437,17 @@ function CVBlocksCore(video_id,
     if (this.streaming != "image")
       setTimeout(cvblocks_video_callback, kFrameTime);
   };
+
+  this.onResize = function()
+  {
+    // Most things are taken care of in the frame handler,
+    // but if it's not running, like for a still image,
+    // we need an external call.
+    if (this.streaming == "image")
+    {
+      setTimeout(cvblocks_video_callback, 0);
+    }
+  }
 
   this.checkUpdateFrameSize = function()
   {

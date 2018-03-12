@@ -78,6 +78,7 @@ var options = {
     consoleOverlay.style.width  = blocklyDiv.style.width;
     consoleOverlay.style.height = blocklyDiv.style.height;
     Blockly.svgResize(workspacePlayground);
+    gCVBC.onResize();
   };
   onresize();
   window.addEventListener("resize", onresize());
