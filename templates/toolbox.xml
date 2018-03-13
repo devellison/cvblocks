@@ -232,6 +232,7 @@
     </block>
     <block type="bounding_rect">
       <field name="SELECTEDCONTOUR" id="]Qd*L:IU(]y0^T`hk%cU" variabletype="">selected_contour</field>
+      <field name="RECT" id="cxjC_i?,wKrcFH0!Xsy[" variabletype="">bounding_rect</field>
     </block>
   </category>
   <category name="Rects, Lines, and Circles" colour="#5b6da5">
@@ -301,7 +302,8 @@
       <field name="circle_colour">#ff0000</field>
     </block>
     <block type="draw_rect">
-      <field name="NAME">#ff0000</field>
+      <field name="DRAWRECT" id="rKn[5jEjQWP?Y*6-}}3X" variabletype="">bounding_rect</field>
+      <field name="RECT_COLOUR">#ff0000</field>
     </block>
   </category>
   <category name="Motion" colour="#a55b5b">
@@ -427,11 +429,16 @@
     </block>
   </category>
   <category name="Lists" colour="#745CA6">
-    <block type="lists_create_with">
-      <mutation items="0"></mutation>
+    <block type="lists_indexOf">
+      <field name="END">FIRST</field>
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR" id="ZH%H5l}mf/zz?g-zwJ/N" variabletype="">list</field>
+        </block>
+      </value>
     </block>
     <block type="lists_create_with">
-      <mutation items="3"></mutation>
+      <mutation items="0"></mutation>
     </block>
     <block type="lists_repeat">
       <value name="NUM">
@@ -442,13 +449,8 @@
     </block>
     <block type="lists_length"></block>
     <block type="lists_isEmpty"></block>
-    <block type="lists_indexOf">
-      <field name="END">FIRST</field>
-      <value name="VALUE">
-        <block type="variables_get">
-          <field name="VAR" id="ZH%H5l}mf/zz?g-zwJ/N" variabletype="">list</field>
-        </block>
-      </value>
+    <block type="lists_create_with">
+      <mutation items="3"></mutation>
     </block>
     <block type="lists_getIndex">
       <mutation statement="false" at="true"></mutation>
@@ -495,6 +497,9 @@
     </block>
   </category>
   <category name="Math" colour="#5C68A6">
+    <block type="math_number">
+      <field name="NUM">0</field>
+    </block>
     <block type="math_arithmetic">
       <field name="OP">ADD</field>
       <value name="A">
@@ -505,14 +510,6 @@
       <value name="B">
         <shadow type="math_number">
           <field name="NUM">1</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="math_round">
-      <field name="OP">ROUND</field>
-      <value name="NUM">
-        <shadow type="math_number">
-          <field name="NUM">3.1</field>
         </shadow>
       </value>
     </block>
@@ -544,8 +541,13 @@
         </shadow>
       </value>
     </block>
-    <block type="math_number">
-      <field name="NUM">0</field>
+    <block type="math_round">
+      <field name="OP">ROUND</field>
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">3.1</field>
+        </shadow>
+      </value>
     </block>
     <block type="math_on_list">
       <mutation op="SUM"></mutation>
@@ -610,6 +612,9 @@
     <block type="logic_ternary"></block>
   </category>
   <category name="Text" colour="#5CA68D">
+    <block type="text_join">
+      <mutation items="2"></mutation>
+    </block>
     <block type="text_charAt">
       <mutation at="true"></mutation>
       <field name="WHERE">FROM_START</field>
@@ -618,9 +623,6 @@
           <field name="VAR" id="JKnH.jaI-*gr`=,72Q{z" variabletype="">text</field>
         </block>
       </value>
-    </block>
-    <block type="text">
-      <field name="TEXT"></field>
     </block>
     <block type="text_append">
       <field name="VAR" id="H$_,C9$wLm%r1fRJp`Ve" variabletype="">item</field>
@@ -657,8 +659,8 @@
         </shadow>
       </value>
     </block>
-    <block type="text_join">
-      <mutation items="2"></mutation>
+    <block type="text">
+      <field name="TEXT"></field>
     </block>
     <block type="text_getSubstring">
       <mutation at1="true" at2="true"></mutation>
